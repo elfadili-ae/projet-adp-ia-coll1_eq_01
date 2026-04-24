@@ -3,18 +3,18 @@
 # Projet ADP 2026
 
 ## Identité du groupe
-- **Code équipe** : À compléter (ex : COLL1_EQ_03)
-- **Code projet** : À compléter (ex : DI-BKT)
-- **APS** : À compléter
-- **Famille** : DI / ES / EN
+  - **Code équipe** : COLL1_EQ_01
+- **Code projet** : DI-SPR
+- **APS** : Sprint
+- **Famille** : DI
 
 ## Membres
 | Prénom NOM | Rôle |
 |---|---|
-| | Référent terrain |
-| | Référent outil |
-| | Référent IA |
-| | Référent pédagogique |
+|Redouan DAHANI | Référent terrain |
+|Abdessamad EL FADILI | Référent outil |
+|Marouane ABDOUN | Référent IA |
+|EL Yazid JNANI | Référent pédagogique |
 
 ## Structure du dépôt
 - `terrain/` → fiche terrain, observables, référentiel didactique
