@@ -1,0 +1,186 @@
+═══════════════════════════════════════════════════════════════════════════
+PROMPT P2 — GRILLE D'ÉVALUATION v1 — PROJET DIAGNOSTIQUE (DI)
+Produit : grille_v1_[APS]_[CODE].txt
+Prérequis : P1 terminé · analyse_ref_[APS]_[CODE].txt produit
+ADP 2026 — BOUARGANE · CRMEF Inezgane
+═══════════════════════════════════════════════════════════════════════════
+
+OBJECTIF
+─────────
+Construire la première version de la grille d'observation diagnostique.
+Pas de note /20 — profil de classe uniquement.
+Niveaux A · B · C pour situer les élèves · pas pour les noter.
+
+
+MODIFICATIONS PAR RAPPORT À LA VERSION PRÉCÉDENTE
+───────────────────────────────────────────────────
+  MAJ 1 → Logique conduites/stade intégrée dans [2] CONTEXTE
+  MAJ 2 → Fichier joint au lieu de "coller" dans le prompt
+  MAJ 3 → Source rang 1 BOUARGANE intégrée dans [4] RÉFÉRENTIEL
+  MAJ 4 → Double mode MODE 1 / MODE 2 ajouté
+  MAJ 5 → Convention nommage ADP 2026 appliquée
+  MAJ 6 → Distinction DI / ES explicite dès l'objectif
+
+
+FICHIERS À JOINDRE
+───────────────────
+  □ Analyse_Ref_Sprint_01_ADP2026.txt    ← sortie P1
+  □ synthese_TD1_sprint_SPR.txt   ← Section 2 et 3
+
+
+VARIABLES À RENSEIGNER
+────────────────────────
+  [APS]    = sprint
+  [CODE]   = SPR
+  [Volume] = 10 séances
+
+
+═══════════════════════════════════════════════════════════════════════════
+PROMPT — À COPIER ET ENVOYER À L'AGENT IA
+═══════════════════════════════════════════════════════════════════════════
+
+[1] RÔLE IA
+Tu es un enseignant EPS expert en évaluation diagnostique
+et en construction de grilles d'observation terrain pour l'APS sprint
+Tu raisonnes selon une logique en 4 niveaux articulés :
+conduites typiques → hypothèse explicative →
+objet d'enseignement → objectif de phase.
+Source méthodologique obligatoire :
+Planificateur de Cycle EPS v5 — BOUARGANE · CRMEF Inezgane · 2025/2026
+
+[2] CONTEXTE
+APS              : sprint
+Code projet      : SPR
+Volume cycle     : 10 séances
+Famille          : DI — Diagnostique Initial
+Objectif         : SITUER les élèves dans un niveau · pas les noter
+                   Pas de note /20 — profil de classe uniquement
+
+Logique de structuration des niveaux :
+Le niveau de contenu est déterminé par les CONDUITES OBSERVÉES.
+Le niveau scolaire indique le stade de progression attendu
+par tranches de 2 ans — il oriente sans contraindre.
+  Niveau 1 · Arrière-plan : 6ème · 5ème
+  Niveau 2 · Arrière-plan : 4ème · 3ème · 2nde
+  Niveau 3 · Arrière-plan : 1ère · Terminale
+Lis le niveau de contenu identifié dans
+synthese_TD1_sprint_SPR.txt — Section 3.
+
+[3] TÂCHE
+À partir des fichiers joints · construire la grille diagnostique v1 :
+  · 4 à 6 observables mesurables sans matériel spécialisé
+  · 3 degrés par observable : 1 · 2 · 3
+  · Conduites typiques par degré (comportement observable en 10 mots max)
+  · Hypothèse explicative par degré : "Ce comportement traduit le fait que..."
+  · Source traçable pour chaque critère
+
+MODE 1 — ANALYSE FIDÈLE
+Construire la grille UNIQUEMENT depuis les fichiers joints.
+Tout contenu traçable dans les fichiers.
+Si information absente : écrire "non disponible".
+
+MODE 2 — ENRICHISSEMENT DOCUMENTAIRE
+Si une source certifiée enrichit un observable · proposer dans une balise :
+  [ENRICHISSEMENT — source externe]
+  Source : auteur · titre · institution · année
+  URL    : lien direct vérifiable
+  Apport : ce que cette source ajoute
+  Statut : à valider par l'équipe avant intégration
+  [FIN ENRICHISSEMENT]
+
+[4] RÉFÉRENTIEL
+Source n°1 — Planificateur de Cycle EPS v5
+  BOUARGANE · CRMEF Inezgane · 2025/2026
+  Rôle : logique conduites → OE → objectif → indicateur
+
+Source n°2 — Analyse référentiel P1
+  analyse_ref_sprint_SPR.txt joint
+  Rôle : termes exacts 1/2/3 · indicateurs · spécificités APS
+
+Source n°3 — Profil de classe
+  synthese_TD1_sprint_SPR.txt joint — Section 2 et 3
+  Rôle : conduites observées · niveau de contenu · écart stade
+
+[5] CONTRAINTES
+  · Projet DI : pas de note /20 · pas de pondération /10
+  · Observables mesurables sans matériel spécialisé · terrain réel
+  · Conduites typiques : comportement visible en 10 mots max
+  · Termes 1/2/3 EXACTEMENT ceux du référentiel — pas de reformulation
+  · Niveau de langage : compréhensible par un étudiant stagiaire terrain
+  · Ne pas confondre niveau scolaire et niveau de contenu
+  · Si écart stade/conduites détecté en Section 3 :
+    intégrer le signal dans la justification des observables
+
+[6] FORMAT SORTIE — TEXTE BRUT UNIQUEMENT
+
+  ══════════════════════════════════════════════════════
+  GRILLE DIAGNOSTIQUE v1 — sprint — SPR
+  ADP 2026 — CRMEF Inezgane — BOUARGANE
+  Type          : DI — Diagnostique Initial
+  Niveau scolaire (arrière-plan) : [lu depuis synthese_TD1]
+  Niveau de contenu identifié   : [lu depuis synthese_TD1]
+  Écart stade/conduites : [OUI · NON · signal si OUI]
+  ══════════════════════════════════════════════════════
+
+  OBSERVABLE OBS-01 — [intitulé]
+  ────────────────────────────────
+  Dimension observée : technique · tactique · décisionnelle
+  Source             : [référence dans fichiers joints]
+
+  DEGRÉ 1 — [terme exact référentiel]
+    Conduite typique     : [comportement ≤ 10 mots]
+    Hypothèse explicative : "Ce comportement traduit le fait que..."
+    Procédure saisie DI  : Entourer A · OU écrire fréquence : ___
+
+  DEGRÉ 2 — [terme exact référentiel]
+    Conduite typique     : [comportement ≤ 10 mots]
+    Hypothèse explicative : "Ce comportement traduit le fait que..."
+    Procédure saisie DI  : Entourer B · OU écrire fréquence : ___
+
+  DEGRÉ 3 — [terme exact référentiel]
+    Conduite typique     : [comportement ≤ 10 mots]
+    Hypothèse explicative : "Ce comportement traduit le fait que..."
+    Procédure saisie DI  : Entourer C · OU écrire fréquence : ___
+
+  [ENRICHISSEMENT — source externe si applicable]
+  [FIN ENRICHISSEMENT]
+
+  [Répéter pour OBS-02 à OBS-06 maximum]
+
+  BILAN D'ENRICHISSEMENT
+  ───────────────────────
+  Compléments proposés    : [N]
+  Compléments à valider   : [N]
+  URLs non vérifiables    : [N]
+
+  SOURCES DOCUMENTAIRES
+  ──────────────────────
+  Source n°1 : Planificateur de Cycle EPS v5 — BOUARGANE
+  Source n°2 : analyse_ref_sprint_SPR.txt
+  Source n°3 : synthese_TD1_sprint_SPR.txt
+
+  ══════════════════════════════════════════════════════
+  FIN — grille_v1_sprint_SPR.txt
+  À soumettre au formateur pour validation avant Excel
+  ══════════════════════════════════════════════════════
+
+[7] SORTIE ATTENDUE
+Nom fichier : grille_v1_sprint_SPR.txt
+Usage       : soumis au formateur · validé avant remplissage Excel
+Dépôt       : GitHub · racine du dépôt d'équipe
+
+[8] CRITIQUE À NOTER DANS SECTION F
+  · Les termes A/B/C sont-ils exactement ceux du référentiel ?
+  · Les conduites typiques sont-elles observables en temps réel ?
+  · Les hypothèses explicatives sont-elles didactiquement cohérentes ?
+  · Combien d'itérations ? Quelle composante [1-8] a été déterminante ?
+  · Enrichissements intégrés : N · rejetés : N · à vérifier : N
+
+
+CONTRAINTES FORMAT
+───────────────────
+  → Texte brut · pas de markdown · pas de tableau
+  → Séparateurs en tirets ou signes = uniquement
+  → Balises MODE 2 respectées exactement
+  → URL obligatoire pour tout enrichissement MODE 2
+  → Ne pas proposer de note /20 — projet DI uniquement

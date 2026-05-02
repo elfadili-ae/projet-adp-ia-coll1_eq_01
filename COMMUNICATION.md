@@ -13,11 +13,11 @@
 
 | Champ | Info |
 |-------|------|
-| Code projet | _(ex : DI-BKT)_ |
-| APS | _(ex : Basketball)_ |
-| Classe | _(ex : COLL1)_ |
-| Code équipe | _(ex : COLL1_EQ_03)_ |
-| Membres | Prénom NOM · Prénom NOM · Prénom NOM · Prénom NOM |
+| Code projet | DI-SPR |
+| APS | Sprint |
+| Classe | COLL1 |
+| Code équipe | COLL1_EQ_01 |
+| Membres | Redouan DAHANI · Abdessamad EL FADILI · Marouane ABDOUN · EL Yazid JNANI |
 | Formateur responsable | BOUARGANE |
 
 ---
@@ -30,11 +30,12 @@
   remplir les champs, commit + push.
 -->
 
-### Message #1 — [Semaine X] · [Date]
-**De :** _Prénom NOM_
-**Objet :** _ex : Question sur les seuils A/B/C_
+### Message #1 — [Semaine 2] · [02/05/2026]
+**De :** EL FADILI Abdessamad 
+**Objet :** _ex : Demande de validation de la grille V1
 
-_Écrire le message ici. Être précis : décrire le problème, ce qui a déjà été essayé, ce qui bloque._
+Est-ce que vous pouvez valider la grille V1 (résultats/grille_v1_sprint_SPR.txt), s’il vous plaît ?
+Merci d’avance pour votre retour.
 
 **Statut :** ⏳ En attente de réponse
 

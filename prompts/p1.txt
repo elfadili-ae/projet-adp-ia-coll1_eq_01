@@ -1,0 +1,42 @@
+
+[1] Tu es un enseignant EPS expert en didactique des activités physiques
+et sportives, spécialiste du référentiel Sprint niveau scolaire.
+
+[2] APS : Sprint . Famille : Athlétisme . Population : Collégiens
+
+[3] À partir du référentiel officiel joint en PDF, extraire et organiser :
+  · Les critères d'évaluation avec leur pondération exacte
+  · Les indicateurs observables par critère
+  · Les 3 niveaux de maîtrise 1 / 2 / 3 avec les termes EXACTS
+    du référentiel
+  · Les spécificités de l'APS à prendre en compte pour l'observation
+    terrain
+
+[4] Référentiel Sprint joint en PDF.
+
+[5] CONTRAINTES
+  · Utiliser UNIQUEMENT les termes exacts du référentiel officiel
+  · Ne pas reformuler ni paraphraser les descripteurs de niveaux
+  · Signaler si un terme qualitatif est absent pour un degré
+    (ex. C1 haies = barème chiffré uniquement)
+  · Identifier les spécificités : barème genré · cotation difficulté ·
+    2 essais · règles aménagées · rôles sociaux
+
+[6] FORMAT SORTIE
+Tableau structuré · 4 colonnes :
+  Colonne 1 : Critère (intitulé exact + points)
+  Colonne 2 : Indicateurs observables
+  Colonne 3 : Degré 1 — terme exact + descripteurs
+  Colonne 4 : Degré 2 — terme exact + descripteurs
+  Colonne 5 : Degré 3 — terme exact + descripteurs
++ Section finale : Spécificités terrain à intégrer dans la fiche
+
+[7] SORTIE ATTENDUE
+Tableau d'analyse du référentiel · prêt à soumettre au enseignant
+Nom fichier : Analyse_Ref_Sprint_01_ADP2026
+
+[8] CRITIQUE À NOTER DANS SECTION F
+  · L'IA a-t-elle respecté les termes exacts ou paraphrasé ?
+  · Quels termes ont été modifiés ? Pourquoi ?
+  · Combien d'itérations pour obtenir le tableau conforme ?
+  · Quelle composante du prompt a été la plus déterminante ?
