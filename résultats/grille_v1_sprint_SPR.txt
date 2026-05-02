@@ -86,24 +86,24 @@ Conduite typique : conserve vitesse jusqu’à ligne
 Hypothèse explicative : Ce comportement traduit le fait que l’élève maintient efficacement sa vitesse
 Procédure saisie DI : Entourer C · OU écrire fréquence : ___
 
-OBSERVABLE OBS-05 — Coordination bras/jambes
+OBSERVABLE OBS-05 — Performance (temps réalisé)
 ────────────────────────────────
 Dimension observée : technique
-Source : synthese_TD1 Section 3
+Source : analyse_ref_sprint_SPR.txt
 
-DEGRÉ 1 — non disponible
-Conduite typique : bras et jambes non coordonnés
-Hypothèse explicative : Ce comportement traduit le fait que l’élève ne synchronise pas ses actions
+DEGRÉ 1 — 0 – 2 Temps faible
+Conduite typique : arrive nettement après les autres élèves
+Hypothèse explicative : "Ce comportement traduit le fait que l’élève ne produit pas une vitesse efficace"
 Procédure saisie DI : Entourer A · OU écrire fréquence : ___
 
-DEGRÉ 2 — non disponible
-Conduite typique : coordination irrégulière
-Hypothèse explicative : Ce comportement traduit le fait que l’élève améliore sans stabiliser
+DEGRÉ 2 — 3 – 5 Temps moyen
+Conduite typique : arrive dans le groupe intermédiaire
+Hypothèse explicative : "Ce comportement traduit le fait que l’élève produit une vitesse partiellement efficace"
 Procédure saisie DI : Entourer B · OU écrire fréquence : ___
 
-DEGRÉ 3 — non disponible
-Conduite typique : coordination fluide sans parasites
-Hypothèse explicative : Ce comportement traduit le fait que l’élève optimise la coordination
+DEGRÉ 3 — 6 – 8 Temps performant
+Conduite typique : arrive parmi les premiers
+Hypothèse explicative : "Ce comportement traduit le fait que l’élève produit une vitesse efficace"
 Procédure saisie DI : Entourer C · OU écrire fréquence : ___
 
 ══════════════════════════════════════════════════════
