@@ -165,7 +165,7 @@ Source n°3 — Profil de classe
   ══════════════════════════════════════════════════════
 
 [7] SORTIE ATTENDUE
-Nom fichier : grille_v1_sprint_SPR.txt
+Nom fichier : grille_v1_sprint_coll1_eq01.txt
 Usage       : soumis au formateur · validé avant remplissage Excel
 Dépôt       : GitHub · racine du dépôt d'équipe
 

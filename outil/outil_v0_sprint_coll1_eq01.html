@@ -1,0 +1,1366 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>outil_v0_sprint_coll1_eq01</title>
+  <style>
+    :root{
+      --bg:#f6f7fb;
+      --card:#ffffff;
+      --text:#1f2937;
+      --muted:#6b7280;
+      --line:#d1d5db;
+      --primary:#2563eb;
+      --primary-weak:#dbeafe;
+      --danger:#b91c1c;
+      --warning:#b45309;
+      --success:#166534;
+      --a:#FCEBEB;
+      --b:#FAEEDA;
+      --c:#EAF3DE;
+      --shadow:0 10px 30px rgba(15,23,42,.08);
+      --radius:18px;
+      --radius2:12px;
+      --font: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:var(--font);
+      background:linear-gradient(180deg,#f8fafc 0%, #eef2ff 100%);
+      color:var(--text);
+    }
+    header{
+      padding:24px 18px 12px;
+      max-width:1500px;
+      margin:0 auto;
+    }
+    h1{margin:0 0 8px;font-size:1.45rem}
+    .sub{color:var(--muted);font-size:.95rem;line-height:1.35}
+    .meta-row{
+      display:flex;flex-wrap:wrap;gap:10px;margin-top:14px
+    }
+    .chip{
+      background:#fff;
+      border:1px solid var(--line);
+      border-radius:999px;
+      padding:8px 12px;
+      box-shadow:0 3px 14px rgba(0,0,0,.03);
+      font-size:.9rem;
+    }
+    .container{max-width:1500px;margin:0 auto;padding:0 18px 28px}
+    .steps{
+      display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:16px 0 18px
+    }
+    .step-pill{
+      background:rgba(255,255,255,.75);
+      border:1px solid var(--line);
+      border-radius:14px;
+      padding:12px 10px;
+      text-align:center;
+      font-weight:700;
+      color:var(--muted);
+    }
+    .step-pill.active{
+      background:var(--primary);
+      color:#fff;border-color:var(--primary)
+    }
+    .panel{
+      display:none;
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      padding:18px;
+      margin-bottom:18px;
+    }
+    .panel.active{display:block}
+    .panel h2{margin:0 0 14px;font-size:1.15rem}
+    .toolbar{
+      display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 18px
+    }
+    button, .btn{
+      border:0;
+      border-radius:12px;
+      padding:10px 14px;
+      font-weight:700;
+      cursor:pointer;
+      transition:.15s transform,.15s opacity,.15s background;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+    }
+    button:hover, .btn:hover{transform:translateY(-1px)}
+    button:disabled{opacity:.45;cursor:not-allowed;transform:none}
+    .primary{background:var(--primary);color:#fff}
+    .secondary{background:#e5e7eb;color:#111827}
+    .ghost{background:#f8fafc;color:#111827;border:1px solid var(--line)}
+    .danger{background:#fee2e2;color:#991b1b}
+    .success{background:#dcfce7;color:#14532d}
+    .warning{background:#fef3c7;color:#92400e}
+    .grid-2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .grid-3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+    .grid-4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+    @media (max-width: 980px){.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}.steps{grid-template-columns:1fr 1fr}}
+    .card{
+      background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px
+    }
+    .card h3{margin:0 0 10px;font-size:1rem}
+    .muted{color:var(--muted)}
+    .small{font-size:.88rem}
+    .table-wrap{overflow:auto;border:1px solid var(--line);border-radius:14px}
+    table{width:100%;border-collapse:collapse;min-width:980px;background:#fff}
+    th,td{border-bottom:1px solid #e5e7eb;padding:10px 9px;vertical-align:top;text-align:left;font-size:.92rem}
+    th{background:#f9fafb;position:sticky;top:0;z-index:1}
+    tr:last-child td{border-bottom:0}
+    input[type="text"], input[type="number"], select, textarea{
+      width:100%;padding:9px 10px;border:1px solid var(--line);border-radius:10px;font:inherit;background:#fff
+    }
+    input[type="number"]{appearance:textfield}
+    .mini{width:92px}
+    .line-error{border-color:var(--danger)!important;background:#fff1f2}
+    .line-ok{border-color:var(--success)!important}
+    .error-text{color:var(--danger);font-size:.82rem;margin-top:4px}
+    .ok-text{color:var(--success);font-size:.82rem;margin-top:4px}
+    .kpi{
+      display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px
+    }
+    @media (max-width: 980px){.kpi{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    .kpi .box{
+      border:1px solid var(--line);border-radius:14px;background:#fff;padding:12px
+    }
+    .kpi .num{font-size:1.35rem;font-weight:800;margin-top:4px}
+    .profile-a{background:var(--a)}
+    .profile-b{background:var(--b)}
+    .profile-c{background:var(--c)}
+    .profile-mix{background:#eef2ff}
+    .legend{
+      display:flex;flex-wrap:wrap;gap:12px;margin-top:8px
+    }
+    .legend span{
+      display:inline-flex;align-items:center;gap:6px;font-size:.88rem;color:var(--muted)
+    }
+    .dot{width:12px;height:12px;border-radius:3px;display:inline-block}
+    .dot.a{background:var(--a);border:1px solid #ef4444}
+    .dot.b{background:var(--b);border:1px solid #f59e0b}
+    .dot.c{background:var(--c);border:1px solid #22c55e}
+    .axis-card{
+      border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff
+    }
+    .axis-card.selected{outline:2px solid var(--primary);background:#eff6ff}
+    .axis-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+    .axis-title{font-weight:800}
+    .axis-per{font-weight:800;color:var(--primary)}
+    .seq-card{
+      border:1px solid var(--line);border-radius:14px;padding:12px;background:#fff;margin-bottom:12px
+    }
+    .session-grid{
+      display:grid;grid-template-columns:120px 1.1fr 1.1fr 1.1fr;gap:10px;align-items:start
+    }
+    .session-grid > div{
+      border:1px solid #e5e7eb;border-radius:12px;padding:10px;background:#fff
+    }
+    .session-grid .hdr{background:#f8fafc;font-weight:800}
+    .note{
+      border-left:4px solid var(--primary);
+      background:#eff6ff;
+      padding:10px 12px;border-radius:10px;margin:10px 0
+    }
+    .warning-box{
+      border-left:4px solid var(--warning);background:#fffbeb;padding:10px 12px;border-radius:10px
+    }
+    .danger-box{
+      border-left:4px solid var(--danger);background:#fef2f2;padding:10px 12px;border-radius:10px
+    }
+    .hidden{display:none!important}
+    .right{float:right}
+    .pill{
+      display:inline-flex;align-items:center;padding:4px 8px;border-radius:999px;font-size:.8rem;font-weight:700
+    }
+    .pill.a{background:var(--a);color:#991b1b}
+    .pill.b{background:var(--b);color:#92400e}
+    .pill.c{background:var(--c);color:#166534}
+    .test-list{display:grid;gap:8px}
+    .test-item{
+      display:flex;gap:10px;flex-wrap:wrap;align-items:center;
+      border:1px solid var(--line);padding:10px;border-radius:12px;background:#fff
+    }
+    .test-item code{background:#f3f4f6;padding:2px 6px;border-radius:6px}
+    .footer{
+      color:var(--muted);font-size:.85rem;padding:12px 4px 30px
+    }
+    .readonly{
+      background:#f9fafb;
+      color:#374151
+    }
+    .subgrid{
+      display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px
+    }
+    @media (max-width: 820px){.subgrid{grid-template-columns:1fr}.session-grid{grid-template-columns:1fr}}
+    .print-title{display:none}
+    @media print{
+      body{background:#fff}
+      header,.toolbar,.steps,.print-hide{display:none!important}
+      .panel{display:none!important;box-shadow:none;border:none;padding:0;margin:0}
+      .panel.active{display:block}
+      .print-title{display:block!important;margin-bottom:12px}
+      .container{max-width:none;padding:0}
+      .table-wrap{overflow:visible}
+      table{min-width:0}
+      th{position:static}
+      .no-print{display:none!important}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>outil_v0_sprint_coll1_eq01</h1>
+    <div class="sub">
+      Outil d’aide à la décision pédagogique EPS — sprint — ADP 2026. Les données pédagogiques affichées ci-dessous sont extraites des fichiers joints disponibles dans cette conversation, avec une structure conçue pour fonctionner hors connexion après chargement.
+    </div>
+    <div class="meta-row">
+      <div class="chip">APS : Sprint</div>
+      <div class="chip">Code : coll1_eq01</div>
+      <div class="chip">Famille : Athlétisme</div>
+      <div class="chip">Cycle : 10 séances</div>
+      <div class="chip">Type : DI — pas de note /20</div>
+    </div>
+  </header>
+
+  <div class="container">
+    <div class="steps">
+      <div class="step-pill active" id="pill1">Étape 1 — Diagnostic</div>
+      <div class="step-pill" id="pill2">Étape 2 — Axes</div>
+      <div class="step-pill" id="pill3">Étape 3 — Paramétrage</div>
+      <div class="step-pill" id="pill4">Étape 4 — Planification</div>
+    </div>
+
+    <div class="toolbar print-hide">
+      <button class="primary" id="go1">Étape 1</button>
+      <button class="secondary" id="go2" disabled>Étape 2</button>
+      <button class="secondary" id="go3" disabled>Étape 3</button>
+      <button class="secondary" id="go4" disabled>Étape 4</button>
+      <button class="ghost right" id="btnPrint">Imprimer</button>
+      <button class="ghost" id="btnExport">Exporter CSV</button>
+      <label class="btn ghost" for="csvFile">Importer CSV terrain</label>
+      <input id="csvFile" type="file" accept=".csv,text/csv" class="hidden" />
+      <button class="danger" id="btnReset">Réinitialiser</button>
+    </div>
+
+    <div class="print-title">
+      <h2>Diagnostic sprint — coll1_eq01</h2>
+      <div class="muted">Date : <span id="printDate"></span></div>
+    </div>
+
+    <!-- STEP 1 -->
+    <section class="panel active" id="step1">
+      <h2>Étape 1 — Diagnostic de classe</h2>
+      <div class="note">
+        Observables extraits : Réaction au signal de départ · Inclinaison et redressement · Posture en vitesse maximale · Maintien de l'effort jusqu'au finish · Performance.
+      </div>
+
+      <div class="grid-2">
+        <div class="card">
+          <h3>Saisie manuelle</h3>
+          <div class="muted small">1 ligne par élève · valeurs de 0 à 10 · prénom obligatoire</div>
+          <div class="toolbar">
+            <button class="secondary" id="addRow">Ajouter une ligne</button>
+            <button class="secondary" id="fillDemo">Charger un exemple</button>
+            <button class="secondary" id="analyzeBtn">Analyser</button>
+          </div>
+          <div class="table-wrap">
+            <table id="manualTable">
+              <thead>
+                <tr>
+                  <th>Prénom</th>
+                  <th>OBS-01</th>
+                  <th>OBS-02</th>
+                  <th>OBS-03</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>Règles de calcul</h3>
+          <div class="subgrid">
+            <div class="box">
+              <div class="muted">Seuil A</div>
+              <div class="num" id="thresholdA">5.0</div>
+            </div>
+            <div class="box">
+              <div class="muted">Seuil B</div>
+              <div class="num" id="thresholdB">8.0</div>
+            </div>
+          </div>
+          <div class="note">
+            Profil global selon la moyenne /10 : A &lt; 5 · B de 5 à 7.9 · C ≥ 8.
+          </div>
+          <div class="warning-box">
+            Export CSV : les colonnes peuvent apparaître après plusieurs lignes de métadonnées. L’en-tête est détecté en cherchant <b>Nom_Eleve</b>.
+          </div>
+          <div class="legend">
+            <span><i class="dot a"></i> Profil A</span>
+            <span><i class="dot b"></i> Profil B</span>
+            <span><i class="dot c"></i> Profil C</span>
+          </div>
+          <div style="margin-top:12px">
+            <textarea id="csvPreview" rows="12" class="readonly" readonly></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:16px" class="card">
+        <h3>Tests de validation intégrés</h3>
+        <div class="test-list" id="testList">
+          <div class="test-item">
+            <strong>Test 1</strong>
+            <span>Entrée : <code>2.0 / 3.0 / 4.0</code></span>
+            <span>Attendu : profil A global · A/A/A · L1 OBS-01</span>
+            <button class="secondary" data-test="1">Exécuter</button>
+          </div>
+          <div class="test-item">
+            <strong>Test 2</strong>
+            <span>Entrée : <code>2.0 / 7.0 / 5.0</code></span>
+            <span>Attendu : profil B global · A/B/B · L1 OBS-01</span>
+            <button class="secondary" data-test="2">Exécuter</button>
+          </div>
+          <div class="test-item">
+            <strong>Test 3</strong>
+            <span>Entrée : <code>9.0 / 8.5 / 9.0</code></span>
+            <span>Attendu : profil C · aucune lacune · SA-C1</span>
+            <button class="secondary" data-test="3">Exécuter</button>
+          </div>
+          <div class="test-item">
+            <strong>Test 4</strong>
+            <span>3 axes sélectionnés · slider 6 à 10</span>
+            <span>Attendu : distribution dynamique correcte</span>
+            <button class="secondary" data-test="4">Exécuter</button>
+          </div>
+          <div class="test-item">
+            <strong>Test 5</strong>
+            <span>Console navigateur</span>
+            <span>Attendu : <code>0 erreur rouge</code></span>
+            <button class="secondary" data-test="5">Voir rappel</button>
+          </div>
+        </div>
+        <div id="testResult" class="note" style="margin-top:12px;display:none"></div>
+      </div>
+    </section>
+
+    <!-- STEP 2 -->
+    <section class="panel" id="step2">
+      <h2>Étape 2 — Sélection des axes prioritaires</h2>
+      <div class="note">
+        Les axes proposés ci-dessous sont présentés selon la logique du référentiel disponible dans cette conversation. L’enseignant valide 3 ou 4 axes maximum.
+      </div>
+      <div id="axisContainer" class="grid-2"></div>
+      <div class="toolbar">
+        <button class="primary" id="toStep3" disabled>Paramétrer le cycle — Étape 3</button>
+        <div class="muted small" id="axisHelp">Sélectionnez 3 ou 4 axes pour débloquer la planification.</div>
+      </div>
+      <div class="card">
+        <h3>Axes retenus</h3>
+        <div id="selectedAxes" class="muted">Aucun axe sélectionné.</div>
+      </div>
+    </section>
+
+    <!-- STEP 3 -->
+    <section class="panel" id="step3">
+      <h2>Étape 3 — Paramétrage du cycle</h2>
+      <div class="grid-2">
+        <div class="card">
+          <h3>Nombre de séances</h3>
+          <div class="muted small">Valeurs entières de 6 à 10</div>
+          <div style="margin-top:10px">
+            <input id="sessionSlider" type="range" min="6" max="10" value="10" step="1" style="width:100%" />
+          </div>
+          <div style="margin-top:8px;font-weight:800" id="sliderLabel">Cycle de 10 séances · 4 séquences · 0 séances par séquence</div>
+          <div class="note" id="distributionNote"></div>
+        </div>
+        <div class="card">
+          <h3>Aperçu temps réel</h3>
+          <div id="sequencePreview"></div>
+        </div>
+      </div>
+      <div class="toolbar">
+        <button class="primary" id="toStep4">Générer la planification — Étape 4</button>
+      </div>
+    </section>
+
+    <!-- STEP 4 -->
+    <section class="panel" id="step4">
+      <h2>Étape 4 — Planification dynamique du cycle</h2>
+      <div id="planSummary" class="note"></div>
+      <div id="planContainer"></div>
+      <div class="card" style="margin-top:16px">
+        <h3>Résumé du cycle</h3>
+        <div class="table-wrap">
+          <table id="summaryTable">
+            <thead>
+              <tr>
+                <th>Séquence</th>
+                <th>Axes travaillés</th>
+                <th>Nb séances</th>
+                <th>Profil dominant ciblé</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="note" id="globalRecommendation"></div>
+      </div>
+    </section>
+
+    <div class="footer">
+      Outil local, sans dépendance externe, conçu pour la manipulation terrain sur smartphone ou ordinateur.
+    </div>
+  </div>
+
+<script>
+/* ===========================
+   Données extraites / utilisées
+   =========================== */
+const THRESHOLDS = { A: 5.0, B: 8.0 };
+const OBSERVABLES = [
+  {
+    key: "OBS-01",
+    name: "Réaction au signal de départ",
+    codes: { A: "RT", B: "RH", C: "RV" },
+    descriptions: {
+      A: "Réagit tardivement après le signal",
+      B: "Réagit correctement mais hésite encore",
+      C: "Réagit vite et pousse vers l'avant"
+    },
+    sa: { A: "SA-A1", B: "SA-B1", C: "SA-C1" }
+  },
+  {
+    key: "OBS-02",
+    name: "Inclinaison et redressement",
+    codes: { A: "SR", B: "IP", C: "IM" },
+    descriptions: {
+      A: "Se redresse immédiatement après le départ",
+      B: "Inclinaison partielle puis redressement précoce",
+      C: "Inclinaison maintenue jusqu'à 20–30 m"
+    },
+    sa: { A: "SA-A1", B: "SA-B1", C: "SA-C1" }
+  },
+  {
+    key: "OBS-03",
+    name: "Posture en vitesse maximale",
+    codes: { A: "EC", B: "RB", C: "PH" },
+    descriptions: {
+      A: "Regard bas et épaules crispées",
+      B: "Relâchement partiel des bras",
+      C: "Posture haute et bras en opposition"
+    },
+    sa: { A: "SA-A1", B: "SA-B1", C: "SA-C1" }
+  },
+  {
+    key: "OBS-04",
+    name: "Maintien de l'effort jusqu'au finish",
+    codes: { A: "RA", B: "MD", C: "FA" },
+    descriptions: {
+      A: "Ralentit avant la ligne d'arrivée",
+      B: "Maintien partiel avec légère décelération",
+      C: "Finish actif sans ralentissement"
+    },
+    sa: { A: "SA-A1", B: "SA-B1", C: "SA-C1" }
+  },
+  {
+    key: "OBS-05",
+    name: "Performance",
+    codes: { A: "TE", B: "TI", C: "TF" },
+    descriptions: {
+      A: "Temps élevé",
+      B: "Temps intermédiaire avec accélération visible",
+      C: "Temps faible avec maintien de vitesse"
+    },
+    sa: { A: "SA-A1", B: "SA-B1", C: "SA-C1" }
+  }
+];
+
+const AXES = [
+  { id: 1, title: "Réagir rapidement au signal du starter", obs: "OBS-01", sa: "SA-A1", focus: "A / B", phrase: "Le départ devient plus franc et plus rapide." },
+  { id: 2, title: "Produire une accélération progressive", obs: "OBS-02", sa: "SA-B1", focus: "A / B", phrase: "L’élève prolonge l’inclinaison et gagne en efficacité." },
+  { id: 3, title: "Maintenir une attitude haute en vitesse maximale", obs: "OBS-03", sa: "SA-C1", focus: "B / C", phrase: "Le corps se stabilise et le relâchement progresse." },
+  { id: 4, title: "Maintenir l'effort jusqu'au finish", obs: "OBS-04", sa: "SA-C1", focus: "B / C", phrase: "La vitesse est conservée jusqu’à la ligne." },
+  { id: 5, title: "Construire une poussée orientée vers l'avant", obs: "OBS-02", sa: "SA-B1", focus: "A / B", phrase: "La poussée horizontale devient mieux orientée." },
+  { id: 6, title: "Mettre en relation performances et observations", obs: "OBS-05", sa: "SA-C1", focus: "B / C", phrase: "Les temps et les observations servent à décider." }
+];
+
+const SA_NAMES = {
+  "SA-A1": "Départs réaction au signal",
+  "SA-B1": "Accélération progressive contrôlée",
+  "SA-C1": "Sprint complet avec maintien de vitesse"
+};
+
+const DISTRIBUTIONS = {
+  3: {
+    6: [2,2,2],
+    7: [2,2,3],
+    8: [3,2,3],
+    9: [3,3,3],
+    10:[3,4,3]
+  },
+  4: {
+    6: [1,2,2,1],
+    7: [2,2,2,1],
+    8: [2,2,2,2],
+    9: [2,3,2,2],
+    10:[3,2,3,2]
+  }
+};
+
+const CSV_TEMPLATE_HEADERS = [
+  "Nom_Eleve","OBS01_ReactSignal","OBS02_InclinaisonRedressement","OBS03_PostureVitesseMax","OBS04_MaintienFinish","OBS05_Performance"
+];
+
+/* ===========================
+   Utilitaires
+   =========================== */
+const $ = (sel) => document.querySelector(sel);
+const $$ = (sel) => Array.from(document.querySelectorAll(sel));
+
+function escapeCsv(value){
+  const text = value == null ? "" : String(value);
+  if(/[",\n;]/.test(text)) return `"${text.replaceAll('"','""')}"`;
+  return text;
+}
+
+function csvFromRows(rows){
+  const headers = ["Prénom","Code OBS-01","OBS-01","Code OBS-02","OBS-02","Code OBS-03","OBS-03","Moyenne","/20","Rang","Profil global","Profil détaillé","Lacune 1","SA recommandée"];
+  const lines = [headers.map(escapeCsv).join(";")];
+  rows.forEach(r => {
+    lines.push([
+      r.name, r.codes[0], r.obs[0], r.codes[1], r.obs[1], r.codes[2], r.obs[2],
+      r.avg10.toFixed(2), r.avg20.toFixed(2), r.rank, r.globalProfile, r.detailProfile, r.lacune1, r.saRecommandee
+    ].map(escapeCsv).join(";"));
+  });
+  return "\ufeff" + lines.join("\n");
+}
+
+function parseNumber(value){
+  const n = Number(String(value).replace(",", ".").trim());
+  return Number.isFinite(n) ? n : null;
+}
+
+function profileFromScore(score){
+  if(score >= THRESHOLDS.B) return "C";
+  if(score >= THRESHOLDS.A) return "B";
+  return "A";
+}
+
+function rowColor(profile){
+  return profile === "A" ? "profile-a" : profile === "B" ? "profile-b" : "profile-c";
+}
+
+function codeFromValue(obsIdx, score){
+  const p = profileFromScore(score);
+  return OBSERVABLES[obsIdx].codes[p];
+}
+
+function nameFromCode(code){
+  const matches = OBSERVABLES.flatMap(o => Object.entries(o.codes).map(([deg,c]) => ({obs:o.key, degree:deg, code:c, name:o.name})));
+  const hit = matches.find(m => m.code === code);
+  return hit ? `${hit.obs}` : "";
+}
+
+function chooseSAFromDominantLacune(lacune){
+  if(!lacune) return { id: "SA-C1", name: SA_NAMES["SA-C1"] };
+  const idx = lacune.obsIndex;
+  if(idx === 0) return { id: "SA-A1", name: SA_NAMES["SA-A1"] };
+  if(idx === 1) return { id: "SA-B1", name: SA_NAMES["SA-B1"] };
+  if(idx >= 2) return { id: "SA-C1", name: SA_NAMES["SA-C1"] };
+  return { id: "SA-C1", name: SA_NAMES["SA-C1"] };
+}
+
+function clamp(v, min, max){ return Math.max(min, Math.min(max, v)); }
+
+function distributionFor(selectedCount, sessions){
+  return (DISTRIBUTIONS[selectedCount] || DISTRIBUTIONS[3])[sessions] || [];
+}
+
+function activeStepIndex(){
+  return Math.max(1, Math.min(4, state.currentStep));
+}
+
+function updateStepPills(){
+  [1,2,3,4].forEach(i => {
+    $("#pill"+i).classList.toggle("active", i === state.currentStep);
+    $("#go"+i).disabled = false;
+    $("#go"+i).className = i === state.currentStep ? "primary" : "secondary";
+  });
+}
+
+function setStep(step){
+  state.currentStep = step;
+  ["#step1","#step2","#step3","#step4"].forEach((s, idx) => {
+    $(s).classList.toggle("active", idx + 1 === step);
+  });
+  updateStepPills();
+  $("#go2").disabled = !state.analysisReady;
+  $("#go3").disabled = !state.axesReady;
+  $("#go4").disabled = !state.paramReady;
+  if(step === 4 && !state.planReady) generatePlan();
+}
+
+function announce(msg, kind="note"){
+  const el = $("#testResult");
+  el.style.display = "block";
+  el.className = kind === "danger" ? "danger-box" : kind === "warning" ? "warning-box" : "note";
+  el.textContent = msg;
+}
+
+function createStudentRow(data = {name:"", obs:["","",""]}){
+  const tr = document.createElement("tr");
+
+  const nameTd = document.createElement("td");
+  const obsTds = [];
+  const actionsTd = document.createElement("td");
+
+  const nameInput = document.createElement("input");
+  nameInput.type = "text";
+  nameInput.placeholder = "Prénom";
+  nameInput.value = data.name || "";
+  nameInput.addEventListener("input", validateManualRow);
+  nameTd.appendChild(nameInput);
+
+  for(let i=0;i<3;i++){
+    const td = document.createElement("td");
+    const inp = document.createElement("input");
+    inp.type = "number";
+    inp.min = "0"; inp.max = "10"; inp.step = "0.1";
+    inp.placeholder = "0 à 10";
+    inp.className = "mini";
+    inp.value = data.obs[i] ?? "";
+    inp.addEventListener("input", validateManualRow);
+    td.appendChild(inp);
+    obsTds.push(td);
+  }
+
+  const delBtn = document.createElement("button");
+  delBtn.type = "button";
+  delBtn.className = "danger";
+  delBtn.textContent = "Supprimer";
+  delBtn.addEventListener("click", () => {
+    tr.remove();
+    validateAllRows();
+  });
+  const status = document.createElement("div");
+  status.className = "row-status";
+  status.style.marginTop = "6px";
+  actionsTd.appendChild(delBtn);
+  actionsTd.appendChild(status);
+
+  tr.appendChild(nameTd);
+  obsTds.forEach(td => tr.appendChild(td));
+  tr.appendChild(actionsTd);
+  $("#manualTable tbody").appendChild(tr);
+  validateManualRow();
+}
+
+function getManualRows(){
+  const rows = [];
+  $$("#manualTable tbody tr").forEach((tr, index) => {
+    const inputs = tr.querySelectorAll("input");
+    const name = inputs[0].value.trim();
+    const scores = [parseNumber(inputs[1].value), parseNumber(inputs[2].value), parseNumber(inputs[3].value)];
+    rows.push({ tr, name, scores });
+  });
+  return rows;
+}
+
+function validateManualRow(){
+  let allValid = true;
+  getManualRows().forEach(({tr, name, scores}) => {
+    const inputs = tr.querySelectorAll("input");
+    let valid = true;
+    const errors = [];
+    if(!name){
+      valid = false;
+      errors.push("Prénom obligatoire");
+      inputs[0].classList.add("line-error");
+    } else {
+      inputs[0].classList.remove("line-error");
+    }
+    scores.forEach((n, i) => {
+      if(n === null || n < 0 || n > 10){
+        valid = false;
+        errors.push(`OBS-${String(i+1).padStart(2,"0")} hors plage`);
+        inputs[i+1].classList.add("line-error");
+      } else {
+        inputs[i+1].classList.remove("line-error");
+      }
+    });
+    const status = tr.querySelector(".row-status");
+    if(status){
+      status.innerHTML = valid ? `<div class="ok-text">OK</div>` : `<div class="error-text">${errors.join(" · ")}</div>`;
+    }
+    allValid = allValid && valid;
+  });
+  return allValid;
+}
+
+function validateAllRows(){
+  const valid = validateManualRow();
+  $("#analyzeBtn").disabled = !valid || getManualRows().length === 0;
+  return valid;
+}
+
+function sanitizeRowsFromManual(){
+  return getManualRows()
+    .filter(r => r.name && r.scores.every(v => v !== null && v >= 0 && v <= 10))
+    .map(r => ({
+      name: r.name,
+      obs: r.scores
+    }));
+}
+
+function computeResults(rows){
+  const detailed = rows.map((r, idx) => {
+    const obsProfiles = r.obs.map(v => profileFromScore(v));
+    const avg10 = r.obs.reduce((a,b) => a + b, 0) / 3;
+    const avg20 = avg10 * 2;
+    const globalProfile = profileFromScore(avg10);
+    const lacunes = r.obs.map((v, i) => ({ obsIndex: i, value: v, profile: profileFromScore(v) }))
+                         .filter(x => x.profile === "A" || x.value < THRESHOLDS.A);
+    lacunes.sort((a,b) => a.value - b.value);
+    const lacune1 = lacunes.length ? `L1 — ${OBSERVABLES[lacunes[0].obsIndex].key} : ${lacunes[0].value.toFixed(1)}/10` : "Aucune lacune identifiée";
+    const sa = chooseSAFromDominantLacune(lacunes[0]);
+    const codes = r.obs.map((v,i) => codeFromValue(i, v));
+    return {
+      id: idx + 1,
+      name: r.name,
+      obs: r.obs,
+      obsProfiles,
+      avg10,
+      avg20,
+      globalProfile,
+      detailProfile: obsProfiles.join(" / "),
+      lacunes,
+      lacune1,
+      saRecommandee: sa.id,
+      saName: sa.name,
+      codes
+    };
+  });
+  const ranked = [...detailed].sort((a,b) => b.avg10 - a.avg10 || a.name.localeCompare(b.name, "fr"));
+  ranked.forEach((r, idx) => r.rank = idx + 1);
+
+  const classAvg10 = detailed.length ? detailed.reduce((a,b) => a + b.avg10, 0) / detailed.length : 0;
+  const classAvg20 = classAvg10 * 2;
+  const counts = {
+    A: detailed.filter(r => r.globalProfile === "A").length,
+    B: detailed.filter(r => r.globalProfile === "B").length,
+    C: detailed.filter(r => r.globalProfile === "C").length
+  };
+  const dominant = counts.A >= counts.B && counts.A >= counts.C ? "A" : counts.B >= counts.C ? "B" : "C";
+
+  const obsStats = OBSERVABLES.map((o, idx) => {
+    const vals = detailed.map(r => r.obs[idx]).filter(v => Number.isFinite(v));
+    const avg = vals.length ? vals.reduce((a,b) => a+b, 0)/vals.length : 0;
+    const profile = profileFromScore(avg);
+    return { ...o, avg, profile };
+  });
+
+  return { detailed: ranked, classAvg10, classAvg20, counts, dominant, obsStats };
+}
+
+function renderDiagnostic(rows, results){
+  const tbody = $("#manualTable tbody");
+  tbody.innerHTML = "";
+
+  rows.forEach(r => createStudentRow(r));
+  validateAllRows();
+
+  const previewLines = [];
+  previewLines.push("Export CSV terrain ADP 2026");
+  previewLines.push(CSV_TEMPLATE_HEADERS.join(";"));
+  rows.forEach(r => {
+    previewLines.push([r.name, "", "", "", "", "", ""].join(";"));
+  });
+  $("#csvPreview").value = previewLines.join("\n");
+
+  const panelRows = results.detailed.map(r => {
+    const bg = rowColor(r.globalProfile);
+    const lacune = r.lacunes.length ? `L1 — ${OBSERVABLES[r.lacunes[0].obsIndex].key} : ${r.lacunes[0].value.toFixed(1)}/10` : "Aucune lacune identifiée";
+    return `<tr class="${bg}">
+      <td>${r.rank}</td>
+      <td>${r.name}</td>
+      <td>${r.obs[0].toFixed(1)}</td>
+      <td>${r.obs[1].toFixed(1)}</td>
+      <td>${r.obs[2].toFixed(1)}</td>
+      <td><b>${r.avg10.toFixed(2)}</b></td>
+      <td><b>${r.avg20.toFixed(2)}</b></td>
+      <td><span class="pill ${r.globalProfile.toLowerCase()}">${r.globalProfile}</span></td>
+      <td>${r.detailProfile}</td>
+      <td>${lacune}</td>
+      <td>${r.saRecommandee} — ${r.saName}</td>
+    </tr>`;
+  }).join("");
+
+  const analysisRows = results.obsStats.map(s => {
+    let text = s.avg < THRESHOLDS.A ? "Lacune collective" : s.avg < THRESHOLDS.B ? "En cours" : "Bon niveau";
+    let sa = s.avg < THRESHOLDS.A ? "SA prioritaire à renforcer" : s.avg < THRESHOLDS.B ? "Consolider" : "Approfondir";
+    return `<tr class="${rowColor(s.profile)}">
+      <td>${s.key}</td>
+      <td>${s.name}</td>
+      <td>${s.avg.toFixed(2)}</td>
+      <td><span class="pill ${s.profile.toLowerCase()}">${s.profile}</span></td>
+      <td>${text}</td>
+      <td>${sa}</td>
+    </tr>`;
+  }).join("");
+
+  const groupRows = [
+    ["A", results.detailed.filter(r => r.globalProfile === "A").length, "SA-A1"],
+    ["B", results.detailed.filter(r => r.globalProfile === "B").length, "SA-B1"],
+    ["C", results.detailed.filter(r => r.globalProfile === "C").length, "SA-C1"]
+  ].map(x => `<tr><td><span class="pill ${x[0].toLowerCase()}">${x[0]}</span></td><td>${x[1]}</td><td>${x[2]}</td></tr>`).join("");
+
+  $("#step1").insertAdjacentHTML("beforeend", `
+    <div class="card" id="diagnosticBlock" style="margin-top:16px">
+      <h3>Tableau individuel</h3>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Rang</th><th>Prénom</th><th>OBS-01</th><th>OBS-02</th><th>OBS-03</th><th>Moyenne /10</th><th>/20</th><th>Profil global</th><th>Profil détaillé</th><th>Lacune(s)</th><th>SA</th>
+            </tr>
+          </thead>
+          <tbody>${panelRows}</tbody>
+        </table>
+      </div>
+    </div>
+  `);
+
+  const existingAnalysis = $("#observableAnalysis");
+  if(existingAnalysis) existingAnalysis.remove();
+  $("#step1").insertAdjacentHTML("beforeend", `
+    <div class="card" id="observableAnalysis" style="margin-top:16px">
+      <h3>Bilan de classe</h3>
+      <div class="kpi">
+        <div class="box"><div class="muted">Effectif</div><div class="num">${results.detailed.length}</div></div>
+        <div class="box"><div class="muted">Profil A</div><div class="num">${results.counts.A} (${results.detailed.length ? ((results.counts.A/results.detailed.length)*100).toFixed(0) : 0}%)</div></div>
+        <div class="box"><div class="muted">Profil B</div><div class="num">${results.counts.B} (${results.detailed.length ? ((results.counts.B/results.detailed.length)*100).toFixed(0) : 0}%)</div></div>
+        <div class="box"><div class="muted">Profil C</div><div class="num">${results.counts.C} (${results.detailed.length ? ((results.counts.C/results.detailed.length)*100).toFixed(0) : 0}%)</div></div>
+      </div>
+      <div class="note">Moyenne classe : <b>${results.classAvg10.toFixed(2)}</b>/10 · <b>${results.classAvg20.toFixed(2)}</b>/20 · Décision dominante : <b>${results.dominant === "A" ? "Classe débutante — Priorité fondamentaux" : results.dominant === "B" ? "Classe intermédiaire — Différenciation A/B" : "Classe avancée — Approfondissement et tutorat"}</b></div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Observable</th><th>Intitulé</th><th>Moyenne classe</th><th>Profil</th><th>Lecture</th><th>Décision</th></tr></thead>
+          <tbody>${analysisRows}</tbody>
+        </table>
+      </div>
+      <div class="grid-3" style="margin-top:16px">
+        <div class="card"><h3>Groupes de besoin</h3><div class="table-wrap"><table><thead><tr><th>Profil</th><th>Effectif</th><th>SA</th></tr></thead><tbody>${groupRows}</tbody></table></div></div>
+        <div class="card"><h3>Décision dominante</h3><div class="note">${results.dominant === "A" ? "Classe débutante — Priorité fondamentaux" : results.dominant === "B" ? "Classe intermédiaire — Différenciation A/B" : "Classe avancée — Approfondissement et tutorat"}</div></div>
+        <div class="card"><h3>Actions</h3><div class="toolbar"><button class="primary" id="unlockStep2">Passer à l'étape 2 — Axes prioritaires</button></div></div>
+      </div>
+    </div>
+  `);
+
+  $("#unlockStep2").addEventListener("click", () => { state.analysisReady = true; setStep(2); });
+  $("#go2").disabled = false;
+  state.analysisReady = true;
+  state.results = results;
+  state.rows = results.detailed;
+  $("#btnExport").disabled = !results.detailed.length;
+}
+
+function buildAxes(){
+  const avgByObs = state.results ? state.results.obsStats.reduce((acc, s) => { acc[s.key] = s.avg; return acc; }, {}) : {};
+  const order = [...AXES].sort((a,b) => {
+    const pa = avgByObs[a.obs] ?? 0;
+    const pb = avgByObs[b.obs] ?? 0;
+    const lacA = pa < THRESHOLDS.A ? 2 : pa < THRESHOLDS.B ? 1 : 0;
+    const lacB = pb < THRESHOLDS.A ? 2 : pb < THRESHOLDS.B ? 1 : 0;
+    return lacB - lacA || pb - pa || a.id - b.id;
+  });
+  $("#axisContainer").innerHTML = order.map(axis => {
+    const avg = avgByObs[axis.obs] ?? 0;
+    const pert = state.results && state.results.detailed.length ? Math.round((state.results.detailed.filter(r => r.obs[Number(axis.obs.split("-")[1]) - 1] < THRESHOLDS.B).length / state.results.detailed.length) * 100) : 0;
+    return `<label class="axis-card">
+      <div class="axis-head">
+        <div>
+          <div class="axis-title">${axis.title}</div>
+          <div class="muted small">Observable lié : ${axis.obs} · SA : ${axis.sa}</div>
+          <div class="muted small">${axis.phrase}</div>
+        </div>
+        <div class="axis-per">${pert}%</div>
+      </div>
+      <div style="margin-top:10px">
+        <input type="checkbox" class="axisCheck" value="${axis.id}" />
+      </div>
+      <div class="muted small">Moy. classe : ${avg.toFixed(2)}/10</div>
+    </label>`;
+  }).join("");
+
+  $$(".axisCheck").forEach(cb => {
+    cb.addEventListener("change", () => {
+      const checked = $$(".axisCheck:checked");
+      if(checked.length > 4){
+        cb.checked = false;
+        announce("Maximum 4 axes atteint.", "warning");
+      }
+      syncAxisSelection();
+    });
+  });
+  syncAxisSelection();
+}
+
+function syncAxisSelection(){
+  const selectedIds = $$(".axisCheck:checked").map(x => Number(x.value));
+  const cards = $$("#axisContainer .axis-card");
+  cards.forEach((card, idx) => {
+    const id = Number(card.querySelector(".axisCheck").value);
+    card.classList.toggle("selected", selectedIds.includes(id));
+  });
+  const selectedAxes = AXES.filter(a => selectedIds.includes(a.id));
+  state.selectedAxes = selectedAxes;
+  $("#selectedAxes").innerHTML = selectedAxes.length
+    ? selectedAxes.map(a => `<div><b>${a.title}</b> — ${a.sa} — ${a.obs}</div>`).join("")
+    : "Aucun axe sélectionné.";
+  $("#toStep3").disabled = !(selectedAxes.length >= 3 && selectedAxes.length <= 4);
+  $("#axisHelp").textContent = selectedAxes.length < 3 ? "Sélectionnez 3 ou 4 axes pour débloquer la planification." : selectedAxes.length > 4 ? "Maximum 4 axes atteint." : "Validation possible.";
+  state.axesReady = selectedAxes.length >= 3 && selectedAxes.length <= 4;
+  $("#go3").disabled = !state.axesReady;
+}
+
+function updateSliderUI(){
+  const sessions = Number($("#sessionSlider").value);
+  state.sessions = sessions;
+  const selectedCount = state.selectedAxes.length;
+  const dist = distributionFor(selectedCount, sessions);
+  const sequences = dist.length;
+  $("#sliderLabel").textContent = `Cycle de ${sessions} séances · ${sequences} séquences · ${selectedCount} axes`;
+  $("#distributionNote").innerHTML = dist.length
+    ? `Distribution automatique : <b>${dist.join(" + ")}</b> — ordre conforme au tableau de planification.`
+    : `Distribution indisponible pour ${selectedCount} axes. Sélectionnez 3 ou 4 axes.`;
+
+  const seqPreview = [];
+  const seqAxes = buildSequenceAxes();
+  dist.forEach((n, i) => {
+    seqPreview.push(`<div class="seq-card"><b>Séquence ${i+1}</b> (${n} séances) — Axe : ${seqAxes[i].map(a => a.title).join(" + ") || "non disponible"}</div>`);
+  });
+  $("#sequencePreview").innerHTML = seqPreview.join("");
+  state.paramReady = true;
+  $("#go4").disabled = false;
+}
+
+function buildSequenceAxes(){
+  const s = state.selectedAxes;
+  if(s.length === 3){
+    return [
+      [s[0]],
+      [s[0], s[1]],
+      [s[1], s[2]]
+    ];
+  }
+  if(s.length === 4){
+    return [
+      [s[0]],
+      [s[0], s[1]],
+      [s[1], s[2]],
+      [s[2], s[3]]
+    ];
+  }
+  return [];
+}
+
+function objectiveForSequence(seqIdx, axes){
+  const labels = axes.map(a => a.title).join(" + ");
+  return seqIdx === 0
+    ? `Ancrer le fondamental : ${labels}.`
+    : seqIdx === axes.length - 1
+      ? `Consolider et stabiliser : ${labels}.`
+      : `Combiner les axes : ${labels}.`;
+}
+
+function studentGroupLine(profile, axis){
+  const sa = profile === "A" ? "SA-A1" : profile === "B" ? "SA-B1" : "SA-C1";
+  const name = SA_NAMES[sa];
+  const consigne = profile === "A"
+    ? `Partir vite et tenir l'élan sur ${axis.obs}.`
+    : profile === "B"
+      ? `Stabiliser ${axis.obs} en gardant le relâchement.`
+      : `Rendre ${axis.obs} plus efficace et autonome.`;
+  const criterion = profile === "A"
+    ? "Départ repéré et reprise plus rapide"
+    : profile === "B"
+      ? "Stabilité de l'exécution"
+      : "Maintien de vitesse et finish actif";
+  return `<div><b>${name}</b><br/><span class="muted small">${consigne}</span><br/><span class="muted small">Critère : ${criterion}</span></div>`;
+}
+
+function generatePlan(){
+  const selected = state.selectedAxes;
+  const sessions = state.sessions || Number($("#sessionSlider").value);
+  const dist = distributionFor(selected.length, sessions);
+  const seqAxes = buildSequenceAxes();
+  state.planReady = true;
+  const targetProfile = state.results ? (state.results.dominant || "B") : "B";
+
+  $("#planSummary").innerHTML = `Ce cycle de <b>${sessions}</b> séances cible <b>${selected.length}</b> axes prioritaires. Profil le plus concerné : <b>${targetProfile}</b>. Réévaluer après la dernière séquence avec une nouvelle collecte terrain.`;
+
+  const planHtml = seqAxes.map((axes, idx) => {
+    const n = dist[idx] || 0;
+    const seqName = `Séquence ${idx+1}`;
+    const objective = objectiveForSequence(idx, axes);
+    const axisNames = axes.map(a => a.title).join(" + ");
+    const firstAxis = axes[0] || selected[0];
+    let rows = "";
+    for(let s=1; s<=n; s++){
+      const dominantAxis = axes[Math.min(idx, axes.length - 1)] || axes[0] || selected[0];
+      rows += `
+        <div class="session-grid" style="margin-bottom:10px">
+          <div class="hdr">Séance ${s}</div>
+          <div><b>${dominantAxis ? dominantAxis.title : "non disponible"}</b><br/><span class="muted small">Objectif : ${objective}</span></div>
+          <div>${studentGroupLine("A", dominantAxis || firstAxis)}</div>
+          <div>${studentGroupLine("B", dominantAxis || firstAxis)}</div>
+        </div>
+        <div class="session-grid" style="margin-bottom:14px">
+          <div class="hdr">Passage indicatif</div>
+          <div class="muted small">📋 À observer avant la séance suivante — ${dominantAxis ? dominantAxis.phrase : "non disponible"}</div>
+          <div>${studentGroupLine("C", dominantAxis || firstAxis)}</div>
+          <div><span class="pill ${targetProfile.toLowerCase()}">${targetProfile}</span> Profil cible</div>
+        </div>
+      `;
+    }
+    return `
+      <div class="seq-card">
+        <h3 style="margin:0 0 8px">${seqName}</h3>
+        <div class="muted small">Axes travaillés : ${axisNames || "non disponible"} · Séances concernées : ${n}</div>
+        ${rows}
+      </div>
+    `;
+  }).join("");
+
+  $("#planContainer").innerHTML = planHtml;
+
+  const summaryRows = seqAxes.map((axes, idx) => `
+    <tr>
+      <td>${idx+1}</td>
+      <td>${axes.map(a => a.title).join(" + ") || "non disponible"}</td>
+      <td>${dist[idx] || 0}</td>
+      <td>${targetProfile}</td>
+    </tr>
+  `).join("");
+  $("#summaryTable tbody").innerHTML = summaryRows;
+  $("#globalRecommendation").textContent = `Ce cycle de ${sessions} séances cible ${selected.length} axes prioritaires. Profil le plus concerné : ${targetProfile}. Réévaluer après la séquence ${seqAxes.length} avec une nouvelle collecte terrain.`;
+}
+
+function runTest(id){
+  $("#testResult").style.display = "block";
+  if(id === 1){
+    const r = computeResults([{name:"Test1", obs:[2,3,4]}]).detailed[0];
+    announce(`Test 1 : profil ${r.globalProfile} · ${r.detailProfile} · ${r.lacune1}`, "note");
+  }else if(id === 2){
+    const r = computeResults([{name:"Test2", obs:[2,7,5]}]).detailed[0];
+    announce(`Test 2 : profil ${r.globalProfile} · ${r.detailProfile} · ${r.lacune1}`, "note");
+  }else if(id === 3){
+    const r = computeResults([{name:"Test3", obs:[9,8.5,9]}]).detailed[0];
+    announce(`Test 3 : profil ${r.globalProfile} · ${r.detailProfile} · ${r.lacune1} · SA ${r.saRecommandee}`, "note");
+  }else if(id === 4){
+    announce("Test 4 : sélectionner 3 axes puis déplacer le slider de 6 à 10. La distribution doit suivre le tableau prévu.", "note");
+  }else if(id === 5){
+    announce("Test 5 : ouvrir F12 → Console → vérifier 0 erreur rouge. Si SyntaxError, chercher une apostrophe non échappée dans le JS.", "warning");
+  }
+}
+
+function populateDefaultRows(){
+  const defaults = [
+    { name: "Amina", obs: [2, 3, 4] },
+    { name: "Yassine", obs: [6, 7, 5] },
+    { name: "Sara", obs: [8, 9, 8.5] }
+  ];
+  defaults.forEach(d => createStudentRow(d));
+  validateAllRows();
+}
+
+function importCsv(text){
+  const lines = text.split(/\r?\n/).map(l => l.trimEnd()).filter(l => l.length);
+  let headerIndex = -1;
+  for(let i=0;i<lines.length;i++){
+    if(lines[i].toLowerCase().includes("nom_eleve")){
+      headerIndex = i;
+      break;
+    }
+  }
+  if(headerIndex === -1){
+    announce("Import CSV : en-tête 'Nom_Eleve' introuvable.", "danger");
+    return;
+  }
+
+  const delimiter = lines[headerIndex].includes(";") ? ";" : lines[headerIndex].includes("\t") ? "\t" : ",";
+  const headers = splitCsvLine(lines[headerIndex], delimiter).map(h => h.trim());
+  const hLower = headers.map(h => h.toLowerCase());
+
+  const idxNom = hLower.findIndex(h => h === "nom_eleve" || h.includes("nom_eleve"));
+  const idxObs1Code = findHeaderByPriority(hLower, ["obs01_", "obs1", "obs_01", "obs01degre"]);
+  const idxObs2Code = findHeaderByPriority(hLower, ["obs02_", "obs2", "obs_02", "obs02degre"]);
+  const idxObs3Code = findHeaderByPriority(hLower, ["obs03_", "obs3", "obs_03", "obs03degre"]);
+
+  const out = [];
+  let ignored = 0;
+
+  for(let i=headerIndex + 1; i<lines.length; i++){
+    const raw = lines[i];
+    if(!raw || raw.toLowerCase().includes("bilan_classe")){ ignored++; continue; }
+    const cells = splitCsvLine(raw, delimiter);
+    if(cells.length < 2){ ignored++; continue; }
+
+    const name = idxNom >= 0 ? (cells[idxNom] || "").trim() : (cells[0] || "").trim();
+    if(!name){ ignored++; continue; }
+
+    const obs = [];
+    for(let o=1;o<=3;o++){
+      const mapping = parseCsvObservable(cells, hLower, o);
+      if(mapping === null){ ignored++; continue; }
+      obs.push(mapping);
+    }
+    if(obs.length !== 3){ ignored++; continue; }
+    out.push({ name, obs });
+  }
+
+  if(!out.length){
+    announce(`Import CSV : aucune ligne valide. Lignes ignorées = ${ignored}.`, "danger");
+    return;
+  }
+
+  $("#manualTable tbody").innerHTML = "";
+  out.forEach(row => createStudentRow(row));
+  validateAllRows();
+  announce(`Import CSV réussi : ${out.length} ligne(s) chargée(s) · ${ignored} ligne(s) ignorée(s).`, "note");
+  $("#csvPreview").value = text;
+}
+
+function findHeaderByPriority(lowerHeaders, priorities){
+  for(const p of priorities){
+    const idx = lowerHeaders.findIndex(h => h.includes(p));
+    if(idx >= 0) return idx;
+  }
+  return -1;
+}
+
+function splitCsvLine(line, delimiter){
+  const out = [];
+  let current = "";
+  let quote = false;
+  for(let i=0;i<line.length;i++){
+    const ch = line[i];
+    if(ch === '"' ){
+      if(quote && line[i+1] === '"'){ current += '"'; i++; }
+      else quote = !quote;
+    } else if(ch === delimiter && !quote){
+      out.push(current);
+      current = "";
+    } else {
+      current += ch;
+    }
+  }
+  out.push(current);
+  return out;
+}
+
+function parseCsvObservable(cells, lowerHeaders, obsNum){
+  // Priority 1: raw métier codes / explicit observables
+  const priority1 = lowerHeaders.findIndex(h => h.includes(`obs0${obsNum}_`) || h.includes(`obs${obsNum}_`));
+  if(priority1 >= 0){
+    const cell = (cells[priority1] || "").trim().toUpperCase();
+    const map = {};
+    OBSERVABLES[obsNum-1].codes && Object.entries(OBSERVABLES[obsNum-1].codes).forEach(([deg, code]) => map[code] = deg);
+    if(map[cell]) return scoreFromDegree(map[cell]);
+    // If cell looks like letter degree or numeric, fall through
+    if(/^[ABC]$/.test(cell)) return scoreFromDegree(cell);
+    const num = parseNumber(cell);
+    if(num !== null) return clamp(num, 0, 10);
+  }
+
+  // Priority 2: degree letters
+  const degIdx = lowerHeaders.findIndex(h => h.includes(`obs0${obsNum}_degre`) || h.includes(`obs${obsNum}_degre`) || h === `obs${obsNum}_degre`);
+  if(degIdx >= 0){
+    const deg = String(cells[degIdx] || "").trim().toUpperCase();
+    if(/^[ABC]$/.test(deg)) return scoreFromDegree(deg);
+  }
+
+  // Priority 3: numeric direct
+  const numIdx = lowerHeaders.findIndex(h => h === `obs${obsNum}` || h === `obs0${obsNum}`);
+  if(numIdx >= 0){
+    const num = parseNumber(cells[numIdx]);
+    if(num !== null) return clamp(num, 0, 10);
+  }
+
+  // Last resort: try each cell for a direct numeric
+  for(const c of cells){
+    const num = parseNumber(c);
+    if(num !== null) return clamp(num, 0, 10);
+  }
+  return null;
+}
+
+function scoreFromDegree(deg){
+  if(deg === "A") return 3;
+  if(deg === "B") return 6;
+  if(deg === "C") return 9;
+  return null;
+}
+
+function updateCsvPreviewFromRows(){
+  const rows = sanitizeRowsFromManual();
+  const results = computeResults(rows);
+  const csv = csvFromRows(results.detailed);
+  $("#csvPreview").value = csv;
+}
+
+function exportCsv(){
+  const rows = sanitizeRowsFromManual();
+  if(!rows.length){
+    announce("Aucune donnée valide à exporter.", "warning");
+    return;
+  }
+  const results = computeResults(rows);
+  const csv = csvFromRows(results.detailed);
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  const date = new Date().toISOString().slice(0,10);
+  a.download = `outil_v0_sprint_coll1_eq01_${date}.csv`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function resetAll(){
+  state = {
+    currentStep: 1,
+    analysisReady: false,
+    axesReady: false,
+    paramReady: false,
+    planReady: false,
+    results: null,
+    rows: [],
+    selectedAxes: [],
+    sessions: 10
+  };
+  $("#manualTable tbody").innerHTML = "";
+  $("#axisContainer").innerHTML = "";
+  $("#selectedAxes").textContent = "Aucun axe sélectionné.";
+  $("#sequencePreview").innerHTML = "";
+  $("#planContainer").innerHTML = "";
+  $("#summaryTable tbody").innerHTML = "";
+  $("#globalRecommendation").textContent = "";
+  $("#planSummary").textContent = "";
+  $("#testResult").style.display = "none";
+  $("#csvPreview").value = "";
+  populateDefaultRows();
+  setStep(1);
+  $("#go2").disabled = true;
+  $("#go3").disabled = true;
+  $("#go4").disabled = true;
+  state.analysisReady = false;
+  state.axesReady = false;
+  state.paramReady = false;
+  state.planReady = false;
+}
+
+/* ===========================
+   État global
+   =========================== */
+let state = {
+  currentStep: 1,
+  analysisReady: false,
+  axesReady: false,
+  paramReady: false,
+  planReady: false,
+  results: null,
+  rows: [],
+  selectedAxes: [],
+  sessions: 10
+};
+
+/* ===========================
+   Initialisation
+   =========================== */
+document.addEventListener("DOMContentLoaded", () => {
+  $("#printDate").textContent = new Date().toLocaleDateString("fr-FR");
+  populateDefaultRows();
+  updateStepPills();
+
+  $("#addRow").addEventListener("click", () => createStudentRow());
+  $("#fillDemo").addEventListener("click", () => {
+    $("#manualTable tbody").innerHTML = "";
+    populateDefaultRows();
+  });
+  $("#analyzeBtn").addEventListener("click", () => {
+    const rows = sanitizeRowsFromManual();
+    if(!rows.length){
+      announce("Aucune ligne valide à analyser.", "danger");
+      return;
+    }
+    $("#diagnosticBlock")?.remove();
+    $("#observableAnalysis")?.remove();
+    const results = computeResults(rows);
+    renderDiagnostic(rows, results);
+    buildAxes();
+    state.analysisReady = true;
+    $("#go2").disabled = false;
+    setStep(1);
+    updateCsvPreviewFromRows();
+  });
+
+  $("#toStep3").addEventListener("click", () => {
+    setStep(3);
+    updateSliderUI();
+  });
+  $("#toStep4").addEventListener("click", () => {
+    setStep(4);
+    generatePlan();
+  });
+
+  $("#sessionSlider").addEventListener("input", updateSliderUI);
+
+  $("#go1").addEventListener("click", () => setStep(1));
+  $("#go2").addEventListener("click", () => { if(state.analysisReady) setStep(2); });
+  $("#go3").addEventListener("click", () => { if(state.axesReady) { setStep(3); updateSliderUI(); }});
+  $("#go4").addEventListener("click", () => { if(state.paramReady) { setStep(4); generatePlan(); }});
+
+  $("#btnPrint").addEventListener("click", () => window.print());
+  $("#btnExport").addEventListener("click", exportCsv);
+  $("#btnReset").addEventListener("click", resetAll);
+
+  $("#csvFile").addEventListener("change", async (e) => {
+    const file = e.target.files && e.target.files[0];
+    if(!file) return;
+    const text = await file.text();
+    importCsv(text);
+  });
+
+  $$(".test-item button").forEach(btn => {
+    btn.addEventListener("click", () => runTest(Number(btn.dataset.test)));
+  });
+
+  $("#manualTable tbody").addEventListener("input", () => {
+    validateAllRows();
+    updateCsvPreviewFromRows();
+  });
+  $("#manualTable tbody").addEventListener("change", () => {
+    validateAllRows();
+    updateCsvPreviewFromRows();
+  });
+
+  $("#analyzeBtn").disabled = false;
+  $("#go2").disabled = true;
+  $("#go3").disabled = true;
+  $("#go4").disabled = true;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+══════════════════════════════════════════════════════
+GRILLE DIAGNOSTIQUE v1 — sprint — SPR
+ADP 2026 — CRMEF Inezgane — BOUARGANE
+Type          : DI — Diagnostique Initial
+Niveau scolaire (arrière-plan) : non disponible
+Niveau de contenu identifié   : non disponible
+Écart stade/conduites : non disponible
+══════════════════════════════════════════════════════
+
+OBSERVABLE OBS-01 — Réaction au signal de départ
+────────────────────────────────
+Dimension observée : technique
+Source             : analyse_ref_sprint_SPR.txt — Efficacité du départ et de la phase d'accélération 
+
+DEGRÉ 1 — Niveau 1 – Départ saccadé
+Conduite typique     : Réagit tardivement après le signal
+Hypothèse explicative : "Ce comportement traduit le fait que l'élève ne maîtrise pas l'organisation du départ."
+Procédure saisie DI  : Entourer A · OU écrire fréquence : ___
+
+DEGRÉ 2 — Niveau 2 en construction
+Conduite typique     : Réagit correctement mais hésite encore
+Hypothèse explicative : "Ce comportement traduit le fait que l'élève construit progressivement son efficacité de départ."
+Procédure saisie DI  : Entourer B · OU écrire fréquence : ___
+
+DEGRÉ 3 — Niveau 3 maîtrisé
+Conduite typique     : Réagit vite et pousse vers l'avant
+Hypothèse explicative : "Ce comportement traduit le fait que l'élève maîtrise la phase de départ-accélération."
+Procédure saisie DI  : Entourer C · OU écrire fréquence : ___
+
+OBSERVABLE OBS-02 — Inclinaison et redressement
+────────────────────────────────
+Dimension observée : technique
+Source             : analyse_ref_sprint_SPR.txt — phase d'accélération 
+
+DEGRÉ 1 — Niveau 1 – Départ saccadé
+Conduite typique     : Se redresse immédiatement après le départ
+Hypothèse explicative : "Ce comportement traduit le fait que l'élève ne prolonge pas l'accélération."
+Procédure saisie DI  : Entourer A · OU écrire fréquence : ___
+
+DEGRÉ 2 — Niveau 2 en construction
+Conduite typique     : Inclinaison partielle puis redressement précoce
+Hypothèse explicative : "Ce comportement traduit le fait que l'élève contrôle partiellement son accélération."
+Procédure saisie DI  : Entourer B · OU écrire fréquence : ___
+
+DEGRÉ 3 — Niveau 3 maîtrisé
+Conduite typique     : Inclinaison maintenue jusqu'à 20–30 m
+Hypothèse explicative : "Ce comportement traduit le fait que l'élève optimise sa poussée vers l'avant."
+Procédure saisie DI  : Entourer C · OU écrire fréquence : ___
+
+OBSERVABLE OBS-03 — Qualité des foulées
+────────────────────────────────
+Dimension observée : technique
+Source             : analyse_ref_sprint_SPR.txt — accélération et maintien  
+
+DEGRÉ 1 — Niveau 1 – Départ saccadé
+Conduite typique     : Foulées irrégulières et crispées
+Hypothèse explicative : "Ce comportement traduit le fait que l'élève manque de coordination motrice."
+Procédure saisie DI  : Entourer A · OU écrire fréquence : ___
+
+DEGRÉ 2 — Niveau 2 en construction
+Conduite typique     : Foulées courtes encore irrégulières
+Hypothèse explicative : "Ce comportement traduit le fait que l'élève stabilise progressivement sa fréquence."
+Procédure saisie DI  : Entourer B · OU écrire fréquence : ___
+
+DEGRÉ 3 — Niveau 3 maîtrisé
+Conduite typique     : Foulées amples et rythmées
+Hypothèse explicative : "Ce comportement traduit le fait que l'élève maîtrise son rythme de course."
+Procédure saisie DI  : Entourer C · OU écrire fréquence : ___
+
+OBSERVABLE OBS-04 — Posture en vitesse maximale
+────────────────────────────────
+Dimension observée : technique
+Source             : analyse_ref_sprint_SPR.txt — vitesse maximale et maintien 
+
+DEGRÉ 1 — Niveau 1 – Coureur crispé
+Conduite typique     : Regard bas et épaules crispées
+Hypothèse explicative : "Ce comportement traduit le fait que l'élève court sous tension excessive."
+Procédure saisie DI  : Entourer A · OU écrire fréquence : ___
+
+DEGRÉ 2 — Niveau 2 en construction
+Conduite typique     : Relâchement partiel des bras
+Hypothèse explicative : "Ce comportement traduit le fait que l'élève améliore sa posture progressivement."
+Procédure saisie DI  : Entourer B · OU écrire fréquence : ___
+
+DEGRÉ 3 — Niveau 3 maîtrisé
+Conduite typique     : Posture haute et bras en opposition
+Hypothèse explicative : "Ce comportement traduit le fait que l'élève maîtrise sa vitesse maximale."
+Procédure saisie DI  : Entourer C · OU écrire fréquence : ___
+
+OBSERVABLE OBS-05 — Maintien de l'effort jusqu'au finish
+────────────────────────────────
+Dimension observée : technique
+Source             : analyse_ref_sprint_SPR.txt — conservation de la vitesse 
+
+DEGRÉ 1 — Niveau 1 – Coureur crispé
+Conduite typique     : Ralentit avant la ligne d'arrivée
+Hypothèse explicative : "Ce comportement traduit le fait que l'élève gère mal son effort."
+Procédure saisie DI  : Entourer A · OU écrire fréquence : ___
+
+DEGRÉ 2 — Niveau 2 en construction
+Conduite typique     : Maintien partiel avec légère décelération
+Hypothèse explicative : "Ce comportement traduit le fait que l'élève stabilise son maintien de vitesse."
+Procédure saisie DI  : Entourer B · OU écrire fréquence : ___
+
+DEGRÉ 3 — Niveau 3 maîtrisé
+Conduite typique     : Finish actif sans ralentissement
+Hypothèse explicative : "Ce comportement traduit le fait que l'élève conserve efficacement sa vitesse."
+Procédure saisie DI  : Entourer C · OU écrire fréquence : ___
+
+OBSERVABLE OBS-06 — Qualité du rôle d'observateur / starter
+────────────────────────────────
+Dimension observée : décisionnelle
+Source             : analyse_ref_sprint_SPR.txt — rôles sociaux 
+
+DEGRÉ 1 — Niveau 1 – Juge dilettante
+Conduite typique     : Consignes incomplètes et observations vagues
+Hypothèse explicative : "Ce comportement traduit le fait que l'élève identifie mal les indicateurs observables."
+Procédure saisie DI  : Entourer A · OU écrire fréquence : ___
+
+DEGRÉ 2 — Niveau 2 en construction
+Conduite typique     : Observe une phase sans liaison
+Hypothèse explicative : "Ce comportement traduit le fait que l'élève construit son analyse des phases."
+Procédure saisie DI  : Entourer B · OU écrire fréquence : ___
+
+DEGRÉ 3 — Niveau 3 maîtrisé
+Conduite typique     : Donne des observations précises et utiles
+Hypothèse explicative : "Ce comportement traduit le fait que l'élève maîtrise les rôles sociaux attendus."
+Procédure saisie DI  : Entourer C · OU écrire fréquence : ___
+
+BILAN D'ENRICHISSEMENT
+───────────────────────
+Compléments proposés    : 0
+Compléments à valider   : 0
+URLs non vérifiables    : 0
+
+SOURCES DOCUMENTAIRES
+──────────────────────
+Source n°1 : Planificateur de Cycle EPS v5 — BOUARGANE
+Source n°2 : analyse_ref_sprint_SPR.txt
+Source n°3 : synthese_TD1_sprint_SPR.txt
+
+══════════════════════════════════════════════════════
+SECTION F — CRITIQUE
+══════════════════════════════════════════════════════
+
+· Les termes A/B/C sont-ils exactement ceux du référentiel ?
+Oui pour les intitulés de niveaux utilisés :
+"Niveau 1 – Départ saccadé"
+"Niveau 1 – Coureur crispé"
+"Niveau 1 – Juge dilettante"
+"Niveau 2 en construction"
+"Niveau 3 maîtrisé"
+
+· Les conduites typiques sont-elles observables en temps réel ?
+Oui. Toutes les conduites proposées sont visibles directement sur terrain sans matériel spécialisé.
+
+· Les hypothèses explicatives sont-elles didactiquement cohérentes ?
+Oui. Elles relient les conduites observées aux difficultés motrices ou organisationnelles identifiables en sprint.
+
+· Combien d'itérations ? Quelle composante [1-8] a été déterminante ?
+1 itération.
+Composante déterminante : [5] CONTRAINTES — distinction DI / absence de note / observables terrain.
+
+· Enrichissements intégrés : 0 · rejetés : 0 · à vérifier : 0
+
+══════════════════════════════════════════════════════
+FIN — grille_v1_sprint_SPR.txt
+À soumettre au formateur pour validation avant Excel
+══════════════════════════════════════════════════════
