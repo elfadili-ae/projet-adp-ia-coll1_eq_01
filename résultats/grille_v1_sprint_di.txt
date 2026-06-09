@@ -1,0 +1,349 @@
+══════════════════════════════════════════════════════════════════════
+GRILLE DIAGNOSTIQUE v1 — SPRINT — SPR
+ADP 2026 — CRMEF Inezgane — BOUARGANE
+Type          : DI — Diagnostique Initial
+Niveau scolaire (arrière-plan) : non disponible — fichier synthese_TD1_sprint_SPR.txt absent
+Niveau de contenu identifié   : non disponible — fichier synthese_TD1_sprint_SPR.txt absent
+Écart stade/conduites         : non disponible — à renseigner après TD1
+
+NOTE D'USAGE : Ce document est construit en MODE 1 — ANALYSE FIDÈLE
+depuis le fichier Analyse_Ref_Sprint_01_ADP2026.docx (Source n°2).
+Les termes entre guillemets sont des citations exactes du référentiel.
+Les termes sans guillemets sont des inférences signalées comme telles.
+Le fichier synthese_TD1_sprint_SPR.txt (Source n°3) est absent :
+les champs [niveau de contenu / écart stade / conduites observées]
+sont marqués "non disponible" et à renseigner par l'équipe après TD1.
+══════════════════════════════════════════════════════════════════════
+
+
+────────────────────────────────────────────────────────────────────
+OBSERVABLE OBS-01 — POSITION DE DÉPART
+────────────────────────────────────────────────────────────────────
+Dimension observée : technique
+Source             : Analyse_Ref_Sprint_01_ADP2026 — Section A
+                     N1·C2 Posture et phases de course /
+                     N2·C2 Efficacité technique et biomécanique
+                     Termes exacts : "pieds décalés, poids du corps
+                     vers l'avant" (N1) · "position de départ en
+                     fente basse" (N2)
+
+DEGRÉ 1 — [Inférence — terme qualitatif absent du référentiel]
+  Conduite typique      : Poids en arrière, pieds parallèles, corps droit
+  Hypothèse explicative : "Ce comportement traduit le fait que l'élève
+                           n'a pas intégré le principe de mise en action
+                           vers l'avant ; il adopte une posture défensive
+                           qui retarde le déclenchement de la course."
+  Procédure saisie DI   : Entourer A · OU écrire observation : ___________
+
+DEGRÉ 2 — [Inférence — terme qualitatif absent du référentiel]
+  Conduite typique      : Pieds décalés acquis, poids parfois vers l'avant
+  Hypothèse explicative : "Ce comportement traduit le fait que l'élève
+                           connaît la forme du départ mais n'a pas encore
+                           automatisé l'orientation du centre de gravité ;
+                           la posture est instable selon les essais."
+  Procédure saisie DI   : Entourer B · OU écrire observation : ___________
+
+DEGRÉ 3 — "Adopter une position de départ efficace" (N1)
+           "Adopter une position de départ en fente basse et produire
+            une poussée puissante orientée vers l'avant" (N2)
+  Conduite typique      : Fente basse stable, poids avant, poussée active
+  Hypothèse explicative : "Ce comportement traduit le fait que l'élève
+                           maîtrise la mise en tension initiale et oriente
+                           ses forces dans l'axe horizontal dès le signal."
+  Procédure saisie DI   : Entourer C · OU écrire observation : ___________
+
+[ENRICHISSEMENT — source externe]
+Source : Cavagna, G.A. · Biomechanics of sprint running · Journal of
+         Applied Physiology · 1964 (base classique) / pour usage pratique :
+         Hanon, C. · L'entraînement du sprinter · INSEP · 2008
+URL    : https://www.insep.fr (consulter catalogue publications)
+Apport : L'angle optimal de sortie de départ (~45°) est documenté comme
+         critère biomécanique observable sans matériel — confirmé par N3
+         du référentiel ("angle de sortie de blocs ~45°").
+Statut : à valider par l'équipe avant intégration
+[FIN ENRICHISSEMENT]
+
+
+────────────────────────────────────────────────────────────────────
+OBSERVABLE OBS-02 — INCLINAISON DU BUSTE EN PHASE D'ACCÉLÉRATION (0–30m)
+────────────────────────────────────────────────────────────────────
+Dimension observée : technique
+Source             : Analyse_Ref_Sprint_01_ADP2026 — Section A
+                     N1·C2 Posture et phases de course /
+                     N2·C2 Efficacité technique et biomécanique /
+                     Section E Fiche terrain — Phase Accélération (0–30m)
+                     Termes exacts : "inclinaison du buste" (N1) ·
+                     "inclinaison décroissante" · "foulées d'amplitude
+                     croissante" (N2)
+
+DEGRÉ 1 — [Inférence — terme qualitatif absent du référentiel]
+  Conduite typique      : Corps vertical dès départ, aucune inclinaison visible
+  Hypothèse explicative : "Ce comportement traduit le fait que l'élève
+                           se redresse immédiatement après le départ,
+                           perdant la poussée horizontale ; il n'a pas
+                           construit le schéma d'accélération progressive."
+  Procédure saisie DI   : Entourer A · OU écrire observation : ___________
+
+DEGRÉ 2 — [Inférence — terme qualitatif absent du référentiel]
+  Conduite typique      : Inclinaison amorcée sur 5–10m puis abandon
+  Hypothèse explicative : "Ce comportement traduit le fait que l'élève
+                           amorce l'inclinaison mais ne dispose pas encore
+                           des ressources musculaires ou de la représentation
+                           kinesthésique pour la maintenir sur 20–30m."
+  Procédure saisie DI   : Entourer B · OU écrire observation : ___________
+
+DEGRÉ 3 — "Produire une accélération progressive" :
+           inclinaison + poussée + genou (N1)
+           "Construire une accélération progressive avec inclinaison
+            décroissante et foulées d'amplitude croissante" (N2)
+  Conduite typique      : Buste incliné 20–25m, redressement progressif ensuite
+  Hypothèse explicative : "Ce comportement traduit le fait que l'élève
+                           a intégré le lien entre inclinaison du tronc
+                           et production de force horizontale ; la montée
+                           progressive vers l'attitude haute est construite."
+  Procédure saisie DI   : Entourer C · OU écrire observation : ___________
+
+
+────────────────────────────────────────────────────────────────────
+OBSERVABLE OBS-03 — ATTITUDE EN VITESSE MAXIMALE (30–70m)
+────────────────────────────────────────────────────────────────────
+Dimension observée : technique
+Source             : Analyse_Ref_Sprint_01_ADP2026 — Section A
+                     N1·C2 "Attitude haute en vitesse maximale" /
+                     N2·C2 "Attitude de course optimale en vitesse
+                     maximale : corps vertical, bassin haut, genou avant
+                     élevé, bras coordonnés" /
+                     Section E Fiche terrain — Phase Vitesse maximale (30–70m)
+
+DEGRÉ 1 — [Inférence — terme qualitatif absent du référentiel]
+  Conduite typique      : Corps penché, genou bas, bras peu actifs
+  Hypothèse explicative : "Ce comportement traduit le fait que l'élève
+                           n'a pas encore dissocié la phase d'accélération
+                           de la phase de vitesse max ; il conserve une
+                           posture d'effort qui freine le rendement de foulée."
+  Procédure saisie DI   : Entourer A · OU écrire observation : ___________
+
+DEGRÉ 2 — [Inférence — terme qualitatif absent du référentiel]
+  Conduite typique      : Corps vertical, genou ou bras actifs de façon isolée
+  Hypothèse explicative : "Ce comportement traduit le fait que l'élève
+                           a construit un ou deux éléments de l'attitude haute
+                           mais ne coordonne pas encore corps vertical /
+                           genou élevé / bras actifs de façon simultanée."
+  Procédure saisie DI   : Entourer B · OU écrire observation : ___________
+
+DEGRÉ 3 — "Adopter et maintenir une attitude haute en phase
+            de vitesse maximale" (N1)
+           "Attitude de course optimale en vitesse maximale :
+            corps vertical, bassin haut, genou avant élevé,
+            bras coordonnés" (N2)
+  Conduite typique      : Corps droit, genou haut, bras coordonnés, bassin élevé
+  Hypothèse explicative : "Ce comportement traduit le fait que l'élève
+                           a construit la coordination multi-segmentaire
+                           de la vitesse maximale ; chaque segment contribue
+                           simultanément à l'efficacité de la foulée."
+  Procédure saisie DI   : Entourer C · OU écrire observation : ___________
+
+[ENRICHISSEMENT — source externe]
+Source : Mero, A., Komi, P.V., Gregor, R.J. · Biomechanics of sprint
+         running — a review · Sports Medicine · 1992
+URL    : https://link.springer.com/article/10.2165/00007256-199213060-00002
+Apport : Documente "bassin haut" et "genou avant élevé" comme indicateurs
+         mesurables à l'œil nu lors de l'observation terrain (hauteur du
+         genou dépassant la hanche = critère observable sans matériel).
+Statut : à valider par l'équipe avant intégration
+[FIN ENRICHISSEMENT]
+
+
+────────────────────────────────────────────────────────────────────
+OBSERVABLE OBS-04 — MAINTIEN DE L'EFFORT / FINISH (70–100m)
+────────────────────────────────────────────────────────────────────
+Dimension observée : technique · décisionnelle
+Source             : Analyse_Ref_Sprint_01_ADP2026 — Section A
+                     N1·C1 "Maintient l'effort jusqu'au franchissement
+                     de la ligne d'arrivée sans ralentir" /
+                     N2·C1 "Maintenir sa vitesse en utilisant des repères
+                     internes (relâchement, rythme)" /
+                     Section E Fiche terrain — Phase Maintien/Finish (70–100m)
+
+DEGRÉ 1 — [Inférence — terme qualitatif absent du référentiel]
+  Conduite typique      : Ralentissement visible avant la ligne, abandon du sprint
+  Hypothèse explicative : "Ce comportement traduit le fait que l'élève
+                           n'a pas mobilisé de stratégie de gestion de l'effort ;
+                           la décroissance de vitesse est subie et non gérée."
+  Procédure saisie DI   : Entourer A · OU écrire observation : ___________
+
+DEGRÉ 2 — [Inférence — terme qualitatif absent du référentiel]
+  Conduite typique      : Finish irrégulier selon les essais, effort non maintenu
+  Hypothèse explicative : "Ce comportement traduit le fait que l'élève
+                           maintient parfois l'effort mais sans repère
+                           interne stable ; la gestion du finish dépend
+                           des conditions du moment et non d'une stratégie."
+  Procédure saisie DI   : Entourer B · OU écrire observation : ___________
+
+DEGRÉ 3 — "Maintient l'effort jusqu'au franchissement de la ligne
+            d'arrivée sans ralentir" (N1)
+           "Maintenir sa vitesse en utilisant des repères internes
+            (relâchement, rythme)" (N2)
+  Conduite typique      : Allure stable jusqu'à la ligne, pas de ralentissement
+  Hypothèse explicative : "Ce comportement traduit le fait que l'élève
+                           a construit des repères internes (relâchement,
+                           rythme) qui lui permettent de réguler activement
+                           son effort dans la dernière phase de course."
+  Procédure saisie DI   : Entourer C · OU écrire observation : ___________
+
+
+────────────────────────────────────────────────────────────────────
+OBSERVABLE OBS-05 — RÉACTION AU SIGNAL ET TEMPS DE DÉPART
+────────────────────────────────────────────────────────────────────
+Dimension observée : technique · décisionnelle
+Source             : Analyse_Ref_Sprint_01_ADP2026 — Section A
+                     N1·C1 Performance chronométrée — "Réaction au signal
+                     du starter (déclenchement visuel)" / "Réagit rapidement
+                     au signal" /
+                     N1·C2 "Réagir rapidement au signal du starter pour
+                     initier la course" (référentiel PDF original)
+                     Section E Fiche terrain — Phase Réaction/Départ
+
+DEGRÉ 1 — [Inférence — terme qualitatif absent du référentiel]
+  Conduite typique      : Réaction lente, anticipation du signal ou faux départ
+  Hypothèse explicative : "Ce comportement traduit le fait que l'élève
+                           n'a pas automatisé le traitement du signal sonore/
+                           visuel ; son attention est mal focalisée ou
+                           sa posture de départ ne permet pas une mise en
+                           action immédiate."
+  Procédure saisie DI   : Entourer A · OU écrire fréquence (nb faux départs) : ___
+
+DEGRÉ 2 — [Inférence — terme qualitatif absent du référentiel]
+  Conduite typique      : Réaction correcte mais départ hésitant ou mal orienté
+  Hypothèse explicative : "Ce comportement traduit le fait que l'élève
+                           détecte le signal mais que la coordination
+                           réaction/impulsion n'est pas encore fluide ;
+                           le premier appui n'est pas actif."
+  Procédure saisie DI   : Entourer B · OU écrire observation : ___________
+
+DEGRÉ 3 — "Réagit rapidement au signal" (N1)
+           "Réaction au signal" — indicateur de la phase départ (N1·N2)
+  Conduite typique      : Mise en action immédiate, premier appui actif et orienté
+  Hypothèse explicative : "Ce comportement traduit le fait que l'élève
+                           a automatisé le couplage signal → impulsion ;
+                           le temps de réaction est court et la première
+                           foulée est efficace dès le départ."
+  Procédure saisie DI   : Entourer C · OU chronomètre réaction (si dispo) : ___s
+
+
+────────────────────────────────────────────────────────────────────
+OBSERVABLE OBS-06 — RÔLE D'OBSERVATEUR ET DE CHRONOMÉTREUR
+────────────────────────────────────────────────────────────────────
+Dimension observée : décisionnelle · sociale
+Source             : Analyse_Ref_Sprint_01_ADP2026 — Section A
+                     N1·C3 Rôles sociaux — "Communiquer des résultats
+                     fiables, précis et clairs" / "Se montrer responsable
+                     des tâches simples confiées" /
+                     N2·C3 Rôles sociaux élargis — "Chronométrer de façon
+                     précise (à 1/10e près)" / "Repérer et observer les
+                     actions dans les différentes phases de course" /
+                     Section B Spécificités — Rôles sociaux
+
+DEGRÉ 1 — [Inférence — terme qualitatif absent du référentiel]
+  Conduite typique      : Chrono mal déclenché, résultats non communiqués
+  Hypothèse explicative : "Ce comportement traduit le fait que l'élève
+                           n'a pas intégré les repères de déclenchement
+                           (signal visuel) et d'arrêt (ligne d'arrivée) ;
+                           la tâche de chronométreur est traitée comme
+                           secondaire ou incomprise."
+  Procédure saisie DI   : Entourer A · OU noter erreurs observées : ___________
+
+DEGRÉ 2 — [Inférence — terme qualitatif absent du référentiel]
+  Conduite typique      : Chrono correct, mais observables non identifiés
+  Hypothèse explicative : "Ce comportement traduit le fait que l'élève
+                           maîtrise le chronométrage de base mais ne sait
+                           pas encore focaliser son attention sur les
+                           critères techniques du coureur observé."
+  Procédure saisie DI   : Entourer B · OU noter observables repérés : ___________
+
+DEGRÉ 3 — "Communiquer des résultats fiables, précis et clairs" (N1)
+           "Se montrer responsable des tâches simples confiées" (N1)
+           "Chronométrer de façon précise (à 1/10e près)" (N2)
+           "Repérer et observer les actions dans les différentes
+            phases de course" (N2)
+  Conduite typique      : Chrono fiable, observables communiqués au coureur
+  Hypothèse explicative : "Ce comportement traduit le fait que l'élève
+                           a construit une double attention — gestion
+                           du chronomètre ET observation technique —
+                           et s'investit dans le rôle social pour faire
+                           progresser ses camarades."
+  Procédure saisie DI   : Entourer C · OU noter retour donné au coureur : _______
+
+
+══════════════════════════════════════════════════════════════════════
+SECTION COMPLÉMENTAIRE — DONNÉES À RENSEIGNER APRÈS TD1
+══════════════════════════════════════════════════════════════════════
+
+Ces champs sont à compléter depuis synthese_TD1_sprint_SPR.txt — Section 2 et 3
+dès que le fichier est disponible :
+
+  Niveau scolaire de la classe          : ____________________
+  Niveau de contenu identifié (N1/N2/N3): ____________________
+  Conduites majoritaires observées      : ____________________
+  Écart stade/conduites détecté         : OUI · NON
+  Si OUI — signal à intégrer            : ____________________
+  Observable(s) à ajuster selon conduites: ____________________
+  Distance retenue pour le DI           : ______ m (N1 : 30–60 m / N2 : 60–100 m)
+  Nombre d'essais prévu par séance      : ______ (recommandé : 2 à 3)
+  Barème genré applicable               : OUI · NON · à vérifier référentiel académique
+
+
+══════════════════════════════════════════════════════════════════════
+BILAN D'ENRICHISSEMENT
+══════════════════════════════════════════════════════════════════════
+Compléments proposés    : 2
+  → OBS-01 : Hanon, C. · L'entraînement du sprinter · INSEP · 2008
+  → OBS-03 : Mero, Komi, Gregor · Biomechanics of sprint running · Sports Med. · 1992
+Compléments à valider   : 2
+URLs non vérifiables    : 1 (INSEP — catalogue interne non indexé publiquement)
+URLs vérifiables        : 1 (Mero et al. — lien Springer Direct fourni)
+
+NOTE CRITIQUE SUR LES ENRICHISSEMENTS :
+Les deux enrichissements proposés appuient des observables déjà présents
+dans le référentiel (angle de départ, hauteur du genou). Ils n'ajoutent
+pas de nouveaux critères mais fournissent une justification scientifique
+exploitable dans un rapport de TD ou un mémoire CRMEF.
+
+
+══════════════════════════════════════════════════════════════════════
+SOURCES DOCUMENTAIRES
+══════════════════════════════════════════════════════════════════════
+Source n°1 : Planificateur de Cycle EPS v5 — BOUARGANE
+             CRMEF Inezgane · 2025/2026
+             Logique : conduites typiques → OE → objectif → indicateur
+             Statut  : non disponible en fichier joint — logique appliquée
+                       par transfert méthodologique
+
+Source n°2 : Analyse_Ref_Sprint_01_ADP2026.docx — joint ✓
+             Termes exacts N1/N2 · Indicateurs · Spécificités APS
+             Sections utilisées : A (critères/degrés), B (spécificités),
+             D (termes absents), E (fiche terrain)
+
+Source n°3 : synthese_TD1_sprint_SPR.txt — ABSENT ✗
+             Conduites observées · Niveau de contenu · Écart stade
+             → Champs marqués "non disponible" — à renseigner après TD1
+
+══════════════════════════════════════════════════════════════════════
+AVERTISSEMENTS FINAUX
+══════════════════════════════════════════════════════════════════════
+① Les DEGRÉS 1 et 2 de tous les observables sont des INFÉRENCES.
+  Le référentiel fourni ne contient aucun descripteur qualitatif gradué
+  pour ces degrés. Seuls les termes DEGRÉ 3 entre guillemets sont des
+  citations exactes du référentiel officiel.
+
+② Cette grille est un outil de DIAGNOSTIC (DI) — pas de notation /20.
+  Elle produit un PROFIL DE CLASSE, pas un classement individuel.
+
+③ Distance à adapter au niveau de contenu identifié en TD1 :
+  N1 → 30 à 60 m · N2 → 60 à 100 m (départ debout ou semi-accroupi
+  uniquement au collège — blocs réservés au lycée N3).
+
+④ À valider par l'équipe enseignante EPS avant tout usage terrain.
+
+Projet DI-SPRINT · SPR · ADP 2026 · CRMEF Inezgane · BOUARGANE
+Grille Diagnostique v1 — générée en MODE 1 ANALYSE FIDÈLE

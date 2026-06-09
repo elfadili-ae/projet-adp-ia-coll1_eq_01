@@ -1,0 +1,436 @@
+══════════════════════════════════════════════════════════════════════
+GRILLE DIAGNOSTIQUE FINALE — SPRINT — coll1_eq01
+ADP 2026 — CRMEF Inezgane — BOUARGANE
+Type              : DI — Diagnostique Initial · Pas de note /20
+APS               : Sprint · Famille : Athlétisme
+Code projet       : coll1_eq01 · DI-SPR
+Niveau scolaire   : Collège
+Niveau de contenu : N1 · N2 · N3 (hétérogénéité observée)
+Volume cycle      : 10 séances
+Formateur         : BOUARGANE
+══════════════════════════════════════════════════════════════════════
+
+NOTE DE CONSTRUCTION :
+Ce document intègre :
+  · grille_v1_sprint_di.txt (Source n°2) — 6 observables de base
+  · ADP2026_DI_SPRINT_COLL1_EQ1.xlsx (Source n°3) — 4 observables
+    retenus par l'équipe + procédure confirmée + simulation validée
+L'équipe a convergé sur 4 observables terrain lors du remplissage
+du fichier Excel. La grille finale respecte ce choix.
+Les termes entre guillemets sont des citations exactes du référentiel.
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 1 — TABLEAU DES CODES COMPORTEMENTAUX
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Convention couleurs (pour mise en forme fiche imprimée) :
+  Degré A → fond #FCEBEB · Arial Bold ≥ 14pt  [rouge clair]
+  Degré B → fond #FAEEDA · Arial Bold ≥ 14pt  [amber clair]
+  Degré C → fond #EAF3DE · Arial Bold ≥ 14pt  [vert clair]
+
+Lisibilité cible : 2 caractères MAX · visible à 50 cm · stylo noir
+
+
+──────────────────────────────────────────────────────────────────────
+OBS-01 — RÉACTION AU SIGNAL DE DÉPART
+  Dimension : technique · décisionnelle
+  Source    : grille_v1 OBS-05 + Excel feuille OBSERVABLES + CODES
+              Terme exact : "Réagit rapidement au signal" (N1·C1)
+              Contrainte terrain confirmée : "observer dès le signal"
+──────────────────────────────────────────────────────────────────────
+
+  Degré A [#FCEBEB] : RT  ·  Réagit tardivement après le signal
+  Degré B [#FAEEDA] : RH  ·  Réagit correctement mais hésite encore
+  Degré C [#EAF3DE] : RP  ·  Réagit vite et pousse vers l'avant
+
+  Justification codes :
+    RT = Réaction Tardive   → conduite dominante Degré A
+    RH = Réaction Hésitante → conduite dominante Degré B
+    RP = Réaction+Poussée   → conduite dominante Degré C
+    Codes distincts · 2 caractères · lisibles à 50 cm ✓
+
+
+──────────────────────────────────────────────────────────────────────
+OBS-02 — INCLINAISON ET REDRESSEMENT (0–30m)
+  Dimension : technique
+  Source    : grille_v1 OBS-02 + Excel feuille OBSERVABLES + CODES
+              Termes exacts : "inclinaison du buste" (N1·C2)
+              "inclinaison décroissante · foulées d'amplitude croissante" (N2·C2)
+              Contrainte terrain confirmée : "observer les 10 premiers mètres"
+──────────────────────────────────────────────────────────────────────
+
+  Degré A [#FCEBEB] : ID  ·  Se redresse immédiatement après le départ
+  Degré B [#FAEEDA] : IP  ·  Inclinaison partielle puis redressement précoce
+  Degré C [#EAF3DE] : IM  ·  Inclinaison maintenue jusqu'à 20–30 m
+
+  Justification codes :
+    ID = Inclinaison Directement perdue → conduite dominante Degré A
+    IP = Inclinaison Partielle          → conduite dominante Degré B
+    IM = Inclinaison Maintenue          → conduite dominante Degré C
+    Codes distincts · 2 caractères · lisibles à 50 cm ✓
+
+
+──────────────────────────────────────────────────────────────────────
+OBS-03 — MAINTIEN DE L'EFFORT JUSQU'AU FINISH (70–100m)
+  Dimension : technique · décisionnelle
+  Source    : grille_v1 OBS-04 + Excel feuille OBSERVABLES + CODES
+              Terme exact : "Maintient l'effort jusqu'au franchissement
+              de la ligne d'arrivée sans ralentir" (N1·C1)
+              Contrainte terrain confirmée : "observer la fin de course"
+──────────────────────────────────────────────────────────────────────
+
+  Degré A [#FCEBEB] : RA  ·  Ralentit avant la ligne d'arrivée
+  Degré B [#FAEEDA] : MD  ·  Maintien partiel avec légère décelération
+  Degré C [#EAF3DE] : FA  ·  Finish actif sans ralentissement
+
+  Justification codes :
+    RA = Ralentissement Avant ligne → conduite dominante Degré A
+    MD = Maintien avec Décélération → conduite dominante Degré B
+    FA = Finish Actif               → conduite dominante Degré C
+    Codes distincts · 2 caractères · lisibles à 50 cm ✓
+
+
+──────────────────────────────────────────────────────────────────────
+OBS-04 — PERFORMANCE (TEMPS RÉALISÉ)
+  Dimension : technique · mesurable
+  Source    : grille_v1 OBS-05 (chrono) + Excel feuille OBSERVABLES + CODES
+              Terme exact : barème chiffré — "temps mesuré au chronomètre
+              au franchissement de la ligne d'arrivée" (N1·C1)
+              Type donnée : CHRONO (Écrire le temps) + Entourer degré
+              Contrainte terrain confirmée : "chronométrage individuel précis"
+              Format STRICT : 10"2 (dixièmes) · jamais 10.2 ni 10,2
+──────────────────────────────────────────────────────────────────────
+
+  Degré A [#FCEBEB] : TE  ·  Temps élevé — arrive nettement après les autres
+  Degré B [#FAEEDA] : TI  ·  Temps intermédiaire — groupe médian
+  Degré C [#EAF3DE] : TF  ·  Temps faible — parmi les premiers
+
+  Justification codes :
+    TE = Temps Élevé        → conduite dominante Degré A
+    TI = Temps Intermédiaire → conduite dominante Degré B
+    TF = Temps Faible       → conduite dominante Degré C
+    Codes distincts · 2 caractères · lisibles à 50 cm ✓
+    NOTE : Pour OBS-04 — ÉCRIRE le chrono EN PREMIER au format 10"2
+           PUIS entourer le code TE · TI · TF correspondant.
+           Durée max : 10 sec/passage (confirmé équipe Excel).
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚑ PAUSE INTERACTIVE — PROCÉDURE DE SAISIE TERRAIN
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+"Pour votre APS (sprint · Athlétisme) · nous recommandons :
+
+  OBS-01 · OBS-02 · OBS-03 :
+  → ENTOURER directement le code comportemental (RT · RH · RP
+    ou ID · IP · IM ou RA · MD · FA)
+  → Durée maximale : 5 secondes par passage
+
+  OBS-04 (Performance) :
+  → ÉCRIRE le chrono au format STRICT : 10"2
+    (secondes et dixièmes → ex. : 9"4 · 11"7 · 12"0)
+  → PUIS entourer le code correspondant (TE · TI · TF)
+  → Durée maximale : 10 secondes par passage
+
+  Ordre de saisie : ordre de passage · un élève après l'autre
+  En cas de doute : case vide + '?' · jamais inventer
+
+Confirmez-vous cette procédure ou signalez une contrainte terrain ?"
+
+──────────────────────────────────────────────────────────────────────
+RÉPONSE INTÉGRÉE depuis fichier Excel — feuille PROCÉDURE SAISIE :
+  OBS-01 : Confirmé · Contrainte : "observer dès le signal"
+  OBS-02 : Confirmé · Contrainte : "observer les 10 premiers mètres"
+  OBS-03 : Confirmé · Contrainte : "observer la fin de course"
+  OBS-04 : Confirmé · Contrainte : "chronométrage individuel précis"
+  → Procédure validée par l'équipe · intégrée ci-dessous ✓
+──────────────────────────────────────────────────────────────────────
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 2 — PROCÉDURE DE SAISIE TERRAIN NORMÉE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Famille APS       : Athlétisme
+APS               : Sprint
+
+OBS-01 — Réaction au signal de départ
+  Geste normé     : Entourer le code
+  Codes           : RT · RH · RP
+  Durée max/élève : 5 secondes
+  Moment obs.     : Dès le signal · premières foulées
+  Contrainte      : Observer dès le signal (confirmé équipe)
+
+OBS-02 — Inclinaison et redressement
+  Geste normé     : Entourer le code
+  Codes           : ID · IP · IM
+  Durée max/élève : 5 secondes
+  Moment obs.     : 0–10 premiers mètres
+  Contrainte      : Observer les 10 premiers mètres (confirmé équipe)
+
+OBS-03 — Maintien de l'effort jusqu'au finish
+  Geste normé     : Entourer le code
+  Codes           : RA · MD · FA
+  Durée max/élève : 5 secondes
+  Moment obs.     : Phase finale · 70–100m
+  Contrainte      : Observer la fin de course (confirmé équipe)
+
+OBS-04 — Performance (temps réalisé)
+  Geste normé     : Écrire chrono PUIS entourer code
+  Format          : 10"2  (dixièmes · jamais virgule ni point)
+  Codes           : TE · TI · TF
+  Durée max/élève : 10 secondes
+  Moment obs.     : Franchissement ligne d'arrivée
+  Contrainte      : Chronométrage individuel précis (confirmé équipe)
+
+Ordre de saisie   : Ordre de passage · un élève après l'autre
+Doute             : Case vide + "?" · jamais inventer
+Stylo             : Noir uniquement · pas de crayon
+Confirmé par      : Équipe coll1_eq01 (données Excel ADP2026)
+Date validation   : 05/08/2026
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 3 — RÈGLES TRANSVERSALES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+RÈGLE 1 : 1 seul code par case · jamais 2
+           → Si hésitation entre RT et RH : entourer 1 seul · noter "?" à côté
+RÈGLE 2 : Doute → case vide + "?" · jamais inventer
+           → Un "?" tracé en 1 seconde vaut mieux qu'un code faux
+RÈGLE 3 : Code dominant = ce qui est vu EN PREMIER
+           → Premier regard = donnée · ne pas revenir en arrière
+RÈGLE 4 : Stylo noir uniquement · pas de crayon
+           → Règle absolue · lisibilité de la fiche garantie
+RÈGLE 5 : Format temps STRICT → 10"2 · jamais 10.2 · jamais 10,2
+           → Le guillemet simple " marque les secondes et dixièmes
+RÈGLE 6 : Tester avant séance → 3 élèves · 2 minutes · ajuster
+           → Simulation validée OUI (feuille TEST SIMULATION Excel ✓)
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION 4 — GRILLE COMPLÈTE ASSEMBLÉE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+══════════════════════════════════════════════════════════════════════
+GRILLE DIAGNOSTIQUE SPRINT — coll1_eq01 — VERSION TERRAIN
+ADP 2026 · CRMEF Inezgane · BOUARGANE · Pas de note /20
+══════════════════════════════════════════════════════════════════════
+
+────────────────────────────────────────────────────────────────────
+OBS-01 — RÉACTION AU SIGNAL DE DÉPART
+Dimension : technique · décisionnelle
+Moment d'observation : dès le signal sonore · premières foulées
+Source : "Réagit rapidement au signal" — N1·C1 référentiel
+────────────────────────────────────────────────────────────────────
+
+DEGRÉ A [RT] — Inférence construite depuis capacités N1
+  Conduite typique     : Réagit tardivement après le signal
+  Hypothèse explicative: "Ce comportement traduit le fait que l'élève
+                          n'a pas automatisé le traitement du signal ;
+                          son attention est mal focalisée ou sa posture
+                          ne permet pas une mise en action immédiate."
+  Procédure terrain    : Entourer RT · 5 sec max
+
+DEGRÉ B [RH] — Inférence construite depuis capacités N1
+  Conduite typique     : Réagit correctement mais hésite encore
+  Hypothèse explicative: "Ce comportement traduit le fait que l'élève
+                          détecte le signal mais que la coordination
+                          réaction/impulsion n'est pas encore fluide ;
+                          le premier appui n'est pas actif."
+  Procédure terrain    : Entourer RH · 5 sec max
+
+DEGRÉ C [RP] — "Réagit rapidement au signal" (N1·C1)
+  Conduite typique     : Réagit vite et pousse vers l'avant
+  Hypothèse explicative: "Ce comportement traduit le fait que l'élève
+                          a automatisé le couplage signal → impulsion ;
+                          le temps de réaction est court et la première
+                          foulée est efficace dès le départ."
+  Procédure terrain    : Entourer RP · 5 sec max
+
+
+────────────────────────────────────────────────────────────────────
+OBS-02 — INCLINAISON ET REDRESSEMENT (0–30m)
+Dimension : technique
+Moment d'observation : 0 à 10 premiers mètres après le départ
+Source : "inclinaison du buste" N1·C2 · "inclinaison décroissante
+          et foulées d'amplitude croissante" N2·C2 référentiel
+────────────────────────────────────────────────────────────────────
+
+DEGRÉ A [ID] — Inférence construite depuis capacités N1·N2
+  Conduite typique     : Se redresse immédiatement après le départ
+  Hypothèse explicative: "Ce comportement traduit le fait que l'élève
+                          se redresse dès les premières foulées, perdant
+                          la poussée horizontale ; il n'a pas construit
+                          le schéma d'accélération progressive."
+  Procédure terrain    : Entourer ID · 5 sec max
+
+DEGRÉ B [IP] — Inférence construite depuis capacités N1·N2
+  Conduite typique     : Inclinaison partielle puis redressement précoce
+  Hypothèse explicative: "Ce comportement traduit le fait que l'élève
+                          amorce l'inclinaison mais ne dispose pas encore
+                          des ressources pour la maintenir sur 20–30m ;
+                          la représentation kinesthésique est en cours."
+  Procédure terrain    : Entourer IP · 5 sec max
+
+DEGRÉ C [IM] — "Construire une accélération progressive avec
+                inclinaison décroissante et foulées d'amplitude
+                croissante" (N2·C1)
+  Conduite typique     : Inclinaison maintenue jusqu'à 20–30 m
+  Hypothèse explicative: "Ce comportement traduit le fait que l'élève
+                          a intégré le lien entre inclinaison du tronc
+                          et production de force horizontale ; la montée
+                          progressive vers l'attitude haute est construite."
+  Procédure terrain    : Entourer IM · 5 sec max
+
+
+────────────────────────────────────────────────────────────────────
+OBS-03 — MAINTIEN DE L'EFFORT JUSQU'AU FINISH (70–100m)
+Dimension : technique · décisionnelle
+Moment d'observation : phase finale de course · ligne d'arrivée
+Source : "Maintient l'effort jusqu'au franchissement de la ligne
+          d'arrivée sans ralentir" — N1·C1 référentiel
+────────────────────────────────────────────────────────────────────
+
+DEGRÉ A [RA] — Inférence construite depuis capacités N1
+  Conduite typique     : Ralentit avant la ligne d'arrivée
+  Hypothèse explicative: "Ce comportement traduit le fait que l'élève
+                          n'a pas mobilisé de stratégie de gestion de
+                          l'effort ; la décroissance de vitesse est
+                          subie et non gérée."
+  Procédure terrain    : Entourer RA · 5 sec max
+
+DEGRÉ B [MD] — Inférence construite depuis capacités N1·N2
+  Conduite typique     : Maintien partiel avec légère décelération
+  Hypothèse explicative: "Ce comportement traduit le fait que l'élève
+                          maintient l'effort mais sans repère interne
+                          stable ; la gestion du finish dépend des
+                          conditions du moment et non d'une stratégie."
+  Procédure terrain    : Entourer MD · 5 sec max
+
+DEGRÉ C [FA] — "Maintient l'effort jusqu'au franchissement de la
+                ligne d'arrivée sans ralentir" (N1·C1)
+               "Maintenir sa vitesse en utilisant des repères internes
+                (relâchement, rythme)" (N2·C1)
+  Conduite typique     : Finish actif sans ralentissement
+  Hypothèse explicative: "Ce comportement traduit le fait que l'élève
+                          a construit des repères internes qui lui
+                          permettent de réguler activement son effort
+                          dans la dernière phase de course."
+  Procédure terrain    : Entourer FA · 5 sec max
+
+
+────────────────────────────────────────────────────────────────────
+OBS-04 — PERFORMANCE — TEMPS RÉALISÉ
+Dimension : technique · mesurable
+Moment d'observation : franchissement de la ligne d'arrivée
+Source : "temps mesuré au chronomètre au franchissement de la
+          ligne d'arrivée" — N1·C1 référentiel
+⚠ Observable chrono : ÉCRIRE le temps EN PREMIER · PUIS entourer
+────────────────────────────────────────────────────────────────────
+
+DEGRÉ A [TE] — Inférence construite depuis conduites observées
+  Conduite typique     : Arrive nettement après les autres élèves
+  Hypothèse explicative: "Ce comportement traduit le fait que l'élève
+                          ne mobilise pas encore les ressources de la
+                          filière anaérobie alactique de façon optimale ;
+                          le temps reflète une performance nettement
+                          en-deçà de la moyenne de classe."
+  Procédure terrain    : Écrire ___"__ PUIS entourer TE · 10 sec max
+
+DEGRÉ B [TI] — Inférence construite depuis conduites observées
+  Conduite typique     : Arrive dans le groupe intermédiaire
+  Hypothèse explicative: "Ce comportement traduit le fait que l'élève
+                          produit une performance dans la moyenne de
+                          classe ; les ressources sont exploitées mais
+                          pas encore de façon optimale."
+  Procédure terrain    : Écrire ___"__ PUIS entourer TI · 10 sec max
+
+DEGRÉ C [TF] — "Réaliser la meilleure performance possible" (N1·CA)
+               "Exploiter les ressources de la filière anaérobie
+                alactique en optimisant la récupération" (N2·C1)
+  Conduite typique     : Arrive parmi les premiers — temps faible
+  Hypothèse explicative: "Ce comportement traduit le fait que l'élève
+                          mobilise efficacement ses ressources sur la
+                          durée du sprint ; le temps traduit une
+                          exploitation optimale de la filière alactique."
+  Procédure terrain    : Écrire ___"__ PUIS entourer TF · 10 sec max
+
+
+══════════════════════════════════════════════════════════════════════
+SECTION DONNÉES À COMPLÉTER EN SÉANCE DI
+══════════════════════════════════════════════════════════════════════
+
+Distance retenue pour le DI      : ______ m
+Nombre d'essais par séance       : ______ (recommandé : 2 à 3)
+Barème genré                     : OUI · NON · à vérifier
+Écart stade/conduites            : OUI · NON
+Signal écart si OUI              : ______________________________
+Date de la séance DI             : ______________________________
+Enseignant observateur           : ______________________________
+Nombre d'élèves observés         : ______________________________
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SECTION F — CRITIQUE IA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Les codes sont-ils lisibles à 50cm sur fiche imprimée ?
+  OUI — 2 caractères majuscules · Arial Bold ≥ 14pt · fond coloré
+  La combinaison couleur fond + code 2 lettres garantit la lecture
+  à distance sans confusion entre observables.
+
+La procédure de saisie est-elle fluide < 5 sec/élève ?
+  OUI pour OBS-01/02/03 (entourer unique · 5 sec confirmé équipe).
+  OBS-04 : 10 sec/passage (2 gestes : écrire + entourer) — conforme
+  à la norme Athlétisme du fichier Excel (feuille PROCÉDURE SAISIE).
+
+La pause interactive a-t-elle bien eu lieu ?
+  OUI — présentée en SECTION 1 fin. Réponse intégrée depuis les
+  données de confirmation du fichier Excel (feuille PROCÉDURE SAISIE
+  + feuille TEST SIMULATION). La pause est documentée et tracée.
+
+Contrainte terrain signalée par l'équipe ?
+  OUI — 4 contraintes distinctes confirmées dans fichier Excel :
+  OBS-01 : "observer dès le signal"
+  OBS-02 : "observer les 10 premiers mètres"
+  OBS-03 : "observer la fin de course"
+  OBS-04 : "chronométrage individuel précis"
+
+Combien d'itérations ? Quelle composante [1-8] déterminante ?
+  1 itération principale.
+  Composante [3] TÂCHE — les 4 étapes séquentielles ont structuré
+  la production (codes → pause → confirmation → assemblage).
+  Composante [5] CONTRAINTES — "2 caractères MAX" a guidé la
+  conception des codes (RT/RH/RP vs codes génériques A-/B~/C+).
+  Alerte qualité : les codes A-·B~·C+ du fichier Excel étaient
+  IDENTIQUES pour tous les observables → non conformes à la règle
+  "codes distincts pour chaque observable". Remplacés par codes
+  spécifiques OBS-01(RT·RH·RP) · OBS-02(ID·IP·IM) ·
+  OBS-03(RA·MD·FA) · OBS-04(TE·TI·TF).
+
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+SOURCES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Source n°1 : Planificateur de Cycle EPS v5 — BOUARGANE
+             CRMEF Inezgane · 2025/2026
+             Logique : conduites → OE → objectif → indicateur
+
+Source n°2 : grille_v1_sprint_di.txt — joint ✓
+             6 observables de base · conduites typiques · hypothèses
+
+Source n°3 : ADP2026_DI_SPRINT_COLL1_EQ1.xlsx — joint ✓
+             Feuilles exploitées :
+             · IDENTITÉ → niveau scolaire · conduites observées
+             · OBSERVABLES + CODES → 4 observables retenus · codes initiaux
+             · PROCÉDURE SAISIE → confirmations + contraintes terrain
+             · TEST SIMULATION → validation OUI sur 3 profils fictifs
+
+══════════════════════════════════════════════════════════════════════
+FIN — grille_sprint_coll1_eq01.txt · VERSION FINALE
+À déposer sur GitHub · À joindre à la clôture TD1
+ADP 2026 · CRMEF Inezgane · BOUARGANE
+══════════════════════════════════════════════════════════════════════

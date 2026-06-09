@@ -1,0 +1,385 @@
+═══════════════════════════════════════════════════════════════════════
+RÉFÉRENTIEL — Sprint — coll1_eq01 — SECTION AXES PRIORITAIRES
+ADP 2026 — CRMEF Inezgane — Section EPS — BOUARGANE
+APS                              : Sprint
+Niveau scolaire (arrière-plan)   : Collège — 4ème / 3ème
+Conduites observées              : Hétérogénéité marquée — codes
+                                   dominants RT, ID, RA (Degré A) et
+                                   RH, IP, MD (Degré B) sur les 4
+                                   observables · TF minoritaire
+Niveau de contenu identifié      : 2
+Écart stade/conduites            : OUI
+Volume cycle                     : 10 séances
+Mode d'entrée                    : A — fichier joint
+Source primaire                  : ressources_sprint_coll1_eq01.txt
+Source TD1                       : mémoire de conversation (P1 P2 P3 P4)
+═══════════════════════════════════════════════════════════════════════
+
+
+SIGNAL DIDACTIQUE (écart OUI)
+──────────────────────────────
+Signal lu depuis ressources S1 :
+Les conduites A et B sont largement dominantes chez des élèves de
+4ème/3ème, stade pour lequel un niveau de contenu N2 est attendu
+comme arrière-plan. Or la majorité de la classe présente des
+capacités N1 absentes ou en construction, avec une minorité
+d'élèves atteignant le Degré C (N2).
+
+Impact sur les axes proposés :
+L'écart stade/conduites impose de ne pas présupposer les acquis N1.
+L'Axe 1 doit consolider les fondamentaux N1 absents avant d'ouvrir
+vers N2. La différenciation est un impératif dès la séance 2 :
+les élèves Degré C ne peuvent pas attendre la majorité A/B sans
+horizon de progression (N3 comme horizon). Les axes 1 et 2
+s'adressent à toute la classe avec des points d'entrée différenciés,
+pas à des groupes séparés.
+
+
+CORRESPONDANCE EDUSCOL — GRILLE
+─────────────────────────────────
+Lue depuis ressources_sprint_coll1_eq01.txt Section 2.
+Non reconstruite.
+
+Degré A ←→ Eduscol N1 (bas) : 3 capacités · 3 absentes
+           N1-1 (filière alactique) · N1-2 (position départ) · N1-3
+           (réaction signal)
+
+Degré B ←→ Eduscol N1 (haut) : 4 capacités · 4 partielles
+           N1-4 (accélération progressive) · N1-5 (attitude vitesse
+           max) · N1-6 (maintien effort) · N1-7 (analyser ses actions)
+
+Degré C ←→ Eduscol N2 : 6 capacités cibles du cycle
+           N2-1 à N2-6 — accessibles si N1 stabilisé
+
+Horizon lycée ←→ Eduscol N3 : 6 capacités — élèves déjà en Degré C
+           N3-1 à N3-6 — horizon au-delà du cycle
+
+Lacune dominante retenue (depuis ressources S4) :
+N1-4 — Produire une accélération progressive sur les 20–30 premiers
+mètres (inclinaison, poussée active, montée de genou)
+Codes dominants : ID (Degré A · OBS-02) · IP (Degré B · OBS-02)
+Degrés concernés : A et B — les deux
+
+
+PARTIE A — GRAPHE DE DÉPENDANCES
+──────────────────────────────────
+Construit à partir de ressources S2 · S3 · S4.
+Capacités numérotées reprises telles qu'elles figurent
+dans ressources_sprint_coll1_eq01.txt Section 3.
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Capacité N2-1 · Exploiter les ressources de la filière anaérobie
+alactique en optimisant la récupération entre les essais
+  Prérequis nécessaire : N1-1 · Utiliser et mobiliser les ressources
+                          de la filière anaérobie alactique
+  Prérequis nécessaire : N1-7 · Analyser l'efficacité de ses actions
+                          à partir de son temps et des observations
+  Degré concerné       : A (absent · code TE) · B (partiel · code TI)
+  Code grille associé  : TE — Temps Élevé (Degré A) ·
+                          TI — Temps Intermédiaire (Degré B)
+  Conditionne          : N2-6 (projet de course personnel)
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Capacité N2-2 · Adopter une position de départ en fente basse et
+produire une poussée puissante orientée vers l'avant
+  Prérequis nécessaire : N1-2 · Adopter une position de départ
+                          efficace (pieds décalés · poids avant ·
+                          regard arrivée)
+  Prérequis nécessaire : N1-3 · Réagir rapidement au signal du
+                          starter pour initier la course
+  Degré concerné       : A (absent · code RT) · B (partiel · code RH)
+  Code grille associé  : RT — Réaction Tardive (Degré A) ·
+                          RH — Réaction Hésitante (Degré B)
+  Conditionne          : N2-3 (accélération progressive)
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Capacité N2-3 · Construire une accélération progressive avec
+inclinaison décroissante et foulées d'amplitude croissante
+  Prérequis nécessaire : N1-4 · Produire une accélération progressive
+                          sur les 20–30 premiers mètres (inclinaison ·
+                          poussée active · montée de genou)
+  Degré concerné       : A (absent · code ID) · B (partiel · code IP)
+  Code grille associé  : ID — Inclinaison Directement perdue (Degré A)
+                          IP — Inclinaison Partielle (Degré B)
+  Conditionne          : N2-4 (attitude vitesse maximale)
+  Note                 : CAPACITÉ CIBLE PRIORITAIRE — prérequis de N2-4
+                          Accessible si élève produit une inclinaison
+                          sur au moins 10 m (Degré B IP stabilisé)
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Capacité N2-4 · Adopter une attitude de course optimale en vitesse
+maximale : corps vertical, bassin haut, genou avant élevé,
+bras coordonnés
+  Prérequis nécessaire : N1-4 · Produire une accélération progressive
+                          (inclinaison · poussée · genou)
+  Prérequis nécessaire : N1-5 · Adopter et maintenir une attitude
+                          haute en phase de vitesse maximale
+  Degré concerné       : A et B · observable non isolé ·
+                          inférable depuis OBS-02 codes ID et IP
+  Code grille associé  : ID (Degré A · OBS-02) · IP (Degré B · OBS-02)
+  Conditionne          : N3-2 (attitude efficiente) · N3-4 (posture
+                          vitesse max lycée) — horizon élèves Degré C
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Capacité N2-5 · Maintenir sa vitesse en utilisant des repères
+internes (relâchement, rythme) dans la dernière partie de course
+  Prérequis nécessaire : N1-6 · Maintenir l'effort jusqu'au
+                          franchissement de la ligne d'arrivée
+                          sans ralentir
+  Degré concerné       : A (absent · code RA) · B (partiel · code MD)
+  Code grille associé  : RA — Ralentissement Avant ligne (Degré A) ·
+                          MD — Maintien avec Décelération (Degré B)
+  Conditionne          : N2-6 (projet de course) · N3-5 (gestion
+                          respiratoire — horizon lycée)
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+Capacité N2-6 · Mettre en relation les performances, les sensations
+et les observations pour construire un projet de course personnel
+  Prérequis nécessaire : N1-7 · Analyser l'efficacité de ses actions
+                          à partir de son temps et des observations
+  Degré concerné       : transversal · lié à OBS-04 et rôles sociaux
+  Code grille associé  : TI (Degré B · OBS-04) · TF (Degré C · OBS-04)
+  Conditionne          : N3-1 (gestion ressources lycée) · N3-6
+                          (récupération adaptée lycée)
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+PRÉREQUIS CLÉ IDENTIFIÉ
+────────────────────────
+Prérequis           : N1-4 · Produire une accélération progressive
+                      sur les 20–30 premiers mètres (inclinaison ·
+                      poussée active · montée de genou)
+Degré concerné      : A (absent) et B (partiel) — les deux
+Code grille associé : ID — Inclinaison Directement perdue (Degré A)
+                      IP — Inclinaison Partielle (Degré B)
+Conditionne         : 3 capacités sur 6 capacités cibles N2
+                      N2-3 (accélération décroissante) directement
+                      N2-4 (attitude vitesse max) par chaîne N2-3
+                      N2-5 (repères internes finish) indirectement
+Conclusion          : N1-4 est l'objet d'ancrage prioritaire du cycle.
+                      Sans inclinaison construite en accélération,
+                      la moitié de la chaîne N2 reste inaccessible.
+                      C'est le point d'entrée de l'Axe 1 pour toute
+                      la classe — avec des degrés d'exigence
+                      différenciés selon A · B · C.
+
+[ENRICHISSEMENT — source externe]
+Données complémentaires sur le prérequis N1-4 en Sprint :
+Source  : Delecluse, C. · Influence of strength training on sprint
+          running performance · Sports Medicine · 1997
+URL     : https://link.springer.com/article/10.2165/00007256-199724300-00004
+Apport  : Documente que l'absence d'inclinaison chez le débutant
+          relève d'un déficit de représentation kinesthésique et non
+          d'une limitation physique. Oriente vers des tâches de prise
+          de conscience posturale (repères visuels · guidage · appuis
+          actifs) plutôt que vers du renforcement musculaire en
+          contexte scolaire. Validé pour justifier les contenus
+          d'enseignement de l'Axe 1.
+Statut  : à valider par l'équipe avant intégration
+[FIN ENRICHISSEMENT]
+
+
+PARTIE B — AXES DE CONTENU PROPOSÉS
+─────────────────────────────────────
+Déduits du graphe · classés par impact sur la progression N1 → N2.
+Ancrés sur la lacune dominante N1-4 identifiée en ressources S4.
+3 axes pour 10 séances — volume suffisant pour les trois.
+
+
+AXE 1 — Priorité haute
+───────────────────────
+Contenu        : Construire l'inclinaison du buste en phase
+                 d'accélération et ancrer la poussée horizontale
+                 sur les 0–30 premiers mètres
+Cible          : Progression des Degrés A et B vers N1-4 — produire
+                 une accélération progressive (inclinaison · poussée
+                 active · montée de genou) — prérequis de N2-3
+Justification  : Lacune dominante N1-4 identifiée en ressources S4.
+                 Codes ID (Degré A · OBS-02) et IP (Degré B · OBS-02)
+                 dominants sur l'ensemble de la classe. L'inclinaison
+                 absente ou précocement perdue bloque directement N2-3
+                 et N2-4. C'est la lacune la plus structurante du cycle.
+Prérequis      : N1-2 · position de départ efficace (pieds décalés ·
+                 poids avant) — à consolider comme point d'entrée
+                 dans les premières séances
+Impact         : N2-3 directement débloquée · N2-4 conditionnée ·
+                 N2-5 indirectement accessible — soit 3 capacités
+                 cibles N2 sur 6
+Signal stade   : Écart OUI — des élèves de 4ème/3ème présentent
+                 N1-4 absente (code ID dominant). L'enseignant ne
+                 présuppose pas l'acquis N1-2 : la posture de départ
+                 est réintroduite explicitement avant l'inclinaison.
+Source         : ressources_sprint_coll1_eq01.txt S4 (lacune N1-4 ·
+                 conduites 3 et 4) · S3 (N1-4 · prérequis de N2-3 et
+                 N2-4) · mémoire P3 (codes ID · IP · OBS-02)
+
+[ENRICHISSEMENT — source externe]
+Complément sur cet axe en Sprint :
+Source  : Delecluse, C. · Influence of strength training on sprint
+          running performance · Sports Medicine · 1997
+URL     : https://link.springer.com/article/10.2165/00007256-199724300-00004
+Apport  : Confirme que les tâches de prise de conscience posturale
+          (repères visuels · lignes tracées au sol · plots d'appui)
+          sont plus efficaces que le renforcement musculaire pour
+          construire l'inclinaison chez le débutant scolaire.
+          Oriente directement les choix de situations pour l'Axe 1.
+Statut  : à valider par l'équipe avant intégration
+[FIN ENRICHISSEMENT]
+
+
+AXE 2 — Priorité moyenne
+─────────────────────────
+Contenu        : Stabiliser le maintien de l'effort jusqu'à la ligne
+                 et construire les premiers repères internes
+                 (relâchement · rythme de foulée)
+Cible          : Progression des Degrés A et B vers N1-6 — maintenir
+                 l'effort sans ralentir — prérequis de N2-5
+Justification  : Conduites RA (Degré A · OBS-03) et MD (Degré B ·
+                 OBS-03) identifiées en ressources S4 (conduites 5 et
+                 6). N1-6 absente chez A · en construction chez B.
+                 La gestion du finish est la deuxième lacune la plus
+                 fréquente après N1-4 · elle bloque N2-5 et
+                 indirectement N2-6.
+Prérequis      : N1-6 · maintenir l'effort jusqu'à la ligne ·
+                 capacité en construction chez B et absente chez A
+Impact         : N2-5 débloquée (repères internes relâchement /
+                 rythme) · N2-6 conditionnellement accessible ·
+                 N3-5 comme horizon pour les élèves Degré C
+Signal stade   : Écart OUI — la décelération avant la ligne (RA)
+                 est une conduite de débutant persistante chez des
+                 élèves de 4ème/3ème. Elle ne disparaît pas sans
+                 travail explicite sur la représentation de la ligne
+                 comme prolongement de l'effort, pas comme fin de
+                 l'effort. L'axe 2 traite cette représentation.
+Source         : ressources_sprint_coll1_eq01.txt S4 (conduites 5
+                 et 6 · lacunes N1-6) · S3 (N1-6 · prérequis de
+                 N2-5) · mémoire P3 (codes RA · MD · OBS-03)
+
+[ENRICHISSEMENT — source externe]
+Complément sur cet axe en Sprint :
+Source  : Mero, A., Komi, P.V., Gregor, R.J. · Biomechanics of sprint
+          running — a review · Sports Medicine · 1992
+URL     : https://link.springer.com/article/10.2165/00007256-199213060-00002
+Apport  : Documente que le relâchement musculaire en phase de maintien
+          (70–100m) est un critère observable à l'œil nu (hauteur du
+          bassin · fréquence de foulée stable) — permet de construire
+          des repères d'observation pour l'élève-observateur et de
+          calibrer les indicateurs de N2-5 sans matériel spécialisé.
+Statut  : à valider par l'équipe avant intégration
+[FIN ENRICHISSEMENT]
+
+
+AXE 3 — Consolidation (volume 10 séances — axe recommandé)
+────────────────────────────────────────────────────────────
+Contenu        : Construire la réaction vive au signal et la poussée
+                 orientée dès le départ — et ouvrir vers N2 pour les
+                 élèves dont N1-4 et N1-6 sont stabilisées
+Cible          : Progression des Degrés A et B vers N1-3 (réaction)
+                 et N1-2 (départ orienté) · accès Degré B aux premières
+                 capacités N2 · horizon N3 pour les élèves Degré C
+Justification  : Conduites RT (Degré A · OBS-01) et RH (Degré B ·
+                 OBS-01) identifiées en ressources S4 (conduites 1 et
+                 2). N1-3 absente chez A · en construction chez B.
+                 N1-2 partiellement acquise. Ces deux capacités
+                 conditionnent N2-2 (fente basse + poussée orientée).
+                 L'Axe 3 consolide les acquis des axes 1 et 2 et
+                 ouvre vers N2 pour la frange B stabilisée.
+Prérequis      : N1-4 (stabilisée par Axe 1) · N1-6 (stabilisée par
+                 Axe 2) · N1-2 et N1-3 traitées ici comme cibles
+Impact         : N2-2 débloquée (poussée puissante orientée) ·
+                 N2-3 renforcée · N2-6 conditionnellement accessible
+                 pour les degrés B avancés · N3-3 comme horizon pour
+                 les élèves Degré C
+Signal stade   : Écart OUI — l'absence de réaction vive (RT dominant)
+                 chez des élèves de 4ème/3ème indique que la
+                 coordination signal → impulsion n'est pas automatisée.
+                 L'Axe 3 ne peut être efficace que si N1-4 et N1-6
+                 sont au moins partiellement stabilisées (séances 5–6).
+                 Prévoir d'introduire l'Axe 3 en deuxième moitié de
+                 cycle.
+Note volume    : Volume 10 séances — Axe 3 recommandé · introduire
+                 à partir de la séance 6 après consolidation axes 1 et
+                 2 (séances 2–5)
+Source         : ressources_sprint_coll1_eq01.txt S4 (conduites 1 et
+                 2 · lacunes N1-3 · N1-2) · S3 (N1-2 · N1-3 ·
+                 prérequis de N2-2) · mémoire P3 (codes RT · RH ·
+                 OBS-01)
+
+[ENRICHISSEMENT — source externe]
+Complément sur cet axe en Sprint :
+Source  : Hanon, C. · L'entraînement du sprinter · INSEP · 2008
+URL     : https://www.insep.fr (catalogue publications — non indexé
+          publiquement)
+Apport  : Fournit les repères biomécaniques observables à l'œil nu
+          pour la coordination signal → impulsion (temps de réaction
+          < 0,15 s en contexte scolaire non équipé) et les gammes
+          athlétiques recommandées pour construire N1-3 et N2-2 chez
+          les collégiens (démarrages progressifs · talons-fesses ·
+          montées de genou en accélération).
+Statut  : à valider par l'équipe avant intégration
+[FIN ENRICHISSEMENT]
+
+
+PARTIE C — BILAN D'ENRICHISSEMENT
+───────────────────────────────────
+Enrichissements repris depuis ressources_sprint_coll1_eq01.txt :
+  3 proposés en ressources (S2, S3, S4)
+  3 repris ici — 0 rejeté
+  Détail :
+  · Hanon/INSEP 2008 → repris en Axe 3 (gammes · repères N1-3)
+  · Mero et al. 1992 → repris en Axe 2 (relâchement · N2-5)
+  · Delecluse 1997   → repris en Prérequis clé + Axe 1 (N1-4)
+
+Nouveaux compléments proposés ici : 0
+
+Compléments à valider : 3 (repris depuis ressources)
+
+Sources non vérifiables détectées :
+  1 · Hanon/INSEP 2008 — URL catalogue interne non indexé
+      publiquement · vérification manuelle recommandée
+
+Recommandation :
+  Priorité 1 — Vérifier Delecluse 1997 (URL Springer · accès direct)
+               Apport le plus décisif pour l'Axe 1 · orient les
+               choix de situations d'apprentissage
+  Priorité 2 — Vérifier Mero et al. 1992 (URL Springer · accès direct)
+               Apport utile pour calibrer les indicateurs observables
+               de l'Axe 2 (N2-5 · relâchement)
+  Priorité 3 — Hanon/INSEP 2008 — contacter la bibliothèque INSEP
+               ou chercher via Google Scholar
+               (Hanon · sprint · INSEP · 2008)
+
+
+⚑ POINT DE DÉCISION ENSEIGNANT
+────────────────────────────────
+Les axes ci-dessus sont des propositions fondées sur
+ressources_sprint_coll1_eq01.txt et les données TD1 disponibles
+en mémoire de conversation (P1 P2 P3 P4).
+Avant de passer à la planification du cycle :
+
+Validez, ajustez ou complétez ces axes.
+
+Format de confirmation attendu par le formateur :
+"Axes retenus — Sprint — coll1_eq01 — [date] :
+ Axe 1 : [intitulé confirmé ou modifié]
+ Axe 2 : [intitulé confirmé ou modifié]
+ Axe 3 : [retenu · supprimé · modifié]
+ Mode d'entrée utilisé : A
+ Enrichissements intégrés : [N intégrés · N rejetés]"
+
+═══════════════════════════════════════════════════════════════════════
+FIN — SECTION AXES PRIORITAIRES
+referentiel_sprint_coll1_eq01.txt
+À soumettre au formateur avant prompt 1bis-B
+Source primaire : ressources_sprint_coll1_eq01.txt
+ADP 2026 · CRMEF Inezgane · BOUARGANE
+Logique de scénarisation : Planificateur de Cycle EPS v5
+BOUARGANE · CRMEF Inezgane · 2025/2026
+═══════════════════════════════════════════════════════════════════════

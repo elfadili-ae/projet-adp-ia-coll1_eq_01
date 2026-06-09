@@ -1,0 +1,62 @@
+══════════════════════════════════════════════════════════════════════
+TABLEAU CODES COMPORTEMENTAUX — SPRINT — coll1_eq01
+ADP 2026 · CRMEF Inezgane · BOUARGANE
+Fichier : codes_sprint_coll1_eq01.txt
+Usage   : extraction pour outil HTML · fiche terrain imprimée
+══════════════════════════════════════════════════════════════════════
+
+Convention couleurs HTML :
+  Degré A → background-color: #FCEBEB · font: Arial Bold ≥ 14pt
+  Degré B → background-color: #FAEEDA · font: Arial Bold ≥ 14pt
+  Degré C → background-color: #EAF3DE · font: Arial Bold ≥ 14pt
+
+──────────────────────────────────────────────────────────────────────
+OBS  | INTITULÉ                          | A [#FCEBEB] | B [#FAEEDA] | C [#EAF3DE]
+─────|───────────────────────────────────|─────────────|─────────────|─────────────
+01   | Réaction au signal de départ      | RT          | RH          | RP
+02   | Inclinaison et redressement       | ID          | IP          | IM
+03   | Maintien de l'effort / Finish     | RA          | MD          | FA
+04   | Performance (temps réalisé)       | TE          | TI          | TF
+──────────────────────────────────────────────────────────────────────
+
+LIBELLÉS COMPLETS :
+
+OBS-01 :
+  RT = Réaction Tardive    · Réagit tardivement après le signal
+  RH = Réaction Hésitante  · Réagit correctement mais hésite encore
+  RP = Réaction+Poussée    · Réagit vite et pousse vers l'avant
+
+OBS-02 :
+  ID = Inclinaison Directement perdue  · Se redresse immédiatement
+  IP = Inclinaison Partielle           · Inclinaison puis redressement précoce
+  IM = Inclinaison Maintenue           · Inclinaison maintenue jusqu'à 20–30m
+
+OBS-03 :
+  RA = Ralentissement Avant ligne  · Ralentit avant la ligne d'arrivée
+  MD = Maintien avec Décélération  · Maintien partiel avec légère décelération
+  FA = Finish Actif                · Finish actif sans ralentissement
+
+OBS-04 :
+  TE = Temps Élevé          · Arrive nettement après les autres
+  TI = Temps Intermédiaire  · Arrive dans le groupe médian
+  TF = Temps Faible         · Arrive parmi les premiers
+
+──────────────────────────────────────────────────────────────────────
+PROCÉDURE SAISIE RÉSUMÉE (pour intégration outil HTML) :
+
+OBS-01 → ENTOURER RT / RH / RP · 5 sec max · dès le signal
+OBS-02 → ENTOURER ID / IP / IM · 5 sec max · 0–10 premiers mètres
+OBS-03 → ENTOURER RA / MD / FA · 5 sec max · fin de course
+OBS-04 → ÉCRIRE __"__ PUIS ENTOURER TE / TI / TF · 10 sec max
+──────────────────────────────────────────────────────────────────────
+
+RÈGLES FLASH (affichage outil HTML) :
+  R1 · 1 code/case · jamais 2
+  R2 · Doute → vide + "?"
+  R3 · Code dominant = vu EN PREMIER
+  R4 · Stylo noir · pas de crayon
+  R5 · Chrono : 10"2 uniquement
+
+══════════════════════════════════════════════════════════════════════
+FIN — codes_sprint_coll1_eq01.txt
+══════════════════════════════════════════════════════════════════════

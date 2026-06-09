@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>Fiche Terrain DI — Sprint — coll1_eq01</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600;700&family=IBM+Plex+Sans+Condensed:wght@400;600;700&display=swap');
+
+  :root {
+    --ink:    #1a1a1a;
+    --mid:    #555;
+    --soft:   #999;
+    --line:   #d8d8d8;
+    --page:   #ffffff;
+    --bg:     #e0e0e0;
+    --head:   #f4f4f4;
+    --stripe: #f9f9f9;
+
+    --A-bg:  #FCEBEB; --A-brd: #c93333; --A-txt: #a02020;
+    --B-bg:  #FAEEDA; --B-brd: #b07800; --B-txt: #8a5c00;
+    --C-bg:  #EAF3DE; --C-brd: #3a7a10; --C-txt: #2a5c08;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'IBM Plex Sans Condensed', sans-serif;
+    background: var(--bg);
+    display: flex; flex-direction: column; align-items: center;
+    padding: 18px; gap: 12px;
+  }
+
+  /* Controls */
+  .controls {
+    width: 210mm; background: #fff; border: 1px solid #bbb;
+    padding: 8px 14px; display: flex; align-items: center; gap: 10px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600;
+    flex-wrap: wrap;
+  }
+  .controls span { color: var(--mid); flex: 1; }
+  .controls button {
+    background: #333; color: #fff; border: none; padding: 6px 14px;
+    cursor: pointer; font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .controls button:hover { background: #555; }
+  .pill { background: #f2f2f2; border: 1px solid #ccc; padding: 2px 8px; font-size: 10px; }
+  @media print { .controls { display: none !important; } }
+
+  /* A4 Page */
+  .page {
+    width: 210mm; min-height: 297mm;
+    background: var(--page); padding: 6mm 7mm 5mm 7mm;
+    display: flex; flex-direction: column; gap: 3px;
+    border: 1px solid #bbb;
+  }
+  @page { size: A4 portrait; margin: 0; }
+  @media print {
+    body { background: none; padding: 0; }
+    .page { border: none; }
+  }
+
+  /* Header */
+  .header {
+    background: var(--head);
+    border: 1px solid var(--line);
+    border-bottom: 2px solid var(--ink);
+    padding: 4px 8px;
+    display: grid; grid-template-columns: 1fr auto 1fr;
+    align-items: center; margin-bottom: 3px;
+  }
+  .h-left {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 6.5px; font-weight: 600; color: var(--soft);
+    letter-spacing: 0.06em; line-height: 1.7;
+  }
+  .h-center { text-align: center; }
+  .h-aps {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 19px; font-weight: 700; letter-spacing: 0.22em; color: var(--ink);
+  }
+  .h-type {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 7.5px; letter-spacing: 0.16em; color: var(--soft);
+  }
+  .h-right {
+    text-align: right; font-family: 'IBM Plex Mono', monospace;
+    font-size: 7.5px; font-weight: 600; color: var(--mid); line-height: 1.7;
+  }
+  .fl { display: inline-block; border-bottom: 1px solid var(--ink); min-width: 26mm; margin-left: 3px; }
+
+  /* Meta */
+  .meta { display: grid; grid-template-columns: repeat(5,1fr); gap: 3px; margin-bottom: 3px; }
+  .mc { border: 1px solid var(--line); padding: 2px 4px; background: var(--head); }
+  .mc label {
+    font-size: 6px; font-weight: 700; letter-spacing: 0.13em;
+    text-transform: uppercase; color: var(--soft); display: block; margin-bottom: 1px;
+  }
+  .mc .mv {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px; font-weight: 600; color: var(--ink);
+    border-bottom: 1px solid var(--line); min-height: 12px;
+  }
+
+  /* ── UNIFIED HEADER TABLE ── */
+  /* One <table> acts as both obs-band + abc-sub-header merged */
+  .hdr-table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1.5px solid var(--ink);
+    border-bottom: none;
+  }
+  .hdr-table th {
+    border: 1px solid var(--line);
+    padding: 0;
+    vertical-align: middle;
+    background: var(--head);
+  }
+  /* Name column header — spans 2 rows */
+  .th-name {
+    width: 46mm;
+    border-right: 1.5px solid var(--ink) !important;
+    padding: 4px 6px !important;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 8px; font-weight: 700; color: var(--mid);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    text-align: left;
+  }
+  /* OBS column group header */
+  .th-obs-group {
+    width: 20%;
+    text-align: center;
+    border-bottom: 1px solid var(--line) !important;
+    border-right: 1.5px solid var(--ink) !important;
+    padding: 3px 4px !important;
+  }
+  .th-obs-group:last-child { border-right: 1px solid var(--line) !important; }
+  .th-obs-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 6.5px; font-weight: 700; color: var(--soft);
+    letter-spacing: 0.1em; display: block; margin-bottom: 1px;
+  }
+  
+  .th-obs-name {
+    font-size: 8.5px; font-weight: 700; color: var(--ink); display: block; line-height: 1.3;
+  }
+  .th-obs-moment {
+    font-size: 6px; color: var(--soft); font-style: italic;
+    display: block; margin-top: 1px;
+  }
+  /* ABC sub-row cells */
+  .th-abc {
+    text-align: center; padding: 2px 0 !important;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 9.5px; font-weight: 700;
+    border-right: 1px dotted var(--line) !important;
+  }
+  .th-abc:last-child { border-right: 1px solid var(--line) !important; }
+  .th-abc.last-obs { border-right: 1.5px solid var(--ink) !important; }
+  .th-abc-perf {
+    text-align: center; padding: 2px 4px !important;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 7px; font-weight: 600; color: var(--soft);
+  }
+  .abc-A { background: var(--A-bg); color: var(--A-txt); }
+  .abc-B { background: var(--B-bg); color: var(--B-txt); }
+  .abc-C { background: var(--C-bg); color: var(--C-txt); }
+  .abc-perf { background: #f0f0f0; color: var(--soft); }
+
+  /* ── MAIN TABLE ── */
+  .t { width: 100%; border-collapse: collapse; border: 1.5px solid var(--ink); }
+  .t tr:nth-child(even) td { background: var(--stripe); }
+  .t tr:nth-child(odd)  td { background: var(--page); }
+  .t td { border: 1px solid var(--line); padding: 0; height: 17px; vertical-align: middle; }
+
+  /* Name cell */
+  .td-n {
+   /* width: 46mm; padding: 1px 5px;*/
+    font-size: 8.5px; font-weight: 600; color: var(--ink);
+    border-right: 1.5px solid var(--ink) !important;
+  }
+
+  .th-name,
+.td-n,
+.td-obs {
+    width: 20%;
+}
+  .n-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 7.5px; font-weight: 700; color: var(--soft); margin-right: 3px;
+  }
+  .n-fill {
+    display: inline-block; border-bottom: 1px solid var(--line);
+    min-width: 30mm; height: 10px;
+  }
+
+  /* OBS cells */
+  .td-obs { padding: 0; border-right: 1.5px solid var(--ink) !important; }
+  .td-obs:last-child { border-right: 1px solid var(--line) !important; }
+  .td-obs-inner { display: grid; grid-template-columns: repeat(3,1fr); height: 17px; }
+  .td-obs.perf .td-obs-inner { grid-template-columns: 1fr; }
+
+  .abc-slot {
+    display: flex; align-items: center; justify-content: center;
+    height: 17px; border-right: 1px dotted var(--line);
+  }
+  .abc-slot:last-child { border-right: none; }
+
+  /* Circle to encircle */
+  .circ {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 13px; height: 13px;
+    font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 700;
+  }
+  .circ-A { border-color: var(--A-brd); color: var(--A-txt); }
+  .circ-B { border-color: var(--B-brd); color: var(--B-txt); }
+  .circ-C { border-color: var(--C-brd); color: var(--C-txt); }
+
+  /* Perf cell */
+  .perf-slot {
+    display: flex; align-items: center; justify-content: center;
+    height: 17px; gap: 2px;
+  }
+  .perf-line {
+    display: inline-block; border-bottom: 0px solid var(--ink);
+    width: 20mm; height: 12px;
+  }
+  .perf-unit { font-family:'IBM Plex Mono',monospace; font-size:8px; color:var(--soft); }
+
+  /* Note row */
+  .tr-note td {
+    background: #f7f7f7 !important; border-top: 1px dashed var(--line) !important;
+    padding: 2px 6px; font-size: 7px; color: var(--soft);
+    font-style: italic; font-family: 'IBM Plex Mono', monospace;
+  }
+
+  /* Rules */
+  .rules {
+    display: grid; grid-template-columns: repeat(6,1fr); gap: 3px; margin-top: 3px;
+  }
+  .rc {
+    border: 1px solid var(--line); padding: 2px 4px;
+    display: flex; align-items: flex-start; gap: 3px; background: #fafafa;
+  }
+  .rn {
+    font-family: 'IBM Plex Mono', monospace; font-size: 8.5px; font-weight: 700;
+    color: var(--mid); background: var(--head); border: 1px solid var(--line);
+    width: 13px; height: 13px; display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .rt { font-size: 7px; font-weight: 600; color: var(--mid); line-height: 1.4; }
+  .rt strong { font-size: 7.5px; font-family:'IBM Plex Mono',monospace; display:block; margin-bottom:1px; color:var(--ink); }
+
+  /* CSV bar */
+  .csvbar {
+    border: 1px solid var(--line); background: #f7f7f7;
+    padding: 3px 8px; display: flex; align-items: center;
+    gap: 6px; flex-wrap: wrap; margin-top: 3px;
+  }
+  .csvbar-title { font-family:'IBM Plex Mono',monospace; font-size:7px; font-weight:700; color:var(--soft); letter-spacing:0.12em; text-transform:uppercase; flex-shrink:0; }
+  .csvcol { font-family:'IBM Plex Mono',monospace; font-size:7.5px; font-weight:700; color:var(--ink); background:#ebebeb; border:1px solid var(--line); padding:1px 5px; }
+  .csvsep { color:var(--soft); font-family:'IBM Plex Mono',monospace; font-size:9px; }
+  .csvex { font-family:'IBM Plex Mono',monospace; font-size:7.5px; color:var(--C-txt); margin-left:4px; }
+  .csvsepbar { width:1px; height:10px; background:var(--line); flex-shrink:0; }
+
+  /* Page footer */
+  .pf {
+    display:flex; justify-content:space-between; align-items:center;
+    border-top:1px solid var(--line); padding-top:2px; margin-top:2px;
+  }
+  .pf span { font-family:'IBM Plex Mono',monospace; font-size:6px; color:var(--soft); font-weight:600; letter-spacing:0.07em; }
+
+  @media print {
+    .controls {
+        display: none !important;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="controls">
+  <span>◈ FICHE TERRAIN A4 — SPRINT DI — coll1_eq01 · v3</span>
+  <button onclick="window.print()">⎙ IMPRIMER / PDF</button>
+  <div class="pill">A4 Portrait</div>
+  <div class="pill">Stylo NOIR</div>
+  <div class="pill">35 élèves · OCR/CSV</div>
+</div>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="h-left">ADP 2026 · CRMEF INEZGANE<br> Section EPS<br>Code : coll1_eq01</div>
+    <div class="h-center">
+      <div class="h-aps">SPRINT</div>
+      <div class="h-type">DIAGNOSTIQUE INITIAL</div>
+    </div>
+    <div class="h-right">
+      Classe :<span class="fl"></span><br>
+      Date :<span class="fl"></span><br>
+      Distance :<span class="fl" style="min-width:10mm;"></span> m
+    </div>
+  </div>
+
+  <!-- META -->
+  <div class="meta">
+    <div class="mc"><label>Enseignant</label><div class="mv"></div></div>
+    <div class="mc"><label>Niveau scolaire</label><div class="mv"></div></div>
+    <div class="mc"><label>Nb élèves</label><div class="mv"></div></div>
+    <div class="mc"><label>Essai n°</label><div class="mv">① &nbsp; ② &nbsp; ③</div></div>
+    <div class="mc"><label>Écart stade / conduites</label><div class="mv">OUI &nbsp;&nbsp;&nbsp; NON</div></div>
+  </div>
+
+  <!-- UNIFIED HEADER TABLE (obs + ABC merged, no separate legend) -->
+  <table class="hdr-table">
+    <thead>
+      <!-- Row 1: OBS group names -->
+      <tr>
+        <th class="th-name" rowspan="2">N° · Nom / Prénom</th>
+        <th class="th-obs-group">
+          <span class="th-obs-num">OBS-01</span>
+          <span class="th-obs-name">Réaction au signal</span>
+          <span class="th-obs-moment">dès le signal · 1ères foulées</span>
+        </th>
+        <th class="th-obs-group">
+          <span class="th-obs-num">OBS-02</span>
+          <span class="th-obs-name">Inclinaison / Redressement</span>
+          <span class="th-obs-moment">0–10 premiers mètres</span>
+        </th>
+        <th class="th-obs-group">
+          <span class="th-obs-num">OBS-03</span>
+          <span class="th-obs-name">Maintien effort / Finish</span>
+          <span class="th-obs-moment">fin de course · 70–100 m</span>
+        </th>
+        <th class="th-obs-group">
+          <span class="th-obs-num">OBS-04</span>
+          <span class="th-obs-name">Performance</span>
+          <span class="th-obs-moment">temps réalisé · 10"2</span>
+        </th>
+      </tr>
+    </thead>
+  </table>
+
+  <!-- MAIN TABLE -->
+  <table class="t">
+    <tbody>
+      <tr>
+        <td class="td-n"><span class="n-num">1.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">2.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">3.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">4.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">5.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">6.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">7.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">8.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">9.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">10.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">11.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">12.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">13.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">14.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">15.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">16.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">17.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">18.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">19.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">20.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">21.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">22.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">23.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">24.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">25.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">26.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">27.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">28.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">29.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">30.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">31.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">32.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">33.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">34.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <tr>
+        <td class="td-n"><span class="n-num">35.</span><span class="n-fill"></span></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="circ circ-A">A</div></div>
+          <div class="abc-slot"><div class="circ circ-B">B</div></div>
+          <div class="abc-slot"><div class="circ circ-C">C</div></div>
+        </div></td>
+        <td class="td-obs perf"><div class="td-obs-inner">
+          <div class="abc-slot"><div class="perf-slot"><span class="perf-line"></span><span class="perf-unit">"</span></div></div>
+        </div></td>
+      </tr>
+      <!-- NOTES ROW -->
+      <tr class="tr-note">
+        <td colspan="5" style="padding:2px 6px;">
+          Remarques : _________________________________________ &nbsp;&nbsp; Profil dominant : &nbsp; A &nbsp;&nbsp; B &nbsp;&nbsp; C
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- RULES -->
+  <div class="rules">
+    <div class="rc"><div class="rn">1</div><div class="rt"><strong>1 CODE / CASE</strong>Entourer A, B ou C uniquement</div></div>
+    <div class="rc"><div class="rn">2</div><div class="rt"><strong>DOUTE → ?</strong>Laisser vide + écrire "?" · jamais inventer</div></div>
+    <div class="rc"><div class="rn">3</div><div class="rt"><strong>VU EN PREMIER</strong>Code dominant = 1ère impression</div></div>
+    <div class="rc"><div class="rn">4</div><div class="rt"><strong>STYLO NOIR</strong>Uniquement · pas de crayon</div></div>
+    <div class="rc"><div class="rn">5</div><div class="rt"><strong>CHRONO : 10"2</strong>Guillemet seul · pas de virgule</div></div>
+    <div class="rc"><div class="rn">6</div><div class="rt"><strong>TEST AVANT</strong>3 élèves · 2 min · ajuster</div></div>
+  </div>
+
+  <!-- CSV BAR -->
+  <div class="csvbar">
+    <div class="csvbar-title">CSV :</div>
+    <div class="csvcol">nom</div><div class="csvsep">,</div>
+    <div class="csvcol">obs01</div><div class="csvsep">,</div>
+    <div class="csvcol">obs02</div><div class="csvsep">,</div>
+    <div class="csvcol">obs03</div><div class="csvsep">,</div>
+    <div class="csvcol">obs04</div>
+    <div class="csvsepbar"></div>
+    <div class="csvex">ex : Alaoui Mohamed,B,C,A,9"4</div>
+    <div class="csvsepbar"></div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:7px;color:#aaa;">
+      obs01–03 : A | B | C &nbsp;·&nbsp; obs04 : temps réalisé format 10"2
+    </div>
+  </div>
+
+  <!-- PAGE FOOTER -->
+  <div class="pf">
+    <span>DI-SPRINT · coll1_eq01 · ADP 2026 · CRMEF INEZGANE</span>
+    <span>PAS DE NOTE /20 · PROFIL DE CLASSE UNIQUEMENT</span>
+    <span>grille_sprint_coll1_eq01 · v3</span>
+  </div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,585 @@
+══════════════════════════════════════════════════════════════════════
+RESSOURCES DIDACTIQUES — Sprint — coll1_eq01
+ADP 2026 — CRMEF Inezgane — Section EPS — BOUARGANE
+Ressource d'entrée pour le prompt 1bis-A
+══════════════════════════════════════════════════════════════════════
+
+
+SECTION 1 — IDENTITÉ ET NIVEAU
+────────────────────────────────
+APS                            : Sprint
+Code projet                    : coll1_eq01
+Volume cycle                   : 10 séances
+Niveau scolaire (arrière-plan) : Collège — tranches 4ème/3ème
+                                  (arrière-plan indicatif — sans
+                                  contrainte sur le niveau de contenu)
+Conduites observées            : Hétérogénéité marquée sur les 4
+                                  observables retenus :
+                                  · OBS-01 Réaction : dominante RT
+                                    (tardive) et RH (hésitante)
+                                  · OBS-02 Inclinaison : dominante ID
+                                    (redressement immédiat) et IP
+                                    (partielle)
+                                  · OBS-03 Finish : dominante RA
+                                    (ralentissement avant ligne) et MD
+                                    (maintien partiel)
+                                  · OBS-04 Performance : répartition
+                                    TE/TI dominante · TF minoritaire
+                                  Source : grille_sprint_coll1_eq01.txt
+                                  — mémoire de conversation (P3)
+Niveau de contenu identifié    : 2
+                                  Justification : conduites majoritaires
+                                  correspondent aux degrés A et B
+                                  (N1 Eduscol partiellement acquis) ;
+                                  quelques élèves atteignent C (N2
+                                  Eduscol accessible) — classe
+                                  hétérogène à ancrage N1 dominant
+Écart stade/conduites          : OUI
+Signal didactique              : La grille en mémoire signale
+                                  « N1 · N2 · N3 (hétérogénéité
+                                  observée) » sans niveau unique
+                                  stabilisé. Conduites A et B
+                                  largement dominantes pour des
+                                  élèves de 4ème/3ème → niveau de
+                                  contenu inférieur au stade attendu
+                                  par tranches de 2 ans.
+                                  Signal : élèves en retard sur les
+                                  capacités N1 malgré un stade scolaire
+                                  N2. Vigilance différenciation requise.
+PDF collège lu                 : pages 1 et 2 (N1 et N2 — Fiches APSA
+                                  Sprint joint à ce message)
+PDF lycée lu                   : page 3 (N3 lycée — même fichier)
+Source données TD1             : mémoire de conversation
+                                  P1 — Grille_DI_Sprint_SPR_v1.txt
+                                       (6 observables · conduites ·
+                                       hypothèses explicatives)
+                                  P2 — Analyse_Ref_Sprint_01_ADP2026.docx
+                                       (termes exacts N1/N2/N3 ·
+                                       indicateurs · spécificités)
+                                  P3 — grille_sprint_coll1_eq01.txt
+                                       (4 observables retenus · codes ·
+                                       procédure validée)
+                                  P4 — codes_sprint_coll1_eq01.txt
+                                       (tableau codes seul · sources)
+
+
+SECTION 2 — CORRESPONDANCE EDUSCOL ←→ GRILLE
+───────────────────────────────────────────────
+[MODE 1 — Depuis PDF joints (N1 et N2) et grille en mémoire (P3)]
+
+Niveau de contenu 2 appliqué :
+  Eduscol N1 ←→ Degrés A et B de la grille
+  Eduscol N2 ←→ Degré C de la grille (cible du cycle)
+  Cible du cycle : progresser de N1 vers N2 pour la majorité
+
+──────────────────────────────────────────────────────────────────────
+Eduscol N1 ←→ Degré A de la grille
+  Capacités extraites du PDF (colonne Capacités — N1 bas) :
+  N1-1 · Utiliser et mobiliser les ressources de la filière
+          anaérobie alactique
+  N1-2 · Adopter une position de départ efficace : pieds décalés,
+          poids du corps vers l'avant, regard vers la ligne d'arrivée
+  N1-3 · Réagir rapidement au signal du starter pour initier la course
+
+  Conduites grille correspondantes (Degré A — depuis P3) :
+  OBS-01 · RT : Réagit tardivement après le signal
+           → N1-3 non acquise
+  OBS-02 · ID : Se redresse immédiatement après le départ
+           → N1-4 non acquise (inclinaison absente)
+  OBS-03 · RA : Ralentit avant la ligne d'arrivée
+           → N1-6 non acquise (maintien absent)
+  OBS-04 · TE : Temps élevé — arrive nettement après les autres
+           → N1-1 non mobilisée
+
+──────────────────────────────────────────────────────────────────────
+Eduscol N1 ←→ Degré B de la grille
+  Capacités extraites du PDF (colonne Capacités — N1 haut) :
+  N1-4 · Produire une accélération progressive sur les 20–30
+          premiers mètres (inclinaison, poussée active, montée
+          de genou)
+  N1-5 · Adopter et maintenir une attitude haute en phase de
+          vitesse maximale : corps vertical, regard devant,
+          bras actifs
+  N1-6 · Maintenir l'effort jusqu'au franchissement de la ligne
+          d'arrivée sans ralentir
+  N1-7 · Analyser l'efficacité de ses actions à partir de son
+          temps et des observations transmises
+
+  Conduites grille correspondantes (Degré B — depuis P3) :
+  OBS-01 · RH : Réagit correctement mais hésite encore
+           → N1-3 partiellement acquise
+  OBS-02 · IP : Inclinaison partielle puis redressement précoce
+           → N1-4 en construction
+  OBS-03 · MD : Maintien partiel avec légère décelération
+           → N1-6 en construction
+  OBS-04 · TI : Temps intermédiaire — groupe médian
+           → N1-1 partiellement mobilisée
+
+──────────────────────────────────────────────────────────────────────
+Eduscol N2 ←→ Degré C de la grille (cible du cycle)
+  Capacités extraites du PDF (colonne Capacités — N2) :
+  N2-1 · Exploiter les ressources de la filière anaérobie alactique
+          en optimisant la récupération entre les essais
+  N2-2 · Adopter une position de départ en fente basse et produire
+          une poussée puissante orientée vers l'avant
+  N2-3 · Construire une accélération progressive avec inclinaison
+          décroissante et foulées d'amplitude croissante
+  N2-4 · Adopter une attitude de course optimale en vitesse
+          maximale : corps vertical, bassin haut, genou avant
+          élevé, bras coordonnés
+  N2-5 · Maintenir sa vitesse en utilisant des repères internes
+          (relâchement, rythme) dans la dernière partie de course
+  N2-6 · Mettre en relation les performances, les sensations et
+          les observations pour construire un projet de course
+          personnel
+
+  Conduites grille correspondantes (Degré C — depuis P3) :
+  OBS-01 · RP : Réagit vite et pousse vers l'avant
+           → N2-2 atteinte (poussée orientée)
+  OBS-02 · IM : Inclinaison maintenue jusqu'à 20–30 m
+           → N2-3 atteinte (inclinaison décroissante)
+  OBS-03 · FA : Finish actif sans ralentissement
+           → N2-5 atteinte (repères internes construits)
+  OBS-04 · TF : Temps faible — parmi les premiers
+           → N2-1 atteinte (récupération optimisée)
+
+──────────────────────────────────────────────────────────────────────
+Eduscol N3 lycée ←→ Horizon au-delà du cycle
+  (pour les élèves déjà en C — minorité détectée en P3)
+  Capacités extraites du PDF (Savoir-faire en action — N3) :
+  N3-1 · Gérer avec efficacité ses ressources pour établir la
+          meilleure performance sur une série de courses avec
+          récupération complète
+  N3-2 · Construire une attitude de course équilibrée et efficiente
+          (épaules basses, bras relâchés, bassin haut) en vitesse
+          maximale
+  N3-3 · Maîtriser la phase d'accélération : sortie basse,
+          inclinaison progressive, foulées d'amplitude croissante
+          sur 25–35 m
+  N3-4 · Adopter la posture de vitesse maximale : corps droit,
+          regard horizontal, genou avant haut, griffé du pied
+          sous le bassin
+  N3-5 · Bien expirer/inspirer de façon rythmée pour gérer la
+          tension musculaire et retarder la fatigue
+  N3-6 · Adapter la récupération (passive ou active) aux efforts
+          effectués et aux effets recherchés
+
+[ENRICHISSEMENT — source externe]
+Complément sur la correspondance référentiel / conduites en Sprint :
+Source  : Hanon, C. · L'entraînement du sprinter · INSEP · 2008
+URL     : https://www.insep.fr (catalogue publications — non indexé
+          publiquement)
+Apport  : Fournit les indicateurs biomécaniques observables à l'œil nu
+          correspondant aux capacités N1-4 et N2-3 (angle
+          d'inclinaison, durée phase accélération) utilisables pour
+          calibrer les degrés A/B/C sans matériel spécialisé.
+Statut  : à valider par l'équipe avant intégration
+[FIN ENRICHISSEMENT]
+
+
+SECTION 3 — ANALYSE DES CAPACITÉS PAR NIVEAU
+───────────────────────────────────────────────
+[MODE 1 — Depuis PDF joints]
+
+CAPACITÉS NIVEAU 1 — 7 capacités extraites
+─────────────────────────────────────────────
+
+N1-1 · Utiliser et mobiliser les ressources de la filière
+        anaérobie alactique
+  Dimension    : physiologique · technique
+  Lien grille  : degré A (TE) et B (TI) · observable OBS-04
+                 conduite associée : temps élevé ou intermédiaire
+                 reflétant une mobilisation incomplète des ressources
+  Statut       : en construction chez majorité · absente chez
+                 élèves TE dominants
+  Prérequis de : N2-1 (optimisation récupération) · N2-6 (projet
+                  de course)
+
+N1-2 · Adopter une position de départ efficace : pieds décalés,
+        poids du corps vers l'avant, regard vers la ligne d'arrivée
+  Dimension    : technique · posturale
+  Lien grille  : degré A (RT) · observable OBS-01
+                 conduite associée : réaction tardive liée en partie
+                 à une posture de départ non orientée vers l'avant
+  Statut       : partiellement acquise (pieds décalés) ·
+                 orientation du poids insuffisante chez degrés A
+  Prérequis de : N2-2 (fente basse + poussée) · N1-3 (réaction)
+
+N1-3 · Réagir rapidement au signal du starter pour initier
+        la course
+  Dimension    : décisionnelle · technique
+  Lien grille  : degré A (RT) et B (RH) · code OBS-01
+                 conduite A : réaction tardive après signal
+                 conduite B : réaction correcte mais hésitante
+  Statut       : absente chez A · en construction chez B
+  Prérequis de : N2-2 (poussée orientée dès le signal)
+
+N1-4 · Produire une accélération progressive sur les 20–30
+        premiers mètres (inclinaison, poussée active, montée
+        de genou)
+  Dimension    : technique · biomécanique
+  Lien grille  : degré A (ID) et B (IP) · code OBS-02
+                 conduite A : redressement immédiat, inclinaison absente
+                 conduite B : inclinaison amorcée, redressement précoce
+  Statut       : absente chez A · en construction chez B ·
+                 LACUNE DOMINANTE identifiée sur l'ensemble
+  Prérequis de : N2-3 (inclinaison décroissante + amplitude croissante)
+                  · N2-4 (attitude vitesse max)
+
+N1-5 · Adopter et maintenir une attitude haute en phase de
+        vitesse maximale : corps vertical, regard devant,
+        bras actifs
+  Dimension    : technique · posturale
+  Lien grille  : degré A et B · observable non isolé en OBS-02
+                 (lié à l'inclinaison — transition accélération→vit.max)
+                 conduite associée : IP et ID entraînent une attitude
+                 non construite en vitesse maximale
+  Statut       : non évaluée isolément dans la grille retenue ·
+                 inférable depuis OBS-02 degrés A et B
+  Prérequis de : N2-4 (attitude optimale vitesse max)
+
+N1-6 · Maintenir l'effort jusqu'au franchissement de la ligne
+        d'arrivée sans ralentir
+  Dimension    : décisionnelle · physiologique
+  Lien grille  : degré A (RA) et B (MD) · code OBS-03
+                 conduite A : ralentissement avant la ligne
+                 conduite B : maintien partiel, décelération légère
+  Statut       : absente chez A · en construction chez B
+  Prérequis de : N2-5 (repères internes relâchement/rythme)
+
+N1-7 · Analyser l'efficacité de ses actions à partir de son
+        temps et des observations transmises
+  Dimension    : décisionnelle · réflexive
+  Lien grille  : transversal · non codé par observable distinct
+                 Lié à OBS-04 (connaissance du temps réalisé)
+                 et aux rôles sociaux (chronométreur/observateur)
+  Statut       : non évaluée isolément dans la grille terrain ·
+                 à intégrer dans les séances de retour d'expérience
+  Prérequis de : N2-6 (projet de course personnel)
+
+
+CAPACITÉS NIVEAU 2 — 6 capacités extraites (cible du cycle)
+─────────────────────────────────────────────────────────────
+
+N2-1 · Exploiter les ressources de la filière anaérobie alactique
+        en optimisant la récupération entre les essais
+  Dimension       : physiologique · stratégique
+  Lien grille     : degré C (TF) · code OBS-04
+                    conduite associée : temps faible · performance
+                    stable entre les essais
+  Prérequis N1    : N1-1 (mobilisation filière) · N1-7 (analyse
+                     de ses actions)
+  Accessible si   : élève a stabilisé N1-1 et comprend l'effet
+                    de la récupération sur la performance
+
+N2-2 · Adopter une position de départ en fente basse et produire
+        une poussée puissante orientée vers l'avant
+  Dimension       : technique · biomécanique
+  Lien grille     : degré C (RP) · code OBS-01
+                    conduite associée : réaction vive + poussée
+                    orientée vers l'avant dès le signal
+  Prérequis N1    : N1-2 (position départ efficace) · N1-3
+                     (réaction au signal)
+  Accessible si   : élève maîtrise l'orientation du centre de
+                    gravité vers l'avant (N1-2 stabilisée)
+
+N2-3 · Construire une accélération progressive avec inclinaison
+        décroissante et foulées d'amplitude croissante
+  Dimension       : technique · biomécanique
+  Lien grille     : degré C (IM) · code OBS-02
+                    conduite associée : inclinaison maintenue
+                    jusqu'à 20–30 m avec amplitude croissante
+  Prérequis N1    : N1-4 (accélération progressive avec inclinaison)
+  Accessible si   : élève produit une inclinaison sur au moins 10 m
+                    (degré B IP stabilisé)
+  ⚠ CAPACITÉ CIBLE PRIORITAIRE — prérequis de N2-4
+
+N2-4 · Adopter une attitude de course optimale en vitesse maximale :
+        corps vertical, bassin haut, genou avant élevé, bras coordonnés
+  Dimension       : technique · biomécanique
+  Lien grille     : degré C (IM→vit.max) · lié à OBS-02 et OBS-03
+  Prérequis N1    : N1-4 (inclinaison) · N1-5 (attitude haute)
+  Accessible si   : N1-5 construite et N2-3 amorcée
+
+N2-5 · Maintenir sa vitesse en utilisant des repères internes
+        (relâchement, rythme) dans la dernière partie de course
+  Dimension       : décisionnelle · proprioceptive
+  Lien grille     : degré C (FA) · code OBS-03
+                    conduite associée : finish actif sans
+                    ralentissement — repères internes opérationnels
+  Prérequis N1    : N1-6 (maintien de l'effort jusqu'à la ligne)
+  Accessible si   : élève a stabilisé N1-6 (degré B MD) et peut
+                    identifier ses sensations de relâchement
+
+N2-6 · Mettre en relation les performances, les sensations et
+        les observations pour construire un projet de course
+        personnel
+  Dimension       : décisionnelle · réflexive
+  Lien grille     : transversal · lié à OBS-04 + rôles sociaux
+  Prérequis N1    : N1-7 (analyser ses actions depuis son temps)
+  Accessible si   : élève connaît ses temps et commence à les
+                    mettre en relation avec ses sensations
+
+
+CAPACITÉS NIVEAU 3 LYCÉE — 6 capacités extraites
+──────────────────────────────────────────────────
+(Horizon au-delà du cycle — pour élèves déjà en Degré C)
+
+N3-1 · Gérer avec efficacité ses ressources pour établir la
+        meilleure performance sur une série de courses avec
+        récupération complète
+  Dimension    : physiologique · stratégique
+  Lien stade   : 1ère · Terminale
+  Prérequis N2 : N2-1 (optimiser récupération) · N2-6 (projet
+                  de course)
+  Signal       : horizon de progression au-delà du cycle
+
+N3-2 · Construire une attitude de course équilibrée et efficiente
+        (épaules basses, bras relâchés, bassin haut) en vitesse
+        maximale
+  Dimension    : technique · biomécanique
+  Lien stade   : 1ère · Terminale
+  Prérequis N2 : N2-4 (attitude optimale vitesse max)
+  Signal       : horizon de progression au-delà du cycle
+
+N3-3 · Maîtriser la phase d'accélération : sortie basse,
+        inclinaison progressive, foulées d'amplitude croissante
+        sur 25–35 m
+  Dimension    : technique · biomécanique
+  Lien stade   : 1ère · Terminale
+  Prérequis N2 : N2-3 (inclinaison décroissante · amplitude
+                  croissante)
+  Signal       : horizon de progression au-delà du cycle
+
+N3-4 · Adopter la posture de vitesse maximale : corps droit,
+        regard horizontal, genou avant haut, griffé du pied
+        sous le bassin
+  Dimension    : technique · biomécanique affinée
+  Lien stade   : 1ère · Terminale
+  Prérequis N2 : N2-4 (attitude optimale) · N2-3 (accélération)
+  Signal       : horizon de progression au-delà du cycle
+
+N3-5 · Bien expirer/inspirer de façon rythmée pour gérer la
+        tension musculaire et retarder la fatigue
+  Dimension    : physiologique · proprioceptive
+  Lien stade   : 1ère · Terminale
+  Prérequis N2 : N2-5 (repères internes relâchement/rythme)
+  Signal       : horizon de progression au-delà du cycle
+
+N3-6 · Adapter la récupération (passive ou active) aux efforts
+        effectués et aux effets recherchés
+  Dimension    : physiologique · stratégique
+  Lien stade   : 1ère · Terminale
+  Prérequis N2 : N2-1 (optimiser récupération) · N2-6 (projet)
+  Signal       : horizon de progression au-delà du cycle
+
+[ENRICHISSEMENT — source externe]
+Données complémentaires sur les capacités N1/N2 en Sprint :
+Source  : Mero, A., Komi, P.V., Gregor, R.J. · Biomechanics of sprint
+          running — a review · Sports Medicine · 1992
+URL     : https://link.springer.com/article/10.2165/00007256-199213060-00002
+Apport  : Documente les indicateurs observables sans matériel pour
+          N1-4 (angle inclinaison > 45° sur 0–20m) et N2-4 (hauteur
+          genou avant dépassant la hanche = critère de vitesse max
+          calibrant le Degré C). Utilisable pour affiner les
+          descripteurs de la grille.
+Statut  : à valider par l'équipe avant intégration
+[FIN ENRICHISSEMENT]
+
+
+SECTION 4 — LECTURE DES CONDUITES OBSERVÉES
+─────────────────────────────────────────────
+[MODE 1 — Depuis mémoire de conversation P3 et P1]
+
+Conduite 1 : Réaction tardive après le signal (RT)
+  Degré grille associé      : A
+  Code grille associé       : RT (OBS-01) — Réaction Tardive
+  Hypothèse explicative     : "Ce comportement traduit le fait que
+                               l'élève n'a pas automatisé le traitement
+                               du signal visuel/sonore ; son attention
+                               est mal focalisée ou sa posture de départ
+                               ne permet pas une mise en action immédiate."
+  Capacité Eduscol associée : N1-3 · Réagir rapidement au signal du
+                               starter pour initier la course
+  Capacités N2 bloquées     : N2-2 (poussée orientée dès signal) ·
+                               N2-3 (accélération progressive)
+
+Conduite 2 : Réaction hésitante, départ peu orienté (RH)
+  Degré grille associé      : B
+  Code grille associé       : RH (OBS-01) — Réaction Hésitante
+  Hypothèse explicative     : "Ce comportement traduit le fait que
+                               l'élève détecte le signal mais que la
+                               coordination réaction/impulsion n'est
+                               pas encore fluide ; le premier appui
+                               n'est pas actif."
+  Capacité Eduscol associée : N1-3 (en construction) · N1-2
+                               (orientation poids — partielle)
+  Capacités N2 bloquées     : N2-2 (poussée puissante) en accès
+                               conditionnel
+
+Conduite 3 : Redressement immédiat après le départ (ID)
+  Degré grille associé      : A
+  Code grille associé       : ID (OBS-02) — Inclinaison Directement
+                               perdue
+  Hypothèse explicative     : "Ce comportement traduit le fait que
+                               l'élève se redresse dès les premières
+                               foulées, perdant la poussée horizontale ;
+                               il n'a pas construit le schéma
+                               d'accélération progressive."
+  Capacité Eduscol associée : N1-4 · Produire une accélération
+                               progressive (inclinaison, poussée,
+                               montée de genou) — ABSENTE
+  Capacités N2 bloquées     : N2-3 (inclinaison décroissante ·
+                               amplitude croissante) · N2-4 (attitude
+                               vitesse max)
+
+Conduite 4 : Inclinaison partielle, redressement précoce (IP)
+  Degré grille associé      : B
+  Code grille associé       : IP (OBS-02) — Inclinaison Partielle
+  Hypothèse explicative     : "Ce comportement traduit le fait que
+                               l'élève amorce l'inclinaison mais ne
+                               dispose pas encore des ressources
+                               musculaires ou de la représentation
+                               kinesthésique pour la maintenir sur
+                               20–30 m."
+  Capacité Eduscol associée : N1-4 (en construction)
+  Capacités N2 bloquées     : N2-3 (partiellement accessible) ·
+                               N2-4 (conditionnelle)
+
+Conduite 5 : Ralentissement avant la ligne d'arrivée (RA)
+  Degré grille associé      : A
+  Code grille associé       : RA (OBS-03) — Ralentissement Avant
+  Hypothèse explicative     : "Ce comportement traduit le fait que
+                               l'élève n'a pas mobilisé de stratégie
+                               de gestion de l'effort ; la décroissance
+                               de vitesse est subie et non gérée."
+  Capacité Eduscol associée : N1-6 · Maintenir l'effort jusqu'au
+                               franchissement de la ligne — ABSENTE
+  Capacités N2 bloquées     : N2-5 (repères internes) · N2-6 (projet
+                               de course)
+
+Conduite 6 : Maintien partiel avec décelération (MD)
+  Degré grille associé      : B
+  Code grille associé       : MD (OBS-03) — Maintien avec Décelération
+  Hypothèse explicative     : "Ce comportement traduit le fait que
+                               l'élève maintient parfois l'effort mais
+                               sans repère interne stable ; la gestion
+                               du finish dépend des conditions du moment
+                               et non d'une stratégie."
+  Capacité Eduscol associée : N1-6 (en construction)
+  Capacités N2 bloquées     : N2-5 (conditionnellement accessible)
+
+Conduite 7 : Temps élevé — arrive nettement après les autres (TE)
+  Degré grille associé      : A
+  Code grille associé       : TE (OBS-04) — Temps Élevé
+  Hypothèse explicative     : "Ce comportement traduit le fait que
+                               l'élève ne mobilise pas encore les
+                               ressources de la filière anaérobie
+                               alactique de façon optimale ; le temps
+                               reflète une performance en-deçà de la
+                               moyenne de classe."
+  Capacité Eduscol associée : N1-1 · Utiliser et mobiliser les
+                               ressources de la filière anaérobie
+                               alactique — insuffisamment mobilisée
+  Capacités N2 bloquées     : N2-1 (optimisation récupération) ·
+                               N2-6 (projet de course)
+
+Conduite 8 : Temps intermédiaire — groupe médian (TI)
+  Degré grille associé      : B
+  Code grille associé       : TI (OBS-04) — Temps Intermédiaire
+  Hypothèse explicative     : "Ce comportement traduit le fait que
+                               l'élève produit une performance dans
+                               la moyenne de classe ; les ressources
+                               sont exploitées mais pas encore de
+                               façon optimale."
+  Capacité Eduscol associée : N1-1 (en construction)
+  Capacités N2 bloquées     : N2-1 (partiellement accessible)
+
+
+SYNTHÈSE DES LACUNES DOMINANTES
+─────────────────────────────────
+Lacune principale         : N1-4 — Produire une accélération
+                             progressive sur les 20–30 premiers
+                             mètres (inclinaison, poussée active,
+                             montée de genou)
+Degrés concernés          : A et B — les deux · conduites ID et IP
+                             dominantes sur OBS-02
+Codes dominants           : ID (Degré A · OBS-02) + IP (Degré B ·
+                             OBS-02) + RT (Degré A · OBS-01) +
+                             RA (Degré A · OBS-03)
+Capacités cibles bloquées : N2-3 et N2-4 directement · N2-5
+                             indirectement · soit 3 sur 6 capacités
+                             cibles N2 bloquées par N1-4
+Conclusion                : L'inclinaison en phase d'accélération
+                             (N1-4) constitue l'objet d'ancrage
+                             prioritaire du cycle. Elle conditionne
+                             l'accès aux 3 capacités cibles N2
+                             principales. Une classe hétérogène
+                             (A dominant, B présent, C minoritaire)
+                             requiert une différenciation intra-
+                             groupe dès la séance 2 du cycle.
+
+[ENRICHISSEMENT — source externe]
+Données sur la lacune N1-4 en Sprint dans la littérature :
+Source  : Delecluse, C. · Influence of strength training on sprint
+          running performance · Sports Medicine · 1997
+URL     : https://link.springer.com/article/10.2165/00007256-199724３00-00004
+Apport  : Documente que l'absence d'inclinaison en phase
+          d'accélération chez les débutants est liée à un déficit
+          de représentation kinesthésique plutôt qu'à une limitation
+          physique — ce qui oriente vers des tâches de prise de
+          conscience posturale (repères visuels, guidage) plutôt que
+          vers un renforcement musculaire en contexte scolaire.
+Statut  : à valider par l'équipe avant intégration
+[FIN ENRICHISSEMENT]
+
+
+SECTION 5 — BILAN D'ENRICHISSEMENT
+─────────────────────────────────────
+Compléments proposés      : 3
+  → Section 2 : Hanon, C. · INSEP · 2008 (calibrage observables)
+  → Section 3 : Mero, Komi, Gregor · Sports Medicine · 1992
+                (indicateurs biomécaniques N1-4 et N2-4)
+  → Section 4 : Delecluse, C. · Sports Medicine · 1997
+                (nature de la lacune N1-4 — représentation vs force)
+Compléments à valider     : 3
+URLs non vérifiables      : 1 — Hanon/INSEP (catalogue interne)
+URLs vérifiables          : 2 — Mero et al. (Springer) ·
+                             Delecluse (Springer)
+Recommandation            : Priorité de vérification à Delecluse 1997
+                             (URL Springer · accès direct) — apport
+                             le plus utile pour orienter les choix
+                             pédagogiques sur la lacune dominante N1-4.
+                             L'URL fournie peut comporter une coquille
+                             dans le numéro (à vérifier : 24³ → 243).
+
+
+SECTION 6 — MATIÈRE PRÉPARÉE POUR LE PROMPT 1bis-A
+─────────────────────────────────────────────────────
+Ce fichier est prêt à être joint au prompt 1bis-A.
+Il contient :
+  → Correspondance Eduscol ←→ Grille établie (Section 2)
+       N1 bas ↔ Degré A · N1 haut ↔ Degré B · N2 ↔ Degré C
+  → Capacités par niveau numérotées et analysées (Section 3)
+       7 capacités N1 · 6 capacités N2 · 6 capacités N3 lycée
+  → Conduites lues · lacunes identifiées (Section 4)
+       8 conduites analysées · hypothèses explicatives
+  → Lacune dominante signalée (Section 4)
+       N1-4 · bloque N2-3, N2-4, N2-5
+  → Enrichissements à valider (Section 5)
+       3 sources proposées · 2 URLs Springer vérifiables
+  → Signal écart stade/conduites intégré (Section 1)
+       Conduites A-B dominantes pour stade 4ème/3ème
+
+  Le prompt 1bis-A construira à partir de cette matière :
+  → Le graphe de dépendances entre capacités N1 → N2
+  → Les axes prioritaires du cycle (ancrage N1-4)
+  → Le point de décision enseignant (différenciation A/B/C)
+
+══════════════════════════════════════════════════════════════════════
+FIN — ressources_sprint_coll1_eq01.txt
+Prêt pour le prompt 1bis-A
+ADP 2026 · CRMEF Inezgane · BOUARGANE
+Sources données TD1 : mémoire de conversation (P1 P2 P3 P4)
+PDF joint lu : Fiches_APSA_Sprint_N1_N2_N3.pdf (pages 1-3)
+══════════════════════════════════════════════════════════════════════
