@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Outil DI — Sprint — coll1_eq01 — ADP 2026</title>
+<style>
+/* ── VARIABLES ── */
+:root {
+  --ink: #1a1a1a;
+  --mid: #555;
+  --soft: #888;
+  --line: #ddd;
+  --page: #f7f7f7;
+  --white: #fff;
+  --A-bg: #FCEBEB; --A-brd: #c93333; --A-txt: #a02020;
+  --B-bg: #FAEEDA; --B-brd: #b07800; --B-txt: #8a5c00;
+  --C-bg: #EAF3DE; --C-brd: #3a7a10; --C-txt: #2a5c08;
+  --blue: #1a5fa8; --blue-l: #e8f0fb;
+  --step-done: #3a7a10; --step-active: #1a5fa8; --step-todo: #bbb;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--page); color: var(--ink); font-size: 14px; min-height: 100vh; }
+
+/* ── HEADER ── */
+.app-header { background: var(--ink); color: #fff; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.app-header h1 { font-size: 16px; font-weight: 700; letter-spacing: 0.05em; }
+.app-header .meta { font-size: 11px; color: #aaa; }
+.no-note-badge { background: #c93333; color: #fff; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 2px; letter-spacing: 0.08em; }
+
+/* ── STEP INDICATOR ── */
+.steps { display: flex; align-items: center; background: #fff; border-bottom: 2px solid var(--line); padding: 0; overflow-x: auto; }
+.step { display: flex; align-items: center; padding: 10px 16px; cursor: pointer; border-bottom: 3px solid transparent; font-size: 12px; font-weight: 600; color: var(--soft); white-space: nowrap; gap: 6px; transition: all 0.2s; }
+.step.active { color: var(--step-active); border-bottom-color: var(--step-active); }
+.step.done { color: var(--step-done); }
+.step.locked { cursor: not-allowed; opacity: 0.4; }
+.step-num { width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; background: var(--line); color: var(--soft); }
+.step.active .step-num { background: var(--step-active); color: #fff; }
+.step.done .step-num { background: var(--step-done); color: #fff; }
+
+/* ── MAIN CONTENT ── */
+.main { max-width: 1100px; margin: 0 auto; padding: 16px; }
+.section { display: none; }
+.section.active { display: block; }
+
+/* ── CARDS ── */
+.card { background: #fff; border: 1px solid var(--line); border-radius: 4px; padding: 16px; margin-bottom: 14px; }
+.card-title { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 12px; border-bottom: 1px solid var(--line); padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.card-title .tag { font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 2px; background: var(--blue-l); color: var(--blue); }
+
+/* ── FORM ── */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+@media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+.form-row { display: grid; grid-template-columns: 140px 1fr 1fr 1fr 100px; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 1px solid #f0f0f0; }
+.form-row:first-child { font-size: 11px; font-weight: 700; color: var(--soft); text-transform: uppercase; letter-spacing: 0.08em; background: #f8f8f8; padding: 6px 4px; border-radius: 2px; }
+label { font-size: 12px; font-weight: 600; color: var(--mid); }
+input[type="text"], input[type="number"], select {
+  border: 1px solid var(--line); border-radius: 3px;
+  padding: 6px 8px; font-size: 13px; width: 100%;
+  font-family: inherit; color: var(--ink); background: #fff;
+}
+input[type="text"]:focus, input[type="number"]:focus { outline: 2px solid var(--blue); border-color: var(--blue); }
+input.error { border-color: var(--A-brd); background: var(--A-bg); }
+.err-msg { font-size: 11px; color: var(--A-txt); margin-top: 2px; }
+.code-select { font-family: 'Courier New', monospace; font-size: 12px; font-weight: 700; }
+option.A { background: var(--A-bg); }
+option.B { background: var(--B-bg); }
+option.C { background: var(--C-bg); }
+
+/* ── BUTTONS ── */
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border: none; border-radius: 3px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+.btn-primary { background: var(--blue); color: #fff; }
+.btn-primary:hover { background: #1448a0; }
+.btn-primary:disabled { background: #bbb; cursor: not-allowed; }
+.btn-secondary { background: #f0f0f0; color: var(--ink); border: 1px solid var(--line); }
+.btn-secondary:hover { background: #e4e4e4; }
+.btn-danger { background: var(--A-brd); color: #fff; }
+.btn-delete {
+  background: none; border: 1px solid var(--A-brd); color: var(--A-brd);
+  border-radius: 3px; padding: 4px 8px; font-size: 13px; cursor: pointer;
+  line-height: 1; transition: background 0.15s, color 0.15s;
+  min-width: 32px; min-height: 30px;
+}
+.btn-delete:hover { background: var(--A-brd); color: #fff; }
+.btn-sm { padding: 5px 10px; font-size: 11px; }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 14px; }
+
+/* ── TABLE ── */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th { background: var(--ink); color: #fff; padding: 8px 6px; text-align: left; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; white-space: nowrap; }
+td { padding: 7px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+tr.row-A { background: var(--A-bg); }
+tr.row-B { background: var(--B-bg); }
+tr.row-C { background: var(--C-bg); }
+tr:hover { filter: brightness(0.97); }
+.badge { display: inline-block; padding: 2px 7px; border-radius: 2px; font-size: 11px; font-weight: 700; border: 1px solid; }
+.badge-A { background: var(--A-bg); color: var(--A-txt); border-color: var(--A-brd); }
+.badge-B { background: var(--B-bg); color: var(--B-txt); border-color: var(--B-brd); }
+.badge-C { background: var(--C-bg); color: var(--C-txt); border-color: var(--C-brd); }
+
+/* ── STATS CARDS ── */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 14px; }
+.stat-card { background: #fff; border: 1px solid var(--line); border-radius: 4px; padding: 12px; text-align: center; }
+.stat-card .val { font-size: 26px; font-weight: 700; line-height: 1; }
+.stat-card .lbl { font-size: 10px; color: var(--soft); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+.stat-card.card-A .val { color: var(--A-txt); }
+.stat-card.card-B .val { color: var(--B-txt); }
+.stat-card.card-C .val { color: var(--C-txt); }
+.stat-card.card-avg .val { color: var(--blue); }
+
+/* ── DECISION BOX ── */
+.decision-box { padding: 12px 16px; border-left: 4px solid; border-radius: 0 4px 4px 0; margin: 12px 0; font-size: 13px; font-weight: 600; }
+.decision-A { border-color: var(--A-brd); background: var(--A-bg); color: var(--A-txt); }
+.decision-B { border-color: var(--B-brd); background: var(--B-bg); color: var(--B-txt); }
+.decision-C { border-color: var(--C-brd); background: var(--C-bg); color: var(--C-txt); }
+
+/* ── AXE CARDS STEP 2 ── */
+.axe-card { border: 1.5px solid var(--line); border-radius: 4px; padding: 12px 14px; margin-bottom: 10px; cursor: pointer; transition: all 0.15s; position: relative; }
+.axe-card:hover { border-color: var(--blue); }
+.axe-card.selected { border-color: var(--blue); background: var(--blue-l); }
+.axe-card input[type="checkbox"] { position: absolute; top: 14px; right: 14px; width: 18px; height: 18px; cursor: pointer; }
+.axe-title { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 6px; padding-right: 28px; }
+.axe-meta { font-size: 11px; color: var(--mid); display: flex; gap: 14px; flex-wrap: wrap; }
+.axe-meta span { display: flex; align-items: center; gap: 4px; }
+.pertinence-bar { height: 4px; background: var(--line); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+.pertinence-fill { height: 100%; background: var(--blue); border-radius: 2px; transition: width 0.4s; }
+.axe-warning { font-size: 11px; color: var(--A-txt); background: var(--A-bg); border: 1px solid var(--A-brd); padding: 6px 10px; border-radius: 3px; margin-top: 8px; display: none; }
+
+/* ── SLIDER ── */
+.slider-wrap { padding: 16px 0; }
+.slider-label { font-size: 13px; font-weight: 700; margin-bottom: 10px; color: var(--ink); }
+input[type="range"] { width: 100%; height: 6px; border-radius: 3px; background: var(--line); outline: none; -webkit-appearance: none; cursor: pointer; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--blue); cursor: pointer; border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
+.slider-val { display: inline-block; background: var(--blue); color: #fff; font-size: 18px; font-weight: 700; width: 36px; height: 36px; border-radius: 50%; text-align: center; line-height: 36px; margin-left: 12px; }
+.slider-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.distrib-preview { background: #f8f8f8; border: 1px solid var(--line); border-radius: 4px; padding: 12px; font-size: 12px; }
+.distrib-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; padding: 6px 8px; background: #fff; border: 1px solid var(--line); border-radius: 3px; }
+.distrib-seq { font-weight: 700; color: var(--blue); min-width: 80px; font-size: 11px; }
+.distrib-n { background: var(--blue); color: #fff; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 10px; }
+.distrib-axe { font-size: 11px; color: var(--mid); }
+
+/* ── PLAN TABLE ── */
+.seq-block { margin-bottom: 20px; }
+.seq-header { background: var(--ink); color: #fff; padding: 10px 14px; border-radius: 4px 4px 0 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.seq-header h3 { font-size: 13px; font-weight: 700; }
+.seq-header .seq-meta { font-size: 11px; color: #aaa; }
+.plan-table { width: 100%; border-collapse: collapse; font-size: 11px; border: 1px solid var(--line); }
+.plan-table th { background: #333; color: #fff; padding: 7px 8px; text-align: left; font-size: 10px; }
+.plan-table td { padding: 8px; border: 1px solid var(--line); vertical-align: top; font-size: 11px; }
+.plan-table td.td-n { font-weight: 700; color: var(--blue); text-align: center; width: 40px; }
+.plan-table td.td-axe { font-weight: 600; max-width: 120px; }
+.plan-table td.td-A { background: #fef8f8; border-left: 3px solid var(--A-brd); }
+.plan-table td.td-B { background: #fdfaf4; border-left: 3px solid var(--B-brd); }
+.plan-table td.td-C { background: #f5faf0; border-left: 3px solid var(--C-brd); }
+.plan-sa { font-weight: 700; display: block; margin-bottom: 3px; font-size: 10px; }
+.plan-crit { font-size: 10px; color: var(--soft); font-style: italic; }
+.indicator-row td { background: #f8fbff !important; border-left: none !important; }
+.indicator-box { font-size: 10px; color: #1a5fa8; font-style: italic; padding: 2px 0; }
+.indicator-note { font-size: 9px; color: var(--soft); }
+
+/* ── CSV DROP ── */
+.csv-drop { border: 2px dashed var(--line); border-radius: 4px; padding: 20px; text-align: center; color: var(--soft); cursor: pointer; transition: all 0.2s; margin-bottom: 12px; }
+.csv-drop:hover, .csv-drop.drag-over { border-color: var(--blue); background: var(--blue-l); color: var(--blue); }
+.csv-drop .icon { font-size: 28px; display: block; margin-bottom: 6px; }
+.csv-status { font-size: 11px; margin-top: 8px; padding: 6px 10px; border-radius: 3px; }
+.csv-ok { background: var(--C-bg); color: var(--C-txt); }
+.csv-err { background: var(--A-bg); color: var(--A-txt); }
+
+/* ── PRINT ── */
+@media print {
+  .app-header, .steps, .btn-row, .btn, .csv-drop, .form-row, .card-title .tag,
+  .axe-card input, .slider-wrap, #import-section, .action-bar { display: none !important; }
+  .section { display: block !important; }
+  body { background: #fff; font-size: 11px; }
+  .card { border: 1px solid #ccc; page-break-inside: avoid; }
+  .plan-table td { font-size: 10px; }
+}
+
+/* ── UTIL ── */
+.mt { margin-top: 12px; }
+.obs-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 5px; border-radius: 2px; margin-right: 3px; }
+.obs-A { background: var(--A-bg); color: var(--A-txt); }
+.obs-B { background: var(--B-bg); color: var(--B-txt); }
+.obs-C { background: var(--C-bg); color: var(--C-txt); }
+.text-soft { font-size: 11px; color: var(--soft); }
+.info-banner { background: var(--blue-l); border: 1px solid #b0c8e8; border-radius: 4px; padding: 10px 14px; font-size: 12px; color: var(--blue); margin-bottom: 12px; }
+.warning-banner { background: #fff8e1; border: 1px solid #f0c040; border-radius: 4px; padding: 10px 14px; font-size: 12px; color: #6b4c00; margin-bottom: 12px; }
+.action-bar { position: sticky; bottom: 0; background: #fff; border-top: 2px solid var(--line); padding: 10px 16px; z-index: 100; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.action-bar .hint { font-size: 11px; color: var(--soft); }
+hr.divider { border: none; border-top: 1px solid var(--line); margin: 14px 0; }
+</style>
+</head>
+<body>
+
+<!-- ─── HEADER ─── -->
+<div class="app-header">
+  <div>
+    <h1>🏃 Outil DI — Sprint — coll1_eq01</h1>
+    <div class="meta">ADP 2026 · CRMEF Inezgane · BOUARGANE · Niveau de contenu : 2 (Collège 4ème/3ème)</div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+    <span class="no-note-badge">PAS DE NOTE /20</span>
+    <button class="btn btn-secondary btn-sm" onclick="printPage()">⎙ Imprimer</button>
+    <button class="btn btn-secondary btn-sm" onclick="exportCSV()">⬇ CSV</button>
+  </div>
+</div>
+
+<!-- ─── STEP INDICATOR ─── -->
+<div class="steps">
+  <div class="step active" id="tab1" onclick="goStep(1)">
+    <span class="step-num">1</span> Diagnostic
+  </div>
+  <div style="padding:0 4px;color:#ccc;">›</div>
+  <div class="step locked" id="tab2" onclick="goStep(2)">
+    <span class="step-num">2</span> Axes prioritaires
+  </div>
+  <div style="padding:0 4px;color:#ccc;">›</div>
+  <div class="step locked" id="tab3" onclick="goStep(3)">
+    <span class="step-num">3</span> Paramétrage
+  </div>
+  <div style="padding:0 4px;color:#ccc;">›</div>
+  <div class="step locked" id="tab4" onclick="goStep(4)">
+    <span class="step-num">4</span> Planification
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- ÉTAPE 1 — DIAGNOSTIC                               -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section active" id="sec1">
+<div class="main">
+
+  <!-- Import CSV -->
+  <div class="card" id="import-section">
+    <div class="card-title">📂 Import CSV terrain <span class="tag">Format ADP 2026</span></div>
+    <div class="csv-drop" id="csvDrop" onclick="document.getElementById('csvFile').click()">
+      <span class="icon">📋</span>
+      Cliquer ou glisser un fichier CSV terrain ici<br>
+      <span class="text-soft">Format attendu : <strong>Alaoui Mohamed,B,C,A,9"4</strong> &nbsp;(nom, OBS-01, OBS-02, OBS-03, chrono)</span>
+    </div>
+    <input type="file" id="csvFile" accept=".csv,.txt" style="display:none">
+    <div id="csvStatus"></div>
+  </div>
+
+  <!-- Saisie manuelle -->
+  <div class="card">
+    <div class="card-title">✏️ Saisie manuelle <span class="tag">Codes terrain</span></div>
+    <div class="info-banner">
+      Saisir les codes exactement comme notés sur la fiche terrain.
+      OBS-01 à OBS-03 : codes A/B/C · OBS-04 : temps réalisé (ex: 10.2)
+    </div>
+
+    <div style="overflow-x:auto;">
+      <div class="form-row" style="display:grid;grid-template-columns:140px 100px 100px 100px 100px 44px;">
+        <span>Nom / Prénom</span>
+        <span>OBS-01<br><small>Réaction</small></span>
+        <span>OBS-02<br><small>Inclinaison</small></span>
+        <span>OBS-03<br><small>Finish</small></span>
+        <span>OBS-04<br><small>Chrono (s)</small></span>
+        <span>⋯</span>
+      </div>
+      <div id="formRows"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary btn-sm" onclick="addRow()">+ Ajouter un élève</button>
+      <button class="btn btn-secondary btn-sm" onclick="addRow(5)">+ 5 élèves</button>
+      <button class="btn btn-primary" onclick="analyzeData()">▶ Analyser la classe</button>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="results1" style="display:none;">
+    <div class="card">
+      <div class="card-title">📊 Bilan de classe</div>
+      <div class="stat-grid" id="statGrid"></div>
+      <div id="decisionBox"></div>
+      <hr class="divider">
+      <div style="font-size:12px;font-weight:700;margin-bottom:8px;">Analyse par observable</div>
+      <div id="obsAnalysis"></div>
+      <hr class="divider">
+      <div style="font-size:12px;font-weight:700;margin-bottom:8px;">Groupes de besoin</div>
+      <div id="groupsBox"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">👥 Tableau individuel</div>
+      <div class="table-wrap">
+        <table id="resultsTable">
+          <thead>
+            <tr>
+              <th>Rang</th><th>Nom / Prénom</th>
+              <th>OBS-01</th><th>OBS-02</th><th>OBS-03</th><th>Chrono</th>
+              <th>Moy /10</th><th>Profil</th><th>Détail</th>
+              <th>Lacune dominante</th><th>Axe prioritaire</th>
+            </tr>
+          </thead>
+          <tbody id="resultsTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="action-bar">
+      <span class="hint">Décision finale : vous · L'outil propose, l'enseignant décide</span>
+      <button class="btn btn-primary" onclick="goStep(2)">Passer à l'étape 2 — Axes prioritaires ›</button>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- ÉTAPE 2 — AXES PRIORITAIRES                        -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="sec2">
+<div class="main">
+  <div class="card">
+    <div class="card-title">🎯 Sélection des axes prioritaires <span class="tag">3 à 4 axes maximum</span></div>
+    <div class="info-banner">
+      Axes extraits du référentiel sprint_coll1_eq01 · Classer par pertinence terrain ·
+      Sélectionner <strong>3 ou 4 axes</strong> — la planification sera générée sur les axes validés.
+    </div>
+    <div class="warning-banner">
+      ⚠ Écart stade / conduites détecté : conduites A/B dominantes chez des élèves de 4ème/3ème.
+      L'Axe 1 (inclinaison) est prioritaire — ne pas le désélectionner sans raison didactique forte.
+    </div>
+    <div id="axesList"></div>
+    <div class="axe-warning" id="axeWarning">Maximum 4 axes atteint — décocher un axe pour en sélectionner un autre.</div>
+  </div>
+
+  <div class="action-bar">
+    <button class="btn btn-secondary" onclick="goStep(1)">‹ Retour</button>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span class="hint" id="axeCountHint">0 axe sélectionné — minimum 3</span>
+      <button class="btn btn-primary" id="btnStep3" onclick="goStep(3)" disabled>Paramétrer le cycle — Étape 3 ›</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- ÉTAPE 3 — PARAMÉTRAGE                              -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="sec3">
+<div class="main">
+  <div class="card">
+    <div class="card-title">⚙️ Paramétrage du cycle</div>
+
+    <div class="slider-wrap">
+      <div class="slider-label">Nombre de séances du cycle</div>
+      <div class="slider-row">
+        <input type="range" id="sliderSeances" min="6" max="10" value="10" oninput="updateDistrib()">
+        <span class="slider-val" id="sliderVal">10</span>
+        <span class="text-soft">séances</span>
+      </div>
+    </div>
+
+    <div style="font-size:12px;font-weight:700;margin-bottom:8px;">Aperçu de la distribution (temps réel)</div>
+    <div class="distrib-preview" id="distribPreview"></div>
+  </div>
+
+  <div class="action-bar">
+    <button class="btn btn-secondary" onclick="goStep(2)">‹ Retour aux axes</button>
+    <button class="btn btn-primary" onclick="goStep(4)">Générer la planification — Étape 4 ›</button>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- ÉTAPE 4 — PLANIFICATION                            -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="sec4">
+<div class="main">
+  <div class="card">
+    <div class="card-title">📅 Planification dynamique du cycle</div>
+    <div class="info-banner" id="planHeader"></div>
+    <div id="planContent"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📋 Résumé du cycle</div>
+    <div id="planSummary"></div>
+  </div>
+
+  <div class="action-bar">
+    <button class="btn btn-secondary" onclick="goStep(3)">‹ Modifier le paramétrage</button>
+    <div style="display:flex;gap:8px;">
+      <button class="btn btn-secondary btn-sm" onclick="exportCSV()">⬇ Export CSV</button>
+      <button class="btn btn-secondary btn-sm" onclick="printPage()">⎙ Imprimer</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- JAVASCRIPT                                                          -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<script>
+"use strict";
+
+// ── RÉFÉRENTIEL EXTRAIT DES FICHIERS JOINTS ──────────────────────────
+
+// Observables extraits de grille_sprint_coll1_eq01.txt
+var OBS = [
+  {
+    id: "OBS01", label: "R\u00e9action au signal de d\u00e9part",
+    moment: "D\u00e8s le signal \u00b7 premi\u00e8res foul\u00e9es",
+    codes: { A: "RT", B: "RH", C: "RP" },
+    conduites: {
+      A: "R\u00e9agit tardivement apr\u00e8s le signal",
+      B: "R\u00e9agit correctement mais h\u00e9site encore",
+      C: "R\u00e9agit vite et pousse vers l'avant"
+    }
+  },
+  {
+    id: "OBS02", label: "Inclinaison et redressement (0-30m)",
+    moment: "0 \u00e0 10 premiers m\u00e8tres",
+    codes: { A: "ID", B: "IP", C: "IM" },
+    conduites: {
+      A: "Se redresse imm\u00e9diatement apr\u00e8s le d\u00e9part",
+      B: "Inclinaison partielle puis redressement pr\u00e9coce",
+      C: "Inclinaison maintenue jusqu'\u00e0 20-30 m"
+    }
+  },
+  {
+    id: "OBS03", label: "Maintien de l'effort jusqu'au finish",
+    moment: "Phase finale \u00b7 70-100m",
+    codes: { A: "RA", B: "MD", C: "FA" },
+    conduites: {
+      A: "Ralentit avant la ligne d'arriv\u00e9e",
+      B: "Maintien partiel avec l\u00e9g\u00e8re d\u00e9c\u00e9l\u00e9ration",
+      C: "Finish actif sans ralentissement"
+    }
+  }
+];
+
+// OBS-04 : chrono uniquement - pas de mapping A/B/C numérique
+var OBS04 = {
+  id: "OBS04", label: "Performance - Temps r\u00e9alis\u00e9",
+  codes: { A: "TE", B: "TI", C: "TF" },
+  conduites: {
+    A: "Arrive nettement apr\u00e8s les autres",
+    B: "Groupe m\u00e9dian",
+    C: "Parmi les premiers - temps faible"
+  }
+};
+
+// Seuils scoring : Degré → score /10
+var SCORE = { A: 3, B: 6, C: 9 };
+var SEUIL_C = 7.5, SEUIL_B = 4.5; // A < 4.5 · B 4.5-7.4 · C >= 7.5
+
+// Axes extraits de referentiel_sprint_coll1_eq01.txt PARTIE B
+var AXES = [
+  {
+    id: 1,
+    titre: "Construire l'inclinaison du buste en phase d'acc\u00e9l\u00e9ration et ancrer la pouss\u00e9e horizontale sur les 0-30 premiers m\u00e8tres",
+    obs: "OBS02",
+    prereq: "N1-4 \u00b7 Acc\u00e9l\u00e9ration progressive (inclinaison \u00b7 pouss\u00e9e \u00b7 genou)",
+    impact: "N2-3 \u2192 N2-4 \u2192 N2-5",
+    priorite: "haute",
+    saA: "R\u00e9f\u00e9rents posturaux - plots et lignes au sol pour ancrer l'inclinaison (Degr\u00e9 A)",
+    saB: "Acc\u00e9l\u00e9rations progressives sur 20m avec contr\u00f4le de l'inclinaison d\u00e9croissante (Degr\u00e9 B)",
+    saC: "Sprint complet 30-60m avec rep\u00e8res internes inclinaison + amplitude (Degr\u00e9 C)",
+    conduite: "l'\u00e9l\u00e8ve maintient une inclinaison du buste sur au moins 15m apr\u00e8s le d\u00e9part"
+  },
+  {
+    id: 2,
+    titre: "Stabiliser le maintien de l'effort jusqu'\u00e0 la ligne et construire les premiers rep\u00e8res internes (rel\u00e2chement \u00b7 rythme de foul\u00e9e)",
+    obs: "OBS03",
+    prereq: "N1-6 \u00b7 Maintenir l'effort sans ralentir",
+    impact: "N2-5 \u2192 N2-6",
+    priorite: "moyenne",
+    saA: "Finish activ\u00e9 - rep\u00e8re visuel 10m avant la ligne + consigne 'finir fort' (Degr\u00e9 A)",
+    saB: "Course avec rituel de rel\u00e2chement des \u00e9paules en derni\u00e8re phase (Degr\u00e9 B)",
+    saC: "Projet de course personnel - gestion des phases avec rep\u00e8res internes (Degr\u00e9 C)",
+    conduite: "l'\u00e9l\u00e8ve ne d\u00e9c\u00e9l\u00e8re pas dans les 10 derniers m\u00e8tres de course"
+  },
+  {
+    id: 3,
+    titre: "Construire la r\u00e9action vive au signal et la pouss\u00e9e orient\u00e9e d\u00e8s le d\u00e9part - ouvrir vers N2 pour les \u00e9l\u00e8ves dont N1-4 et N1-6 sont stabilis\u00e9es",
+    obs: "OBS01",
+    prereq: "N1-2 \u00b7 N1-3 \u00b7 Position d\u00e9part + R\u00e9action signal",
+    impact: "N2-2 \u2192 N2-3",
+    priorite: "consolidation",
+    saA: "D\u00e9parts en fente basse avec signal visuel/sonore - r\u00e9p\u00e9tition 5x (Degr\u00e9 A)",
+    saB: "Gammes athl\u00e9tiques : talons-fesses, mont\u00e9es de genou, acc\u00e9l\u00e9rations progressives (Degr\u00e9 B)",
+    saC: "D\u00e9parts avec blocs simul\u00e9s - pouss\u00e9e orient\u00e9e vers l'avant mesur\u00e9e sur 5m (Degr\u00e9 C)",
+    conduite: "l'\u00e9l\u00e8ve d\u00e9clenche le sprint dans les 2 premi\u00e8res foul\u00e9es apr\u00e8s le signal avec une pouss\u00e9e orient\u00e9e"
+  }
+];
+
+// ── ÉTAT GLOBAL ──────────────────────────────────────────────────────
+var appData = {
+  students: [],
+  selectedAxes: [],
+  seances: 10,
+  step: 1,
+  unlocked: [1]
+};
+
+// ── INITIALISATION ───────────────────────────────────────────────────
+document.addEventListener("DOMContentLoaded", function() {
+  // Ajouter 5 lignes vides par défaut
+  for (var i = 0; i < 5; i++) addRow();
+  buildAxesList();
+  setupCSVDrop();
+});
+
+// ── NAVIGATION ÉTAPES ────────────────────────────────────────────────
+function goStep(n) {
+  if (appData.unlocked.indexOf(n) === -1) return;
+  appData.step = n;
+  [1,2,3,4].forEach(function(i) {
+    document.getElementById("sec" + i).classList.toggle("active", i === n);
+    var tab = document.getElementById("tab" + i);
+    tab.className = "step";
+    if (i < n) tab.classList.add("done");
+    else if (i === n) tab.classList.add("active");
+    else if (appData.unlocked.indexOf(i) === -1) tab.classList.add("locked");
+  });
+  if (n === 4) buildPlan();
+  window.scrollTo(0, 0);
+}
+
+function unlock(n) {
+  if (appData.unlocked.indexOf(n) === -1) appData.unlocked.push(n);
+}
+
+// ── SAISIE MANUELLE ──────────────────────────────────────────────────
+function addRow(count) {
+  var n = count || 1;
+  var container = document.getElementById("formRows");
+  for (var k = 0; k < n; k++) {
+    var idx = container.children.length;
+    var div = document.createElement("div");
+    div.style.cssText = "display:grid;grid-template-columns:140px 100px 100px 100px 100px 44px;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid #f0f0f0;";
+    div.innerHTML =
+      "<input type='text' placeholder='Nom Pr\u00e9nom' class='name-inp' style='font-size:12px;'>" +
+      buildCodeSelect("obs1-"+idx, OBS[0]) +
+      buildCodeSelect("obs2-"+idx, OBS[1]) +
+      buildCodeSelect("obs3-"+idx, OBS[2]) +
+      "<input type='number' class='chrono-inp' placeholder='10.2' min='6' max='20' step='0.1' style='font-size:12px;'>" +
+      "<button class='btn-delete' title='Supprimer cet \u00e9l\u00e8ve' onclick='deleteRow(this)'>🗑️</button>";
+    container.appendChild(div);
+  }
+}
+
+// Suppression d'une ligne avec confirmation
+function deleteRow(btn) {
+  var row = btn.parentNode;
+  var nameInp = row.querySelector(".name-inp");
+  var nom = nameInp ? nameInp.value.trim() : "";
+  var msg = nom
+    ? "Voulez-vous vraiment supprimer la ligne de \u00ab\u00a0" + nom + "\u00a0\u00bb ?"
+    : "Voulez-vous vraiment supprimer cette ligne ?";
+  if (window.confirm(msg)) {
+    row.parentNode.removeChild(row);
+  }
+}
+
+function buildCodeSelect(id, obs) {
+  return "<select id='" + id + "' class='code-select'>" +
+    "<option value=''>--</option>" +
+    "<option value='A' class='A'>" + obs.codes.A + " (A)</option>" +
+    "<option value='B' class='B'>" + obs.codes.B + " (B)</option>" +
+    "<option value='C' class='C'>" + obs.codes.C + " (C)</option>" +
+    "</select>";
+}
+
+// ── ANALYSE ──────────────────────────────────────────────────────────
+function analyzeData() {
+  var rows = document.getElementById("formRows").children;
+  var students = [];
+  var hasError = false;
+
+  for (var i = 0; i < rows.length; i++) {
+    var row = rows[i];
+    var nameInp = row.querySelector(".name-inp");
+    var selects = row.querySelectorAll("select");
+    var chronoInp = row.querySelector(".chrono-inp");
+
+    var name = nameInp ? nameInp.value.trim() : "";
+    if (!name) continue; // skip empty rows silently
+
+    var obs = [];
+    var rowOk = true;
+    for (var j = 0; j < 3; j++) {
+      var val = selects[j] ? selects[j].value : "";
+      if (!val) { rowOk = false; }
+      obs.push(val);
+    }
+
+    var chrono = chronoInp ? parseFloat(chronoInp.value) : NaN;
+
+    students.push({
+      name: name,
+      obs: obs,        // ["A","B","C"] raw degrees
+      scores: obs.map(function(d) { return d ? SCORE[d] : 0; }),
+      chrono: isNaN(chrono) ? null : chrono,
+      ok: rowOk
+    });
+  }
+
+  if (students.length === 0) {
+    alert("Aucun \u00e9l\u00e8ve saisi. Ajoutez au moins un \u00e9l\u00e8ve avec un nom.");
+    return;
+  }
+
+  // Calculs
+  students.forEach(function(s) {
+    var validScores = s.scores.filter(function(v) { return v > 0; });
+    s.avg = validScores.length ? (validScores.reduce(function(a,b){return a+b;},0) / validScores.length) : 0;
+    s.avg = Math.round(s.avg * 10) / 10;
+    s.sur20 = Math.round(s.avg * 2 * 10) / 10;
+    s.profil = s.avg >= SEUIL_C ? "C" : (s.avg >= SEUIL_B ? "B" : "A");
+    s.profilDetail = s.obs.map(function(d) { return d || "?"; }).join("/");
+
+    // Lacune dominante
+    var lacunes = [];
+    s.obs.forEach(function(d, idx) {
+      if (d === "A" || d === "B") {
+        var sc = SCORE[d] || 0;
+        lacunes.push({ obs: OBS[idx].label, score: sc, degree: d, idx: idx });
+      }
+    });
+    lacunes.sort(function(a,b) { return a.score - b.score; });
+    s.lacunes = lacunes;
+    s.lacune1 = lacunes.length ? ("L1 \u2014 " + OBS[lacunes[0].idx].id + " : " + lacunes[0].score.toFixed(1) + "/10") : "Aucune lacune";
+
+    // Axe prioritaire
+    if (lacunes.length) {
+      var obsLacune = lacunes[0].idx;
+      var axe = AXES.filter(function(a) { return a.obs === OBS[obsLacune].id; });
+      s.axePrio = axe.length ? axe[0].titre.substring(0, 60) + "..." : "Consolider les fondamentaux N1";
+    } else {
+      s.axePrio = "Approfondissement N2 \u2014 Axe 3 (r\u00e9action + pouss\u00e9e orient\u00e9e)";
+    }
+  });
+
+  // Rang
+  var sorted = students.slice().sort(function(a,b) { return b.avg - a.avg; });
+  sorted.forEach(function(s, idx) { s.rang = idx + 1; });
+  // gestion ex aequo
+  for (var i = 0; i < sorted.length - 1; i++) {
+    if (sorted[i].avg === sorted[i+1].avg) sorted[i+1].rang = sorted[i].rang;
+  }
+
+  appData.students = students;
+  renderResults(students);
+  updateAxePertinence(students);
+  document.getElementById("results1").style.display = "block";
+  unlock(2);
+}
+
+// ── AFFICHAGE RÉSULTATS ──────────────────────────────────────────────
+function renderResults(students) {
+  var nA = students.filter(function(s){return s.profil==="A";}).length;
+  var nB = students.filter(function(s){return s.profil==="B";}).length;
+  var nC = students.filter(function(s){return s.profil==="C";}).length;
+  var total = students.length;
+  var avgClass = Math.round(students.reduce(function(a,s){return a+s.avg;},0)/total*10)/10;
+
+  // Stat cards
+  var sg = document.getElementById("statGrid");
+  sg.innerHTML =
+    "<div class='stat-card card-A'><div class='val'>" + nA + "</div><div class='lbl'>Degr\u00e9 A &nbsp;<small>(" + Math.round(nA/total*100) + "%)</small></div></div>" +
+    "<div class='stat-card card-B'><div class='val'>" + nB + "</div><div class='lbl'>Degr\u00e9 B &nbsp;<small>(" + Math.round(nB/total*100) + "%)</small></div></div>" +
+    "<div class='stat-card card-C'><div class='val'>" + nC + "</div><div class='lbl'>Degr\u00e9 C &nbsp;<small>(" + Math.round(nC/total*100) + "%)</small></div></div>" +
+    "<div class='stat-card card-avg'><div class='val'>" + avgClass.toFixed(1) + "</div><div class='lbl'>Moy. classe /10</div></div>" +
+    "<div class='stat-card card-avg'><div class='val'>" + (avgClass*2).toFixed(1) + "</div><div class='lbl'>Moy. classe /20</div></div>";
+
+  // Decision
+  var majority = nA >= nB && nA >= nC ? "A" : (nB >= nC ? "B" : "C");
+  var dClass = "decision-" + majority;
+  var dText = majority === "A"
+    ? "\ud83d\udea8 Classe d\u00e9butante \u2014 Priorit\u00e9 fondamentaux N1 \u2014 \u00c9cart stade/conduites confirm\u00e9"
+    : (majority === "B"
+      ? "\u26a0\ufe0f Classe interm\u00e9diaire \u2014 Diff\u00e9renciation A/B active d\u00e8s la s\u00e9ance 2"
+      : "\u2705 Classe avanc\u00e9e \u2014 Approfondissement N2 et tutorat");
+  document.getElementById("decisionBox").innerHTML = "<div class='decision-box " + dClass + "'>" + dText + "</div>";
+
+  // Obs analysis
+  var obsHtml = "";
+  OBS.forEach(function(obs, idx) {
+    var scores = students.map(function(s){ return s.scores[idx]; });
+    var avg = scores.reduce(function(a,b){return a+b;},0)/scores.length;
+    var state = avg >= SEUIL_C ? "\u2705 Bon niveau \u2014 Approfondir" : (avg >= SEUIL_B ? "\ud83d\udfe1 En cours \u2014 Consolider" : "\ud83d\udd34 Lacune collective \u2014 SA prioritaire");
+    obsHtml += "<div style='display:flex;align-items:center;gap:12px;margin-bottom:8px;padding:8px;background:#f8f8f8;border-radius:3px;'>" +
+      "<div style='min-width:140px;font-size:12px;font-weight:700;'>" + obs.id + "</div>" +
+      "<div style='flex:1;font-size:11px;color:#555;'>" + obs.label + "</div>" +
+      "<div style='font-size:12px;font-weight:700;'>" + avg.toFixed(1) + "/10</div>" +
+      "<div style='font-size:11px;'>" + state + "</div></div>";
+  });
+  document.getElementById("obsAnalysis").innerHTML = obsHtml;
+
+  // Groups
+  var gHtml = "";
+  ["A","B","C"].forEach(function(deg) {
+    var group = students.filter(function(s){return s.profil===deg;});
+    if (!group.length) return;
+    var axeGroup = deg === "A" ? AXES[0].saA : (deg === "B" ? AXES[0].saB : AXES[0].saC);
+    gHtml += "<div style='display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;padding:8px;border-left:3px solid var(--" + deg.toLowerCase() + "-brd);background:var(--" + deg.toLowerCase() + "-bg);border-radius:0 3px 3px 0;'>" +
+      "<span class='badge badge-" + deg + "'>" + deg + "</span>" +
+      "<div><div style='font-size:12px;font-weight:700;'>" + group.length + " \u00e9l\u00e8ve" + (group.length>1?"s":"") + " \u2014 " + group.map(function(s){return s.name;}).join(", ") + "</div>" +
+      "<div style='font-size:11px;color:#555;margin-top:3px;'>SA recommand\u00e9e : " + axeGroup + "</div></div></div>";
+  });
+  document.getElementById("groupsBox").innerHTML = gHtml || "<div class='text-soft'>Aucun groupe constitué</div>";
+
+  // Individual table
+  var tbody = document.getElementById("resultsTbody");
+  tbody.innerHTML = "";
+  var sorted = students.slice().sort(function(a,b){return a.rang - b.rang;});
+  sorted.forEach(function(s) {
+    var tr = document.createElement("tr");
+    tr.className = "row-" + s.profil;
+    tr.innerHTML =
+      "<td style='text-align:center;font-weight:700;'>" + s.rang + "</td>" +
+      "<td style='font-weight:600;'>" + escHtml(s.name) + "</td>" +
+      "<td><span class='obs-tag obs-" + (s.obs[0]||"?") + "'>" + (OBS[0].codes[s.obs[0]]||"?") + "</span></td>" +
+      "<td><span class='obs-tag obs-" + (s.obs[1]||"?") + "'>" + (OBS[1].codes[s.obs[1]]||"?") + "</span></td>" +
+      "<td><span class='obs-tag obs-" + (s.obs[2]||"?") + "'>" + (OBS[2].codes[s.obs[2]]||"?") + "</span></td>" +
+      "<td style='font-family:monospace;'>" + (s.chrono ? s.chrono.toFixed(1) + "\"" : "\u2014") + "</td>" +
+      "<td style='font-weight:700;'>" + s.avg.toFixed(1) + "</td>" +
+      "<td><span class='badge badge-" + s.profil + "'>" + s.profil + "</span></td>" +
+      "<td style='font-family:monospace;font-size:11px;'>" + escHtml(s.profilDetail) + "</td>" +
+      "<td style='font-size:11px;color:#555;'>" + escHtml(s.lacune1) + "</td>" +
+      "<td style='font-size:10px;color:#333;max-width:160px;'>" + escHtml(s.axePrio) + "</td>";
+    tbody.appendChild(tr);
+  });
+}
+
+// ── AXES STEP 2 ──────────────────────────────────────────────────────
+function buildAxesList() {
+  var container = document.getElementById("axesList");
+  container.innerHTML = "";
+  AXES.forEach(function(axe) {
+    var div = document.createElement("div");
+    div.className = "axe-card";
+    div.id = "axe-card-" + axe.id;
+    div.innerHTML =
+      "<input type='checkbox' id='axe-cb-" + axe.id + "' onchange='toggleAxe(" + axe.id + ")'>" +
+      "<div class='axe-title'>Axe " + axe.id + " \u2014 " + axe.titre + "</div>" +
+      "<div class='axe-meta'>" +
+        "<span>\ud83c\udfaf Observable : " + axe.obs + "</span>" +
+        "<span>\ud83d\udd17 Pr\u00e9requis : " + axe.prereq + "</span>" +
+        "<span>\u2b06\ufe0f Impact : " + axe.impact + "</span>" +
+        "<span id='axe-pct-" + axe.id + "'>\ud83d\udcca Pertinence : calcul en attente</span>" +
+      "</div>" +
+      "<div class='pertinence-bar'><div class='pertinence-fill' id='axe-bar-" + axe.id + "' style='width:0%'></div></div>";
+    div.onclick = function(e) {
+      if (e.target.tagName !== "INPUT") {
+        var cb = document.getElementById("axe-cb-" + axe.id);
+        cb.checked = !cb.checked;
+        toggleAxe(axe.id);
+      }
+    };
+    container.appendChild(div);
+  });
+}
+
+function updateAxePertinence(students) {
+  AXES.forEach(function(axe) {
+    var obsIdx = OBS.findIndex(function(o){ return o.id === axe.obs; });
+    if (obsIdx === -1) return;
+    var lacCount = students.filter(function(s){ return s.obs[obsIdx] === "A" || s.obs[obsIdx] === "B"; }).length;
+    var pct = students.length ? Math.round(lacCount / students.length * 100) : 0;
+    var el = document.getElementById("axe-pct-" + axe.id);
+    if (el) el.textContent = "\ud83d\udcca Pertinence : " + pct + "% des \u00e9l\u00e8ves concern\u00e9s";
+    var bar = document.getElementById("axe-bar-" + axe.id);
+    if (bar) bar.style.width = pct + "%";
+  });
+}
+
+function toggleAxe(id) {
+  var cb = document.getElementById("axe-cb-" + id);
+  var card = document.getElementById("axe-card-" + id);
+  var selected = getSelectedAxes();
+
+  if (cb.checked && selected.indexOf(id) === -1) {
+    if (selected.length >= 4) {
+      cb.checked = false;
+      document.getElementById("axeWarning").style.display = "block";
+      return;
+    }
+    document.getElementById("axeWarning").style.display = "none";
+  } else {
+    document.getElementById("axeWarning").style.display = "none";
+  }
+
+  card.classList.toggle("selected", cb.checked);
+  updateAxeCount();
+}
+
+function getSelectedAxes() {
+  return AXES.filter(function(a) {
+    var cb = document.getElementById("axe-cb-" + a.id);
+    return cb && cb.checked;
+  }).map(function(a){ return a.id; });
+}
+
+function updateAxeCount() {
+  var sel = getSelectedAxes();
+  appData.selectedAxes = sel;
+  var hint = document.getElementById("axeCountHint");
+  var btn = document.getElementById("btnStep3");
+  if (sel.length < 3) {
+    hint.textContent = sel.length + " axe" + (sel.length!==1?"s":"") + " s\u00e9lectionn\u00e9" + (sel.length!==1?"s":"") + " \u2014 minimum 3";
+    btn.disabled = true;
+  } else {
+    hint.textContent = sel.length + " axes s\u00e9lectionn\u00e9s \u2714";
+    btn.disabled = false;
+    unlock(3);
+  }
+}
+
+// ── SLIDER STEP 3 ────────────────────────────────────────────────────
+// Distribution table: [axes][seances-6]
+var DISTRIB = {
+  3: [[2,2,2],[2,2,3],[3,2,3],[3,3,3],[3,4,3]],
+  4: [[1,2,2,1],[2,2,2,1],[2,2,2,2],[2,3,2,2],[3,2,3,2]]
+};
+
+function updateDistrib() {
+  var n = parseInt(document.getElementById("sliderSeances").value);
+  appData.seances = n;
+  document.getElementById("sliderVal").textContent = n;
+
+  var sel = appData.selectedAxes;
+  var nAxes = Math.min(Math.max(sel.length, 3), 4);
+  var distribArr = DISTRIB[nAxes] ? DISTRIB[nAxes][n - 6] : null;
+
+  var preview = document.getElementById("distribPreview");
+  if (!distribArr) { preview.innerHTML = "<div class='text-soft'>Distribution non disponible</div>"; return; }
+
+  var html = "";
+  distribArr.forEach(function(seqN, idx) {
+    var axeId = sel[idx] || sel[sel.length - 1];
+    var axeObj = AXES.find(function(a){ return a.id === axeId; });
+    var axeTitre = axeObj ? ("Axe " + axeObj.id + " \u2014 " + axeObj.titre.substring(0,50) + "...") : "Axe " + axeId;
+    html += "<div class='distrib-row'>" +
+      "<span class='distrib-seq'>S\u00e9quence " + (idx+1) + "</span>" +
+      "<span class='distrib-n'>" + seqN + " s\u00e9ance" + (seqN>1?"s":"") + "</span>" +
+      "<span class='distrib-axe'>" + escHtml(axeTitre) + "</span>" +
+      "</div>";
+  });
+  html += "<div style='font-size:11px;color:#888;margin-top:8px;'>Cycle de " + n + " s\u00e9ances \u00b7 " + distribArr.length + " s\u00e9quences</div>";
+  preview.innerHTML = html;
+  unlock(4);
+}
+
+// ── PLANIFICATION STEP 4 ─────────────────────────────────────────────
+function buildPlan() {
+  var n = appData.seances;
+  var sel = appData.selectedAxes;
+  var nAxes = Math.min(Math.max(sel.length, 3), 4);
+  var distribArr = DISTRIB[nAxes] ? DISTRIB[nAxes][n - 6] : [3,3,4];
+  var students = appData.students;
+  var nA = students.filter(function(s){return s.profil==="A";}).length;
+  var nB = students.filter(function(s){return s.profil==="B";}).length;
+  var nC = students.filter(function(s){return s.profil==="C";}).length;
+
+  document.getElementById("planHeader").innerHTML =
+    "Cycle de <strong>" + n + " s\u00e9ances</strong> \u00b7 " + distribArr.length + " s\u00e9quences \u00b7 " +
+    nA + " \u00e9l\u00e8ves A \u00b7 " + nB + " \u00e9l\u00e8ves B \u00b7 " + nC + " \u00e9l\u00e8ves C \u00b7 " +
+    "Axes retenus : " + sel.length + " \u00b7 " +
+    "Lacune dominante : OBS-02 (inclinaison N1-4)";
+
+  var html = "";
+  var seanceGlobal = 1;
+
+  distribArr.forEach(function(seqN, seqIdx) {
+    var axeId = sel[seqIdx] || sel[sel.length - 1];
+    var axeObj = AXES.find(function(a){ return a.id === axeId; });
+    if (!axeObj) return;
+
+    html += "<div class='seq-block'>";
+    html += "<div class='seq-header'>" +
+      "<h3>S\u00e9quence " + (seqIdx+1) + " \u2014 Axe " + axeObj.id + " \u2014 " + escHtml(axeObj.titre.substring(0,50)) + "...</h3>" +
+      "<div class='seq-meta'>S\u00e9ances " + seanceGlobal + " \u00e0 " + (seanceGlobal + seqN - 1) + " \u00b7 " + seqN + " s\u00e9ance" + (seqN>1?"s":"") + " \u00b7 Impact : " + axeObj.impact + "</div>" +
+      "</div>";
+
+    html += "<table class='plan-table'><thead><tr>" +
+      "<th>N\u00b0</th><th>Axe dominant</th><th>Objectif de s\u00e9ance</th>" +
+      "<th style='background:#a02020;'>Groupe A \u2014 Fondamentaux</th>" +
+      "<th style='background:#8a5c00;'>Groupe B \u2014 Construction</th>" +
+      "<th style='background:#2a5c08;'>Groupe C \u2014 Approfondissement</th>" +
+      "</tr></thead><tbody>";
+
+    for (var s = 0; s < seqN; s++) {
+      var isLast = (seqIdx === distribArr.length - 1) && (s === seqN - 1);
+      var objSeance = isLast
+        ? "\u00c9valuation formative \u2014 observation des acquis du cycle"
+        : ("S\u00e9ance " + (s+1) + "/" + seqN + " \u2014 " + (s === 0 ? "D\u00e9couverte" : (s === seqN-1 ? "Consolidation" : "Entra\u00eenement")) + " \u2014 Axe " + axeObj.id);
+
+      var saA = isLast ? "Observation des acquis \u2014 retour sur les conduites initiales" : axeObj.saA;
+      var saB = isLast ? "Comparaison DI/bilan \u2014 mesure de la progression" : axeObj.saB;
+      var saC = isLast ? "Projet de course personnel \u2014 auto-\u00e9valuation sur les 3 OBS" : axeObj.saC;
+
+      var critA = isLast ? "Comportement observable am\u00e9lior\u00e9 vs s\u00e9ance 1" : "Code OBS pr\u00e9sent dans au moins 2 passages";
+      var critB = isLast ? "Passage de A vers B ou B vers C observable" : "Inclinaison ou maintien visible sur 2 essais/3";
+      var critC = isLast ? "Degr\u00e9 C stabilis\u00e9 sur 3 observables" : "Conduite cible stabilis\u00e9e sur 3 passages cons\u00e9cutifs";
+
+      html += "<tr>" +
+        "<td class='td-n'>" + seanceGlobal + "</td>" +
+        "<td class='td-axe'>Axe " + axeObj.id + "</td>" +
+        "<td style='font-size:11px;'>" + escHtml(objSeance) + "</td>" +
+        "<td class='td-A'><span class='plan-sa'>" + escHtml(saA.substring(0,40)) + "</span><span class='plan-crit'>CR : " + escHtml(critA) + "</span></td>" +
+        "<td class='td-B'><span class='plan-sa'>" + escHtml(saB.substring(0,40)) + "</span><span class='plan-crit'>CR : " + escHtml(critB) + "</span></td>" +
+        "<td class='td-C'><span class='plan-sa'>" + escHtml(saC.substring(0,40)) + "</span><span class='plan-crit'>CR : " + escHtml(critC) + "</span></td>" +
+        "</tr>";
+
+      // Indicateur de passage (sauf dernière séance de chaque séquence)
+      if (s < seqN - 1 && !isLast) {
+        html += "<tr class='indicator-row'><td colspan='6'>" +
+          "<div class='indicator-box'>📋 \u00c0 observer avant la s\u00e9ance suivante \u2014 " + escHtml(axeObj.conduite) + "</div>" +
+          "<div class='indicator-note'>(Indicatif \u2014 d\u00e9cision de progression : vous)</div>" +
+          "</td></tr>";
+      }
+
+      seanceGlobal++;
+    }
+
+    html += "</tbody></table></div>";
+  });
+
+  document.getElementById("planContent").innerHTML = html;
+
+  // Summary
+  var summHtml = "<table class='plan-table'><thead><tr><th>S\u00e9quence</th><th>Axes travaill\u00e9s</th><th>Nb s\u00e9ances</th><th>Profil dominant cibl\u00e9</th></tr></thead><tbody>";
+  distribArr.forEach(function(seqN, idx) {
+    var axeId = sel[idx] || sel[sel.length-1];
+    var axeObj = AXES.find(function(a){ return a.id === axeId; });
+    summHtml += "<tr><td>S\u00e9quence " + (idx+1) + "</td><td>Axe " + (axeObj ? axeObj.id : "?") + "</td><td>" + seqN + "</td><td>A + B</td></tr>";
+  });
+  summHtml += "</tbody></table>";
+  summHtml += "<div style='margin-top:12px;font-size:12px;padding:10px;background:#f8f8f8;border-radius:4px;'>";
+  summHtml += "Ce cycle de <strong>" + n + " s\u00e9ances</strong> cible <strong>" + sel.length + " axes prioritaires</strong>. ";
+  var domProfil = nA >= nB && nA >= nC ? "A" : (nB >= nC ? "B" : "C");
+  var domN = domProfil === "A" ? nA : (domProfil === "B" ? nB : nC);
+  summHtml += "Profil le plus concern\u00e9 : <strong>" + domProfil + "</strong> (" + domN + " \u00e9l\u00e8ve" + (domN>1?"s":"") + " \u00b7 " + Math.round(domN/students.length*100) + "%). ";
+  summHtml += "R\u00e9\u00e9valuer apr\u00e8s la s\u00e9quence " + Math.ceil(distribArr.length/2) + " avec une nouvelle collecte terrain.";
+  summHtml += "</div>";
+  summHtml += "<div style='margin-top:8px;font-size:11px;color:#888;font-style:italic;'>D\u00e9cision finale : vous \u00b7 L'outil propose, l'enseignant d\u00e9cide \u00b7 ADP 2026 \u00b7 CRMEF Inezgane \u00b7 BOUARGANE</div>";
+  document.getElementById("planSummary").innerHTML = summHtml;
+}
+
+// ── CSV IMPORT ────────────────────────────────────────────────────────
+function setupCSVDrop() {
+  var drop = document.getElementById("csvDrop");
+  var inp = document.getElementById("csvFile");
+
+  drop.addEventListener("dragover", function(e) { e.preventDefault(); drop.classList.add("drag-over"); });
+  drop.addEventListener("dragleave", function() { drop.classList.remove("drag-over"); });
+  drop.addEventListener("drop", function(e) {
+    e.preventDefault(); drop.classList.remove("drag-over");
+    var f = e.dataTransfer.files[0];
+    if (f) parseCSV(f);
+  });
+  inp.addEventListener("change", function() { if (inp.files[0]) parseCSV(inp.files[0]); });
+}
+
+// ── FORMAT TERRAIN : nom,A/B/C,A/B/C,A/B/C,9"4
+// Supporte :
+//   · Sans en-tête  : Alaoui Mohamed,B,C,A,9"4
+//   · Avec en-tête  : nom,obs01,obs02,obs03,obs04  (ligne auto-détectée et sautée)
+//   · Codes métier  : Alaoui Mohamed,RH,IM,FA,9"4
+//   · Séparateur    : virgule ou point-virgule
+//   · Chrono        : 9"4 ou 9.4 ou 9,4
+
+function parseCSV(file) {
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var txt = e.target.result;
+    var lines = txt.split(/\r?\n/);
+    var imported = 0, ignored = 0;
+    var container = document.getElementById("formRows");
+    container.innerHTML = "";
+
+    // Détection du séparateur sur la première ligne non vide
+    var sep = ",";
+    for (var i = 0; i < lines.length; i++) {
+      var l = lines[i].trim();
+      if (l) { sep = l.indexOf(";") !== -1 ? ";" : ","; break; }
+    }
+
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i].trim();
+      if (!line) { ignored++; continue; }
+
+      // Normaliser le chrono : remplacer " par rien pour parsing (9"4 → 9.4)
+      var lineNorm = line.replace(/(\d+)"(\d)/g, "$1.$2");
+      var cells = lineNorm.split(sep).map(function(c) { return c.trim().replace(/^"|"$/g, ""); });
+
+      if (cells.length < 2) { ignored++; continue; }
+
+      var name = cells[0];
+
+      // Sauter les lignes d'en-tête (contiennent nom/obs/prenom)
+      var nameLow = name.toLowerCase();
+      if (nameLow === "nom" || nameLow === "prenom" || nameLow === "nom_eleve" ||
+          nameLow === "nom/prenom" || nameLow === "eleve" ||
+          cells[1].toLowerCase() === "obs01" || cells[1].toLowerCase() === "obs-01") {
+        ignored++;
+        continue;
+      }
+
+      // Sauter les lignes de bilan
+      if (nameLow.indexOf("bilan") !== -1 || nameLow.indexOf("classe") !== -1 ||
+          nameLow.indexOf("moyenne") !== -1 || nameLow === "") {
+        ignored++;
+        continue;
+      }
+
+      // Colonnes : nom | obs01 | obs02 | obs03 | chrono (obs04)
+      var raw1    = cells[1] || "";
+      var raw2    = cells[2] || "";
+      var raw3    = cells[3] || "";
+      var rawChrono = cells[4] || "";
+
+      var d1 = mapDegree(raw1);
+      var d2 = mapDegree(raw2);
+      var d3 = mapDegree(raw3);
+
+      // Chrono : accepte 9.4 / 9"4 / 9,4 (après normalisation)
+      var chronoNum = parseFloat(rawChrono.replace(",", "."));
+
+      var div = document.createElement("div");
+      div.style.cssText = "display:grid;grid-template-columns:140px 100px 100px 100px 100px 44px;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid #f0f0f0;";
+      div.innerHTML =
+        "<input type='text' value='" + escAttr(name) + "' class='name-inp' style='font-size:12px;'>" +
+        buildCodeSelectVal("obs1-" + i, OBS[0], d1) +
+        buildCodeSelectVal("obs2-" + i, OBS[1], d2) +
+        buildCodeSelectVal("obs3-" + i, OBS[2], d3) +
+        "<input type='number' class='chrono-inp' value='" + (isNaN(chronoNum) ? "" : chronoNum.toFixed(1)) + "' min='6' max='20' step='0.1' style='font-size:12px;'>" +
+        "<button class='btn-delete' title='Supprimer cet \u00e9l\u00e8ve' onclick='deleteRow(this)'>🗑️</button>";
+      container.appendChild(div);
+      imported++;
+    }
+
+    if (imported === 0) {
+      showCSVStatus("Aucun \u00e9l\u00e8ve import\u00e9 \u2014 v\u00e9rifier le format : Alaoui Mohamed,B,C,A,9\"4", "err");
+    } else {
+      showCSVStatus(imported + " \u00e9l\u00e8ve" + (imported > 1 ? "s" : "") + " import\u00e9" + (imported > 1 ? "s" : "") +
+        " \u2014 " + ignored + " ligne" + (ignored > 1 ? "s" : "") + " ignor\u00e9e" + (ignored > 1 ? "s" : ""), "ok");
+    }
+  };
+  reader.readAsText(file, "UTF-8");
+}
+
+function buildCodeSelectVal(id, obs, val) {
+  return "<select id='" + id + "' class='code-select'>" +
+    "<option value='' " + (!val ? "selected" : "") + ">--</option>" +
+    "<option value='A' class='A' " + (val === "A" ? "selected" : "") + ">" + obs.codes.A + " (A)</option>" +
+    "<option value='B' class='B' " + (val === "B" ? "selected" : "") + ">" + obs.codes.B + " (B)</option>" +
+    "<option value='C' class='C' " + (val === "C" ? "selected" : "") + ">" + obs.codes.C + " (C)</option>" +
+    "</select>";
+}
+
+// Mapper code terrain → degré A/B/C
+function mapDegree(val) {
+  if (!val) return "";
+  var v = val.toUpperCase().trim();
+  // Codes métier OBS-01
+  if (v === "RT") return "A";
+  if (v === "RH") return "B";
+  if (v === "RP") return "C";
+  // Codes métier OBS-02
+  if (v === "ID") return "A";
+  if (v === "IP") return "B";
+  if (v === "IM") return "C";
+  // Codes métier OBS-03
+  if (v === "RA") return "A";
+  if (v === "MD") return "B";
+  if (v === "FA") return "C";
+  // Codes métier OBS-04
+  if (v === "TE") return "A";
+  if (v === "TI") return "B";
+  if (v === "TF") return "C";
+  // Degrés lettres directs
+  if (v === "A") return "A";
+  if (v === "B") return "B";
+  if (v === "C") return "C";
+  // Valeurs numériques
+  var n = parseFloat(val);
+  if (!isNaN(n)) { return n >= SEUIL_C ? "C" : (n >= SEUIL_B ? "B" : "A"); }
+  return "";
+}
+
+
+
+function showCSVStatus(msg, type) {
+  var el = document.getElementById("csvStatus");
+  el.innerHTML = "<div class='csv-status csv-" + type + "'>" + escHtml(msg) + "</div>";
+}
+
+// ── EXPORT CSV ── Format terrain : nom,obs01,obs02,obs03,obs04
+// Exemple ligne : Alaoui Mohamed,B,C,A,9"4
+// Deux feuilles dans le même fichier :
+//   FEUILLE 1 — Format terrain (compatible réimport + lecture fiche papier)
+//   FEUILLE 2 — Format analyse complet (profil, lacune, axe)
+function exportCSV() {
+  if (!appData.students.length) { alert("Analyser la classe d'abord."); return; }
+  var bom = "\uFEFF";
+  var lines = [];
+
+  // ── EN-TÊTE INFORMATIF ──
+  lines.push("# EXPORT TERRAIN \u2014 Sprint \u2014 coll1_eq01 \u2014 ADP 2026");
+  lines.push("# Format : nom,obs01,obs02,obs03,obs04");
+  lines.push("# obs01-03 : code degr\u00e9 (A/B/C)  |  obs04 : chrono format 10\"2");
+  lines.push("# Exemple  : Alaoui Mohamed,B,C,A,9\"4");
+  lines.push("# Ce fichier est r\u00e9importable directement dans cet outil");
+  lines.push("");
+
+  // ── SECTION 1 : FORMAT TERRAIN SIMPLE ──
+  lines.push("## SECTION 1 \u2014 FORMAT TERRAIN (r\u00e9importable)");
+  lines.push("nom,obs01,obs02,obs03,obs04");
+
+  appData.students.forEach(function(s) {
+    // obs01/02/03 : degré lettre (A, B ou C)
+    var d1 = s.obs[0] || "";
+    var d2 = s.obs[1] || "";
+    var d3 = s.obs[2] || "";
+    // obs04 : chrono au format 9"4 (guillemet terrain)
+    var chrono = "";
+    if (s.chrono) {
+      var c = parseFloat(s.chrono);
+      if (!isNaN(c)) {
+        // Format X"Y : partie entière + guillemet + dixième(s)
+        var entier = Math.floor(c);
+        var dix = Math.round((c - entier) * 10);
+        chrono = entier + "\u0022" + dix;  // " = guillemet droit
+      } else {
+        chrono = String(s.chrono);
+      }
+    }
+    lines.push([s.name, d1, d2, d3, chrono].join(","));
+  });
+
+  lines.push("");
+
+  // ── SECTION 2 : FORMAT ANALYSE COMPLET ──
+  lines.push("## SECTION 2 \u2014 ANALYSE COMPL\u00c8TE");
+  lines.push("nom,obs01_code,obs01_deg,obs02_code,obs02_deg,obs03_code,obs03_deg,chrono,moy_10,profil_global,profil_detail,rang,lacune1,axe_prioritaire");
+
+  appData.students.forEach(function(s) {
+    var code1 = s.obs[0] ? OBS[0].codes[s.obs[0]] : "";
+    var code2 = s.obs[1] ? OBS[1].codes[s.obs[1]] : "";
+    var code3 = s.obs[2] ? OBS[2].codes[s.obs[2]] : "";
+    lines.push([
+      csvQ(s.name),
+      csvQ(code1), csvQ(s.obs[0] || ""),
+      csvQ(code2), csvQ(s.obs[1] || ""),
+      csvQ(code3), csvQ(s.obs[2] || ""),
+      csvQ(s.chrono || ""),
+      s.avg || "",
+      csvQ(s.profil || ""),
+      csvQ(s.profilDetail || ""),
+      s.rang || "",
+      csvQ(s.lacune1 || ""),
+      csvQ(s.axePrio || "")
+    ].join(","));
+  });
+
+  var d = new Date();
+  var dateStr = d.getFullYear() + "-" + pad(d.getMonth()+1) + "-" + pad(d.getDate());
+  var blob = new Blob([bom + lines.join("\n")], { type: "text/csv;charset=utf-8;" });
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "outil_v0_sprint_coll1_eq01_" + dateStr + ".csv";
+  a.click();
+}
+
+// ── PRINT ────────────────────────────────────────────────────────────
+function printPage() { window.print(); }
+
+// ── UTILS ────────────────────────────────────────────────────────────
+function escHtml(s) {
+  if (!s) return "";
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+function escAttr(s) {
+  if (!s) return "";
+  return String(s).replace(/'/g,"&#39;").replace(/"/g,"&quot;");
+}
+function csvQ(s) { return '"' + String(s||"").replace(/"/g,'""') + '"'; }
+function pad(n) { return n < 10 ? "0" + n : String(n); }
+
+// Array findIndex polyfill
+if (!Array.prototype.findIndex) {
+  Array.prototype.findIndex = function(fn) {
+    for (var i = 0; i < this.length; i++) { if (fn(this[i], i)) return i; }
+    return -1;
+  };
+}
+if (!Array.prototype.find) {
+  Array.prototype.find = function(fn) {
+    for (var i = 0; i < this.length; i++) { if (fn(this[i])) return this[i]; }
+    return undefined;
+  };
+}
+</script>
+</body>
+</html>
