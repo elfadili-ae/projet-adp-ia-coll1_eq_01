@@ -1,0 +1,2737 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Outil DI — Sprint — coll1_eq01 — ADP 2026</title>
+<style>
+/* ── VARIABLES ── */
+:root {
+  --ink: #1a1a1a;
+  --mid: #555;
+  --soft: #888;
+  --line: #ddd;
+  --page: #f7f7f7;
+  --white: #fff;
+  --A-bg: #FCEBEB; --A-brd: #c93333; --A-txt: #a02020;
+  --B-bg: #FAEEDA; --B-brd: #b07800; --B-txt: #8a5c00;
+  --C-bg: #EAF3DE; --C-brd: #3a7a10; --C-txt: #2a5c08;
+  --blue: #1a5fa8; --blue-l: #e8f0fb;
+  --step-done: #3a7a10; --step-active: #1a5fa8; --step-todo: #bbb;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: var(--page); color: var(--ink); font-size: 14px; min-height: 100vh; }
+
+/* ── HEADER ── */
+.app-header { background: var(--ink); color: #fff; padding: 12px 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.app-header h1 { font-size: 16px; font-weight: 700; letter-spacing: 0.05em; }
+.app-header .meta { font-size: 11px; color: #aaa; }
+.no-note-badge { background: #c93333; color: #fff; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 2px; letter-spacing: 0.08em; }
+
+/* ── STEP INDICATOR ── */
+.steps { display: flex; align-items: center; background: #fff; border-bottom: 2px solid var(--line); padding: 0; overflow-x: auto; }
+.step { display: flex; align-items: center; padding: 10px 16px; cursor: pointer; border-bottom: 3px solid transparent; font-size: 12px; font-weight: 600; color: var(--soft); white-space: nowrap; gap: 6px; transition: all 0.2s; }
+.step.active { color: var(--step-active); border-bottom-color: var(--step-active); }
+.step.done { color: var(--step-done); }
+.step.locked { cursor: not-allowed; opacity: 0.4; }
+.step-num { width: 20px; height: 20px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; background: var(--line); color: var(--soft); }
+.step.active .step-num { background: var(--step-active); color: #fff; }
+.step.done .step-num { background: var(--step-done); color: #fff; }
+
+/* ── MAIN CONTENT ── */
+.main { max-width: 1100px; margin: 0 auto; padding: 16px; }
+.section { display: none; }
+.section.active { display: block; }
+
+/* ── CARDS ── */
+.card { background: #fff; border: 1px solid var(--line); border-radius: 4px; padding: 16px; margin-bottom: 14px; }
+.card-title { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 12px; border-bottom: 1px solid var(--line); padding-bottom: 8px; display: flex; align-items: center; gap: 8px; }
+.card-title .tag { font-size: 10px; font-weight: 600; padding: 2px 6px; border-radius: 2px; background: var(--blue-l); color: var(--blue); }
+
+/* ── FORM ── */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+@media (max-width: 600px) { .form-grid { grid-template-columns: 1fr; } }
+.form-row { display: grid; grid-template-columns: 140px 1fr 1fr 1fr 100px; gap: 8px; align-items: center; padding: 6px 0; border-bottom: 1px solid #f0f0f0; }
+.form-row:first-child { font-size: 11px; font-weight: 700; color: var(--soft); text-transform: uppercase; letter-spacing: 0.08em; background: #f8f8f8; padding: 6px 4px; border-radius: 2px; }
+label { font-size: 12px; font-weight: 600; color: var(--mid); }
+input[type="text"], input[type="number"], select {
+  border: 1px solid var(--line); border-radius: 3px;
+  padding: 6px 8px; font-size: 13px; width: 100%;
+  font-family: inherit; color: var(--ink); background: #fff;
+}
+input[type="text"]:focus, input[type="number"]:focus { outline: 2px solid var(--blue); border-color: var(--blue); }
+input.error { border-color: var(--A-brd); background: var(--A-bg); }
+.err-msg { font-size: 11px; color: var(--A-txt); margin-top: 2px; }
+.code-select { font-family: 'Courier New', monospace; font-size: 12px; font-weight: 700; }
+option.A { background: var(--A-bg); }
+option.B { background: var(--B-bg); }
+option.C { background: var(--C-bg); }
+
+/* ── BUTTONS ── */
+.btn { display: inline-flex; align-items: center; gap: 6px; padding: 8px 16px; border: none; border-radius: 3px; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; transition: all 0.15s; }
+.btn-primary { background: var(--blue); color: #fff; }
+.btn-primary:hover { background: #1448a0; }
+.btn-primary:disabled { background: #bbb; cursor: not-allowed; }
+.btn-secondary { background: #f0f0f0; color: var(--ink); border: 1px solid var(--line); }
+.btn-secondary:hover { background: #e4e4e4; }
+.btn-danger { background: var(--A-brd); color: #fff; }
+.btn-delete {
+  background: none; border: 1px solid var(--A-brd); color: var(--A-brd);
+  border-radius: 3px; padding: 4px 8px; font-size: 13px; cursor: pointer;
+  line-height: 1; transition: background 0.15s, color 0.15s;
+  min-width: 32px; min-height: 30px;
+}
+.btn-delete:hover { background: var(--A-brd); color: #fff; }
+.btn-sm { padding: 5px 10px; font-size: 11px; }
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 14px; }
+
+/* ── TABLE ── */
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; }
+th { background: var(--ink); color: #fff; padding: 8px 6px; text-align: left; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; white-space: nowrap; }
+td { padding: 7px 6px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+tr.row-A { background: var(--A-bg); }
+tr.row-B { background: var(--B-bg); }
+tr.row-C { background: var(--C-bg); }
+tr:hover { filter: brightness(0.97); }
+.badge { display: inline-block; padding: 2px 7px; border-radius: 2px; font-size: 11px; font-weight: 700; border: 1px solid; }
+.badge-A { background: var(--A-bg); color: var(--A-txt); border-color: var(--A-brd); }
+.badge-B { background: var(--B-bg); color: var(--B-txt); border-color: var(--B-brd); }
+.badge-C { background: var(--C-bg); color: var(--C-txt); border-color: var(--C-brd); }
+
+/* ── STATS CARDS ── */
+.stat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 10px; margin-bottom: 14px; }
+.stat-card { background: #fff; border: 1px solid var(--line); border-radius: 4px; padding: 12px; text-align: center; }
+.stat-card .val { font-size: 26px; font-weight: 700; line-height: 1; }
+.stat-card .lbl { font-size: 10px; color: var(--soft); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+.stat-card.card-A .val { color: var(--A-txt); }
+.stat-card.card-B .val { color: var(--B-txt); }
+.stat-card.card-C .val { color: var(--C-txt); }
+.stat-card.card-avg .val { color: var(--blue); }
+
+/* ── DECISION BOX ── */
+.decision-box { padding: 12px 16px; border-left: 4px solid; border-radius: 0 4px 4px 0; margin: 12px 0; font-size: 13px; font-weight: 600; }
+.decision-A { border-color: var(--A-brd); background: var(--A-bg); color: var(--A-txt); }
+.decision-B { border-color: var(--B-brd); background: var(--B-bg); color: var(--B-txt); }
+.decision-C { border-color: var(--C-brd); background: var(--C-bg); color: var(--C-txt); }
+
+/* ── AXE CARDS STEP 2 ── */
+.axe-card { border: 1.5px solid var(--line); border-radius: 4px; padding: 12px 14px; margin-bottom: 10px; cursor: pointer; transition: all 0.15s; position: relative; }
+.axe-card:hover { border-color: var(--blue); }
+.axe-card.selected { border-color: var(--blue); background: var(--blue-l); }
+.axe-card input[type="checkbox"] { position: absolute; top: 14px; right: 14px; width: 18px; height: 18px; cursor: pointer; }
+.axe-title { font-size: 13px; font-weight: 700; color: var(--ink); margin-bottom: 6px; padding-right: 28px; }
+.axe-meta { font-size: 11px; color: var(--mid); display: flex; gap: 14px; flex-wrap: wrap; }
+.axe-meta span { display: flex; align-items: center; gap: 4px; }
+.pertinence-bar { height: 4px; background: var(--line); border-radius: 2px; margin-top: 8px; overflow: hidden; }
+.pertinence-fill { height: 100%; background: var(--blue); border-radius: 2px; transition: width 0.4s; }
+.axe-warning { font-size: 11px; color: var(--A-txt); background: var(--A-bg); border: 1px solid var(--A-brd); padding: 6px 10px; border-radius: 3px; margin-top: 8px; display: none; }
+
+/* ── SLIDER ── */
+.slider-wrap { padding: 16px 0; }
+.slider-label { font-size: 13px; font-weight: 700; margin-bottom: 10px; color: var(--ink); }
+input[type="range"] { width: 100%; height: 6px; border-radius: 3px; background: var(--line); outline: none; -webkit-appearance: none; cursor: pointer; }
+input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%; background: var(--blue); cursor: pointer; border: 2px solid #fff; box-shadow: 0 1px 4px rgba(0,0,0,0.2); }
+.slider-val { display: inline-block; background: var(--blue); color: #fff; font-size: 18px; font-weight: 700; width: 36px; height: 36px; border-radius: 50%; text-align: center; line-height: 36px; margin-left: 12px; }
+.slider-row { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+.distrib-preview { background: #f8f8f8; border: 1px solid var(--line); border-radius: 4px; padding: 12px; font-size: 12px; }
+.distrib-row { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; padding: 6px 8px; background: #fff; border: 1px solid var(--line); border-radius: 3px; }
+.distrib-seq { font-weight: 700; color: var(--blue); min-width: 80px; font-size: 11px; }
+.distrib-n { background: var(--blue); color: #fff; font-size: 10px; font-weight: 700; padding: 2px 6px; border-radius: 10px; }
+.distrib-axe { font-size: 11px; color: var(--mid); }
+
+/* ── PLAN TABLE ── */
+.seq-block { margin-bottom: 20px; }
+.seq-header { background: var(--ink); color: #fff; padding: 10px 14px; border-radius: 4px 4px 0 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.seq-header h3 { font-size: 13px; font-weight: 700; }
+.seq-header .seq-meta { font-size: 11px; color: #aaa; }
+.plan-table { width: 100%; border-collapse: collapse; font-size: 11px; border: 1px solid var(--line); }
+.plan-table th { background: #333; color: #fff; padding: 7px 8px; text-align: left; font-size: 10px; }
+.plan-table td { padding: 8px; border: 1px solid var(--line); vertical-align: top; font-size: 11px; }
+.plan-table td.td-n { font-weight: 700; color: var(--blue); text-align: center; width: 40px; }
+.plan-table td.td-axe { font-weight: 600; max-width: 120px; }
+.plan-table td.td-A { background: #fef8f8; border-left: 3px solid var(--A-brd); }
+.plan-table td.td-B { background: #fdfaf4; border-left: 3px solid var(--B-brd); }
+.plan-table td.td-C { background: #f5faf0; border-left: 3px solid var(--C-brd); }
+.plan-sa { font-weight: 700; display: block; margin-bottom: 3px; font-size: 10px; }
+.plan-crit { font-size: 10px; color: var(--soft); font-style: italic; }
+.indicator-row td { background: #f8fbff !important; border-left: none !important; }
+.indicator-box { font-size: 10px; color: #1a5fa8; font-style: italic; padding: 2px 0; }
+.indicator-note { font-size: 9px; color: var(--soft); }
+
+/* ── CSV DROP ── */
+.csv-drop { border: 2px dashed var(--line); border-radius: 4px; padding: 20px; text-align: center; color: var(--soft); cursor: pointer; transition: all 0.2s; margin-bottom: 12px; }
+.csv-drop:hover, .csv-drop.drag-over { border-color: var(--blue); background: var(--blue-l); color: var(--blue); }
+.csv-drop .icon { font-size: 28px; display: block; margin-bottom: 6px; }
+.csv-status { font-size: 11px; margin-top: 8px; padding: 6px 10px; border-radius: 3px; }
+.csv-ok { background: var(--C-bg); color: var(--C-txt); }
+.csv-err { background: var(--A-bg); color: var(--A-txt); }
+
+/* ══════════════════════════════════════════════════
+   LANDING PAGE
+   ══════════════════════════════════════════════════ */
+
+/* ── Wrapper ── */
+#landingPage {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  color: #1a1a1a;
+  background: #fff;
+  overflow-x: hidden;
+}
+#landingPage.lp-hidden { display: none; }
+
+/* ── Sticky nav ── */
+.lp-nav {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(255,255,255,0.96);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid #e8e8e8;
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 0 5vw; height: 56px;
+}
+.lp-nav-brand {
+  display: flex; align-items: center; gap: 10px;
+}
+.lp-nav-brand .ico { font-size: 22px; }
+.lp-nav-brand .name {
+  font-size: 14px; font-weight: 700; color: #1a1a1a; letter-spacing: 0.03em;
+}
+.lp-nav-brand .sub { font-size: 10px; color: #888; margin-top: 1px; }
+.lp-nav-cta {
+  background: #1a5fa8; color: #fff; border: none;
+  padding: 8px 20px; border-radius: 6px;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  font-family: inherit; letter-spacing: 0.02em;
+  transition: background 0.15s, transform 0.1s;
+  white-space: nowrap;
+}
+.lp-nav-cta:hover { background: #1448a0; transform: translateY(-1px); }
+
+/* ── Section base ── */
+.lp-section {
+  padding: 72px 5vw;
+  max-width: 1100px; margin: 0 auto;
+}
+.lp-section-full {
+  padding: 72px 5vw;
+}
+.lp-section-full > .lp-inner {
+  max-width: 1100px; margin: 0 auto;
+}
+.lp-label {
+  display: inline-block;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.14em;
+  text-transform: uppercase; color: #1a5fa8;
+  background: #e8f0fb; padding: 4px 12px; border-radius: 20px;
+  margin-bottom: 14px;
+}
+.lp-h2 {
+  font-size: clamp(22px, 4vw, 32px); font-weight: 800;
+  color: #0f172a; line-height: 1.2; margin-bottom: 12px;
+}
+.lp-sub {
+  font-size: 16px; color: #555; line-height: 1.65;
+  max-width: 580px; margin-bottom: 40px;
+}
+
+/* ── HERO ── */
+.lp-hero-wrap {
+  background: linear-gradient(135deg, #0f172a 0%, #1a3a6b 50%, #1a5fa8 100%);
+  min-height: 92vh;
+  display: flex; align-items: center;
+  position: relative; overflow: hidden;
+  padding: 60px 5vw;
+}
+.lp-hero-wrap::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 80% 50%, rgba(26,95,168,0.35) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 10% 80%, rgba(58,122,16,0.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+.lp-hero-inner {
+  max-width: 1100px; margin: 0 auto; width: 100%;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 48px; align-items: center; position: relative; z-index: 1;
+}
+.lp-hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+  color: #93c5fd; font-size: 11px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  padding: 5px 14px; border-radius: 20px; margin-bottom: 20px;
+}
+.lp-hero-eyebrow .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #4ade80; box-shadow: 0 0 8px #4ade80;
+}
+.lp-hero-h1 {
+  font-size: clamp(28px, 4.5vw, 52px); font-weight: 900;
+  color: #fff; line-height: 1.1; margin-bottom: 16px;
+  letter-spacing: -0.02em;
+}
+.lp-hero-h1 .accent {
+  background: linear-gradient(90deg, #60a5fa, #4ade80);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.lp-hero-desc {
+  font-size: 16px; color: rgba(255,255,255,0.75);
+  line-height: 1.7; margin-bottom: 32px; max-width: 440px;
+}
+.lp-hero-btns {
+  display: flex; gap: 12px; flex-wrap: wrap; align-items: center;
+}
+.btn-lp-primary {
+  background: linear-gradient(135deg, #1a5fa8, #2563eb);
+  color: #fff; border: none; padding: 14px 28px;
+  border-radius: 8px; font-size: 15px; font-weight: 700;
+  cursor: pointer; font-family: inherit;
+  box-shadow: 0 4px 20px rgba(26,95,168,0.5);
+  transition: all 0.2s;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.btn-lp-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(26,95,168,0.6);
+}
+.btn-lp-outline {
+  background: rgba(255,255,255,0.08);
+  color: #fff; border: 1.5px solid rgba(255,255,255,0.3);
+  padding: 13px 24px; border-radius: 8px;
+  font-size: 14px; font-weight: 600;
+  cursor: pointer; font-family: inherit;
+  transition: all 0.2s;
+  display: inline-flex; align-items: center; gap: 8px;
+  text-decoration: none;
+}
+.btn-lp-outline:hover {
+  background: rgba(255,255,255,0.15);
+  border-color: rgba(255,255,255,0.5);
+}
+/* Hero visual — stats mock */
+.lp-hero-visual {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px; padding: 20px;
+  backdrop-filter: blur(12px);
+}
+.lp-vis-header {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 14px; padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.lp-vis-title { font-size: 12px; font-weight: 700; color: #93c5fd; letter-spacing: 0.06em; }
+.lp-vis-badge {
+  font-size: 9px; font-weight: 700; padding: 2px 8px; border-radius: 4px;
+  background: rgba(196,51,51,0.25); color: #fca5a5;
+  border: 1px solid rgba(196,51,51,0.4); letter-spacing: 0.08em;
+}
+.lp-vis-table { width: 100%; border-collapse: collapse; }
+.lp-vis-table th {
+  font-size: 9px; font-weight: 700; color: rgba(255,255,255,0.4);
+  text-transform: uppercase; letter-spacing: 0.1em;
+  padding: 0 6px 8px; text-align: left;
+}
+.lp-vis-table td {
+  padding: 7px 6px; font-size: 11px; color: rgba(255,255,255,0.85);
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+.lp-vis-deg {
+  display: inline-block; font-size: 10px; font-weight: 800;
+  padding: 2px 8px; border-radius: 4px;
+}
+.deg-a { background: rgba(201,51,51,0.25); color: #fca5a5; border: 1px solid rgba(201,51,51,0.4); }
+.deg-b { background: rgba(176,120,0,0.25); color: #fcd34d; border: 1px solid rgba(176,120,0,0.4); }
+.deg-c { background: rgba(58,122,16,0.25); color: #86efac; border: 1px solid rgba(58,122,16,0.4); }
+.lp-vis-stats {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 8px; margin-top: 14px;
+}
+.lp-vis-stat {
+  background: rgba(255,255,255,0.06); border-radius: 8px;
+  padding: 10px; text-align: center;
+}
+.lp-vis-stat .n { font-size: 22px; font-weight: 800; color: #fff; line-height: 1; }
+.lp-vis-stat .l { font-size: 9px; color: rgba(255,255,255,0.5); font-weight: 600; margin-top: 3px; text-transform: uppercase; letter-spacing: 0.08em; }
+.lp-vis-stat.sa .n { color: #fca5a5; }
+.lp-vis-stat.sb .n { color: #fcd34d; }
+.lp-vis-stat.sc .n { color: #86efac; }
+
+/* ── WHY section ── */
+.lp-why { background: #f8fafc; }
+.lp-benefits {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+.lp-benefit-card {
+  background: #fff; border: 1px solid #e8e8e8;
+  border-radius: 12px; padding: 24px 22px;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.lp-benefit-card:hover {
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  transform: translateY(-3px);
+}
+.lp-benefit-ico {
+  width: 48px; height: 48px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin-bottom: 14px;
+}
+.lp-benefit-ico.blue { background: #eff6ff; }
+.lp-benefit-ico.green { background: #f0fdf4; }
+.lp-benefit-ico.orange { background: #fff7ed; }
+.lp-benefit-ico.purple { background: #faf5ff; }
+.lp-benefit-ico.teal { background: #f0fdfa; }
+.lp-benefit-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 6px; }
+.lp-benefit-card p { font-size: 13px; color: #666; line-height: 1.6; }
+
+/* ── HOW IT WORKS ── */
+.lp-howto { background: #fff; }
+.lp-steps-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0; position: relative;
+}
+.lp-steps-grid::before {
+  content: '';
+  position: absolute; top: 28px; left: calc(12.5% + 12px);
+  right: calc(12.5% + 12px); height: 2px;
+  background: linear-gradient(90deg, #1a5fa8, #2563eb, #1a5fa8);
+  z-index: 0;
+}
+.lp-step-card {
+  display: flex; flex-direction: column; align-items: center;
+  text-align: center; padding: 0 16px 32px; position: relative; z-index: 1;
+}
+.lp-step-circle {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, #1a5fa8, #2563eb);
+  color: #fff; font-size: 20px; font-weight: 900;
+  display: flex; align-items: center; justify-content: center;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 16px rgba(26,95,168,0.4);
+  border: 3px solid #fff;
+}
+.lp-step-card h3 { font-size: 14px; font-weight: 700; margin-bottom: 6px; }
+.lp-step-card p { font-size: 12px; color: #666; line-height: 1.6; }
+.lp-step-ico { font-size: 28px; margin-bottom: 8px; }
+
+/* ── DEMO ── */
+.lp-demo { background: #f8fafc; }
+.lp-demo-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 40px; align-items: start;
+}
+.lp-demo-card {
+  background: #fff; border: 1px solid #e8e8e8;
+  border-radius: 12px; overflow: hidden;
+}
+.lp-demo-card-header {
+  background: #1a1a1a; color: #fff;
+  padding: 12px 16px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.08em;
+  text-transform: uppercase; display: flex; align-items: center; gap: 8px;
+}
+.lp-demo-card-header .dot3 { display: flex; gap: 4px; }
+.lp-demo-card-header .dot3 span {
+  width: 8px; height: 8px; border-radius: 50%;
+}
+.d3r { background: #ef4444; }
+.d3y { background: #f59e0b; }
+.d3g { background: #22c55e; }
+.lp-demo-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+.lp-demo-table th {
+  background: #f8fafc; padding: 8px 10px;
+  font-size: 10px; font-weight: 700; color: #888;
+  text-transform: uppercase; letter-spacing: 0.08em;
+  border-bottom: 1px solid #e8e8e8; text-align: left;
+}
+.lp-demo-table td {
+  padding: 9px 10px; border-bottom: 1px solid #f0f0f0;
+  font-size: 12px;
+}
+.lp-demo-table tr:last-child td { border-bottom: none; }
+.lp-demo-table tr.ra td { background: #fef9f9; }
+.lp-demo-table tr.rb td { background: #fffdf5; }
+.lp-demo-table tr.rc td { background: #f6fbf3; }
+.lp-dc {
+  display: inline-block; font-size: 10px; font-weight: 800;
+  padding: 2px 7px; border-radius: 4px; border: 1px solid;
+}
+.ldA { background: var(--A-bg); color: var(--A-txt); border-color: var(--A-brd); }
+.ldB { background: var(--B-bg); color: var(--B-txt); border-color: var(--B-brd); }
+.ldC { background: var(--C-bg); color: var(--C-txt); border-color: var(--C-brd); }
+.lp-csv-block {
+  background: #0f172a; border-radius: 12px; padding: 20px;
+}
+.lp-csv-block .csv-title {
+  font-size: 10px; font-weight: 700; color: #64748b;
+  text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px;
+}
+.lp-csv-line {
+  font-family: 'Courier New', monospace; font-size: 12px;
+  color: #e2e8f0; padding: 6px 0; border-bottom: 1px solid #1e293b;
+  line-height: 1.4;
+}
+.lp-csv-line:last-child { border-bottom: none; }
+.lp-csv-line .hl-name { color: #60a5fa; }
+.lp-csv-line .hl-a { color: #f87171; }
+.lp-csv-line .hl-b { color: #fbbf24; }
+.lp-csv-line .hl-c { color: #4ade80; }
+.lp-csv-line .hl-chrono { color: #a78bfa; }
+.lp-csv-tip {
+  margin-top: 14px; background: rgba(255,255,255,0.05);
+  border-left: 3px solid #1a5fa8; padding: 10px 12px;
+  border-radius: 0 8px 8px 0;
+}
+.lp-csv-tip p { font-size: 11px; color: #94a3b8; line-height: 1.6; }
+
+/* ── FEATURES ── */
+.lp-features { background: #fff; }
+.lp-feat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+.lp-feat-tile {
+  border: 1px solid #e8e8e8; border-radius: 12px;
+  padding: 20px 16px; text-align: center;
+  transition: all 0.2s;
+}
+.lp-feat-tile:hover {
+  border-color: #1a5fa8; background: #f0f7ff;
+  box-shadow: 0 4px 16px rgba(26,95,168,0.12);
+}
+.lp-feat-tile .ft-ico { font-size: 28px; margin-bottom: 10px; }
+.lp-feat-tile h4 { font-size: 13px; font-weight: 700; margin-bottom: 5px; }
+.lp-feat-tile p { font-size: 11px; color: #777; line-height: 1.5; }
+
+/* ── CTA SECTION ── */
+.lp-cta {
+  background: linear-gradient(135deg, #0f172a 0%, #1a3a6b 50%, #1a5fa8 100%);
+  text-align: center; padding: 80px 5vw;
+}
+.lp-cta h2 {
+  font-size: clamp(24px, 4vw, 40px); font-weight: 900;
+  color: #fff; margin-bottom: 14px; letter-spacing: -0.02em;
+}
+.lp-cta p { font-size: 16px; color: rgba(255,255,255,0.7); margin-bottom: 32px; }
+.lp-cta-btns { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; }
+.btn-lp-white {
+  background: #fff; color: #1a5fa8; border: none;
+  padding: 15px 32px; border-radius: 8px;
+  font-size: 16px; font-weight: 800; cursor: pointer;
+  font-family: inherit;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  transition: all 0.2s;
+  display: inline-flex; align-items: center; gap: 10px;
+}
+.btn-lp-white:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.28); }
+.lp-skip-wrap {
+  margin-top: 22px; display: flex; align-items: center;
+  justify-content: center; gap: 10px;
+}
+.lp-skip-label {
+  display: flex; align-items: center; gap: 7px;
+  font-size: 13px; color: rgba(255,255,255,0.6); cursor: pointer; user-select: none;
+}
+.lp-skip-label input { width: 15px; height: 15px; cursor: pointer; accent-color: #60a5fa; }
+
+/* ── Footer landing ── */
+.lp-foot {
+  background: #0f172a; padding: 20px 5vw;
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 10px;
+}
+.lp-foot p { font-size: 11px; color: #475569; }
+
+/* ── App shell hidden by default ── */
+#appShell { display: none; }
+#appShell.app-visible { display: block; }
+
+/* ── RESPONSIVE LANDING ── */
+@media (max-width: 768px) {
+  .lp-hero-inner { grid-template-columns: 1fr; gap: 32px; }
+  .lp-hero-visual { display: none; }
+  .lp-hero-wrap { min-height: auto; padding: 56px 5vw; }
+  .lp-demo-grid { grid-template-columns: 1fr; }
+  .lp-steps-grid::before { display: none; }
+  .lp-nav-brand .sub { display: none; }
+  .lp-section, .lp-section-full { padding: 48px 5vw; }
+  .lp-hero-h1 { font-size: 30px; }
+}
+@media (max-width: 480px) {
+  .lp-benefits { grid-template-columns: 1fr; }
+  .lp-feat-grid { grid-template-columns: repeat(2,1fr); }
+  .lp-steps-grid { grid-template-columns: 1fr 1fr; }
+}
+@media print {
+  #landingPage { display: none !important; }
+}
+
+/* ── PRINT ── */
+@media print {
+  .app-header, .steps, .btn-row, .btn, .csv-drop, .form-row, .card-title .tag,
+  .axe-card input, .slider-wrap, #import-section, .action-bar { display: none !important; }
+  .section { display: block !important; }
+  body { background: #fff; font-size: 11px; }
+  .card { border: 1px solid #ccc; page-break-inside: avoid; }
+  .plan-table td { font-size: 10px; }
+}
+
+/* ── UTIL ── */
+.mt { margin-top: 12px; }
+.obs-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 5px; border-radius: 2px; margin-right: 3px; }
+.obs-A { background: var(--A-bg); color: var(--A-txt); }
+.obs-B { background: var(--B-bg); color: var(--B-txt); }
+.obs-C { background: var(--C-bg); color: var(--C-txt); }
+.text-soft { font-size: 11px; color: var(--soft); }
+.info-banner { background: var(--blue-l); border: 1px solid #b0c8e8; border-radius: 4px; padding: 10px 14px; font-size: 12px; color: var(--blue); margin-bottom: 12px; }
+.warning-banner { background: #fff8e1; border: 1px solid #f0c040; border-radius: 4px; padding: 10px 14px; font-size: 12px; color: #6b4c00; margin-bottom: 12px; }
+.action-bar { position: sticky; bottom: 0; background: #fff; border-top: 2px solid var(--line); padding: 10px 16px; z-index: 100; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.action-bar .hint { font-size: 11px; color: var(--soft); }
+hr.divider { border: none; border-top: 1px solid var(--line); margin: 14px 0; }
+
+/* ── SESSION TOOLBAR ── */
+.session-bar {
+  background: #1a3a6b; color: #fff;
+  padding: 7px 16px;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+  font-size: 11px;
+}
+.session-bar .s-label { font-weight: 700; color: #93c5fd; letter-spacing: 0.06em; }
+.session-bar .s-hint { font-size: 10px; color: rgba(255,255,255,0.55); margin-left: auto; }
+.btn-sess {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 5px 11px; border-radius: 3px; border: 1px solid rgba(255,255,255,0.25);
+  background: rgba(255,255,255,0.08); color: #fff;
+  font-size: 11px; font-weight: 600; cursor: pointer; font-family: inherit;
+  transition: background 0.15s;
+}
+.btn-sess:hover { background: rgba(255,255,255,0.18); }
+.btn-sess.danger { border-color: rgba(201,51,51,0.5); background: rgba(201,51,51,0.15); }
+.btn-sess.danger:hover { background: rgba(201,51,51,0.35); }
+
+/* ── PRIVACY BANNER ── */
+.privacy-banner {
+  background: #e8f0fb; border-left: 4px solid var(--blue);
+  padding: 8px 14px; font-size: 11px; color: #1a3a6b;
+  display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+}
+.privacy-banner strong { font-weight: 700; }
+
+/* ── ANALYSE — RETOUR VISUEL ── */
+@keyframes resultHighlight {
+  0%   { box-shadow: 0 0 0 3px var(--blue), 0 0 24px rgba(26,95,168,0.35); border-color: var(--blue); }
+  60%  { box-shadow: 0 0 0 3px var(--blue), 0 0 24px rgba(26,95,168,0.35); border-color: var(--blue); }
+  100% { box-shadow: none; border-color: var(--line); }
+}
+.results-highlight {
+  animation: resultHighlight 2.4s ease-out forwards;
+}
+#analyseSuccessBanner {
+  display: none;
+  align-items: center; gap: 10px;
+  background: var(--C-bg); border: 1.5px solid var(--C-brd);
+  color: var(--C-txt); border-radius: 4px;
+  padding: 10px 16px; font-size: 13px; font-weight: 700;
+  margin-bottom: 14px;
+  animation: fadeInBanner 0.3s ease-out;
+}
+#analyseSuccessBanner.visible { display: flex; }
+@keyframes fadeInBanner {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+#analyseSuccessBanner .success-ico { font-size: 18px; flex-shrink: 0; }
+#analyseSuccessBanner .success-sub { font-size: 11px; font-weight: 400; color: var(--C-txt); opacity: 0.8; margin-top: 1px; }
+
+/* ── SAVE INDICATOR ── */
+#saveIndicator {
+  font-size: 10px; color: rgba(255,255,255,0.5);
+  padding: 4px 8px; border-radius: 3px;
+  transition: opacity 0.4s;
+}
+#saveIndicator.saved { color: #86efac; }
+/* ── FICHE TERRAIN — PDF ── */
+.btn-pdf {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 20px; border-radius: 5px;
+  background: #c93333; color: #fff; border: none;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  font-family: inherit; text-decoration: none;
+  transition: background 0.15s; box-shadow: 0 2px 6px rgba(201,51,51,0.25);
+}
+.btn-pdf:hover { background: #a52020; }
+.btn-pdf-outline {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 16px; border-radius: 4px;
+  background: transparent; color: #c93333;
+  border: 1.5px solid #c93333; font-size: 12px; font-weight: 700;
+  cursor: pointer; font-family: inherit; text-decoration: none;
+  transition: all 0.15s;
+}
+.btn-pdf-outline:hover { background: var(--A-bg); }
+
+/* ── FICHE TERRAIN CARD (landing) ── */
+.lp-pdf-card {
+  background: linear-gradient(135deg, #fff5f5 0%, #fff 60%);
+  border: 1.5px solid #f0b8b8; border-radius: 10px;
+  padding: 28px 32px; display: flex; gap: 32px; align-items: flex-start;
+  flex-wrap: wrap;
+}
+.lp-pdf-icon { font-size: 52px; flex-shrink: 0; line-height: 1; }
+.lp-pdf-body h3 { font-size: 17px; font-weight: 700; color: #a02020; margin-bottom: 8px; }
+.lp-pdf-body p  { font-size: 13px; color: #555; line-height: 1.7; margin-bottom: 14px; }
+.lp-pdf-body .pdf-btns { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+/* ── WORKFLOW HORIZONTAL (landing how-it-works) ── */
+.lp-workflow { display: flex; gap: 0; flex-wrap: wrap; margin-top: 32px; }
+.lp-wf-step {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  flex: 1; min-width: 120px; padding: 16px 8px; position: relative;
+}
+.lp-wf-step:not(:last-child)::after {
+  content: "›"; position: absolute; right: -8px; top: 24px;
+  font-size: 22px; color: #ccc; font-weight: 700;
+}
+.lp-wf-ico {
+  width: 52px; height: 52px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin-bottom: 10px;
+  background: #f0f4ff; border: 2px solid #d0ddf7;
+}
+.lp-wf-ico.red { background: #fff0f0; border-color: #f0b8b8; }
+.lp-wf-ico.blue { background: #e8f0fb; border-color: #b8cff0; }
+.lp-wf-ico.green { background: #eaf3de; border-color: #b0d898; }
+.lp-wf-ico.purple { background: #f3eeff; border-color: #c8a8f0; }
+.lp-wf-ico.orange { background: #fff8ed; border-color: #f0d898; }
+.lp-wf-step h4 { font-size: 11px; font-weight: 700; color: #333; margin-bottom: 4px; }
+.lp-wf-step p  { font-size: 10px; color: #777; line-height: 1.5; }
+@media (max-width: 600px) {
+  .lp-wf-step:not(:last-child)::after { display: none; }
+  .lp-wf-step { min-width: 45%; }
+}
+
+/* ── CONVERSION CSV CARD ── */
+.csv-conversion-card {
+  background: #0f172a; color: #e2e8f0; border-radius: 8px; padding: 20px 24px; margin-top: 14px;
+}
+.csv-conversion-card h4 { font-size: 14px; font-weight: 700; color: #93c5fd; margin-bottom: 10px; }
+.csv-conversion-card p  { font-size: 12px; line-height: 1.7; color: #94a3b8; margin-bottom: 12px; }
+.csv-sample { background: #1e293b; border-radius: 4px; padding: 10px 14px; font-family: 'Courier New', monospace; font-size: 11px; color: #a5f3fc; margin-bottom: 12px; line-height: 1.9; }
+
+/* ── AI GUIDE TOGGLE ── */
+.ai-guide-panel {
+  display: none; background: #1e293b; border-radius: 6px;
+  padding: 16px 18px; margin-top: 10px;
+}
+.ai-guide-panel.open { display: block; }
+.ai-guide-panel .prompt-box {
+  background: #0f172a; border: 1px solid #334155; border-radius: 4px;
+  padding: 12px 14px; font-size: 12px; color: #f0abfc;
+  font-family: 'Courier New', monospace; line-height: 1.7;
+  user-select: all; cursor: text;
+}
+.ai-guide-panel p { font-size: 12px; color: #94a3b8; margin-bottom: 8px; }
+.btn-ai {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 16px; border-radius: 4px; border: 1.5px solid #7c3aed;
+  background: rgba(124,58,237,0.12); color: #a78bfa;
+  font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit;
+  transition: background 0.15s;
+}
+.btn-ai:hover { background: rgba(124,58,237,0.25); }
+
+/* ── FICHE TERRAIN dans session-bar ── */
+.btn-sess.pdf { border-color: rgba(201,51,51,0.5); background: rgba(201,51,51,0.12); color: #fca5a5; }
+.btn-sess.pdf:hover { background: rgba(201,51,51,0.28); }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- LANDING PAGE                                        -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="landingPage">
+
+  <!-- ── Nav sticky ── -->
+  <nav class="lp-nav">
+    <div class="lp-nav-brand">
+      <span class="ico">🏃</span>
+      <div>
+        <div class="name">Outil DI — Sprint</div>
+        <div class="sub">ADP 2026 · CRMEF Inezgane · coll1_eq01</div>
+      </div>
+    </div>
+    <button class="lp-nav-cta" onclick="startApp()">Commencer ›</button>
+  </nav>
+
+  <!-- ── 1. HERO ── -->
+  <section class="lp-hero-wrap">
+    <div class="lp-hero-inner">
+      <!-- Left -->
+      <div>
+        <div class="lp-hero-eyebrow">
+          <span class="dot"></span>
+          Outil pédagogique EPS · Pas de note /20
+        </div>
+        <h1 class="lp-hero-h1">
+          Diagnostiquez votre classe<br>
+          <span class="accent">en quelques minutes</span>
+        </h1>
+        <p class="lp-hero-desc">
+          Saisissez vos observations terrain, obtenez le profil A/B/C de chaque élève,
+          identifiez les lacunes collectives et générez votre cycle d'enseignement — directement
+          depuis votre smartphone sur le terrain.
+        </p>
+        <div class="lp-hero-btns">
+          <button class="btn-lp-primary" onclick="startApp()">
+            🚀 Commencer le diagnostic
+          </button>
+          <a class="btn-lp-outline" href="#demo" onclick="smoothTo('demo')">
+            👁 Voir la démo
+          </a>
+          <a class="btn-pdf-outline" href="./assets/Fiche_Terrain_DI.pdf" download="Fiche_Terrain_DI.pdf" style="color:#c93333;border-color:#c93333;background:rgba(201,51,51,0.06);">
+            📄 Fiche terrain PDF
+          </a>
+        </div>
+      </div>
+      <!-- Right — mock dashboard -->
+      <div class="lp-hero-visual">
+        <div class="lp-vis-header">
+          <span class="lp-vis-title">DIAGNOSTIC · coll1_eq01</span>
+          <span class="lp-vis-badge">PAS DE NOTE /20</span>
+        </div>
+        <table class="lp-vis-table">
+          <thead>
+            <tr>
+              <th>Élève</th>
+              <th>OBS-01</th>
+              <th>OBS-02</th>
+              <th>OBS-03</th>
+              <th>Profil</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Alaoui M.</td>
+              <td><span class="lp-vis-deg deg-a">RT · A</span></td>
+              <td><span class="lp-vis-deg deg-a">ID · A</span></td>
+              <td><span class="lp-vis-deg deg-a">RA · A</span></td>
+              <td><span class="lp-vis-deg deg-a">A</span></td>
+            </tr>
+            <tr>
+              <td>Benali S.</td>
+              <td><span class="lp-vis-deg deg-b">RH · B</span></td>
+              <td><span class="lp-vis-deg deg-a">ID · A</span></td>
+              <td><span class="lp-vis-deg deg-b">MD · B</span></td>
+              <td><span class="lp-vis-deg deg-b">B</span></td>
+            </tr>
+            <tr>
+              <td>Cherkaoui Y.</td>
+              <td><span class="lp-vis-deg deg-b">RH · B</span></td>
+              <td><span class="lp-vis-deg deg-b">IP · B</span></td>
+              <td><span class="lp-vis-deg deg-b">MD · B</span></td>
+              <td><span class="lp-vis-deg deg-b">B</span></td>
+            </tr>
+            <tr>
+              <td>Drissi F.</td>
+              <td><span class="lp-vis-deg deg-c">RP · C</span></td>
+              <td><span class="lp-vis-deg deg-c">IM · C</span></td>
+              <td><span class="lp-vis-deg deg-c">FA · C</span></td>
+              <td><span class="lp-vis-deg deg-c">C</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="lp-vis-stats">
+          <div class="lp-vis-stat sa"><div class="n">1</div><div class="l">Profil A</div></div>
+          <div class="lp-vis-stat sb"><div class="n">2</div><div class="l">Profil B</div></div>
+          <div class="lp-vis-stat sc"><div class="n">1</div><div class="l">Profil C</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 2. POURQUOI ── -->
+  <div class="lp-why">
+    <div class="lp-section">
+      <div class="lp-label">Pourquoi cet outil ?</div>
+      <h2 class="lp-h2">Tout ce dont vous avez besoin<br>sur le terrain</h2>
+      <p class="lp-sub">Conçu pour les enseignants EPS en formation au CRMEF Inezgane, cet outil transforme vos observations papier en diagnostic exploitable en quelques secondes.</p>
+      <div class="lp-benefits">
+        <div class="lp-benefit-card">
+          <div class="lp-benefit-ico blue">⚡</div>
+          <h3>Gain de temps</h3>
+          <p>Saisissez une observation en moins de 5 secondes par élève — codes A/B/C en un clic.</p>
+        </div>
+        <div class="lp-benefit-card">
+          <div class="lp-benefit-ico green">📋</div>
+          <h3>Saisie simplifiée</h3>
+          <p>Interface intuitive adaptée à l'usage terrain — fonctionne sans connexion une fois chargée.</p>
+        </div>
+        <div class="lp-benefit-card">
+          <div class="lp-benefit-ico orange">📤</div>
+          <h3>Export CSV automatique</h3>
+          <p>Exportez au format terrain réimportable <code style="font-size:11px;background:#f3f4f6;padding:1px 4px;border-radius:3px;">Nom,B,C,A,9"4</code> ou au format analyse complète.</p>
+        </div>
+        <div class="lp-benefit-card">
+          <div class="lp-benefit-ico purple">📊</div>
+          <h3>Analyse instantanée</h3>
+          <p>Profil global et détaillé par élève, lacunes identifiées, axe prioritaire personnalisé.</p>
+        </div>
+        <div class="lp-benefit-card">
+          <div class="lp-benefit-ico teal">📱</div>
+          <h3>Compatible smartphone</h3>
+          <p>Interface responsive, utilisable directement sur le terrain avec votre téléphone.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 3. COMMENT ÇA MARCHE ── -->
+  <div class="lp-howto">
+    <div class="lp-section">
+      <div style="text-align:center; margin-bottom:40px;">
+        <div class="lp-label">Processus complet</div>
+        <h2 class="lp-h2">Comment ça marche ?</h2>
+        <p class="lp-sub" style="margin:0 auto;">De la fiche terrain papier à la planification différenciée — en 7 étapes.</p>
+      </div>
+
+      <!-- Workflow visuel horizontal -->
+      <div class="lp-workflow">
+        <div class="lp-wf-step">
+          <div class="lp-wf-ico red">📄</div>
+          <h4>1. Télécharger</h4>
+          <p>Imprimez la fiche terrain PDF</p>
+        </div>
+        <div class="lp-wf-step">
+          <div class="lp-wf-ico blue">✍️</div>
+          <h4>2. Observer</h4>
+          <p>Complétez la fiche sur le terrain</p>
+        </div>
+        <div class="lp-wf-step">
+          <div class="lp-wf-ico orange">📸</div>
+          <h4>3. Photographier</h4>
+          <p>Prenez une photo de la fiche</p>
+        </div>
+        <div class="lp-wf-step">
+          <div class="lp-wf-ico purple">🤖</div>
+          <h4>4. Convertir</h4>
+          <p>IA → fichier CSV automatique</p>
+        </div>
+        <div class="lp-wf-step">
+          <div class="lp-wf-ico blue">⬆️</div>
+          <h4>5. Importer</h4>
+          <p>Glissez le CSV dans l'outil</p>
+        </div>
+        <div class="lp-wf-step">
+          <div class="lp-wf-ico green">📊</div>
+          <h4>6. Analyser</h4>
+          <p>Lancez l'analyse automatique</p>
+        </div>
+        <div class="lp-wf-step">
+          <div class="lp-wf-ico green">🎯</div>
+          <h4>7. Planifier</h4>
+          <p>Profils, lacunes, recommandations</p>
+        </div>
+      </div>
+
+      <!-- Grille étapes détaillées -->
+      <div class="lp-steps-grid" style="margin-top:40px;">
+        <div class="lp-step-card">
+          <div class="lp-step-ico">📄</div>
+          <div class="lp-step-circle">1</div>
+          <h3>Télécharger et imprimer</h3>
+          <p>Téléchargez la fiche terrain PDF ci-dessous et imprimez-la avant la séance.</p>
+        </div>
+        <div class="lp-step-card">
+          <div class="lp-step-ico">✍️</div>
+          <div class="lp-step-circle">2</div>
+          <h3>Observer sur le terrain</h3>
+          <p>Réalisez vos observations et complétez la fiche papier pendant la séance.</p>
+        </div>
+        <div class="lp-step-card">
+          <div class="lp-step-ico">📸</div>
+          <div class="lp-step-circle">3</div>
+          <h3>Photographier la fiche</h3>
+          <p>Prenez une photo nette de la fiche terrain complétée avec votre smartphone.</p>
+        </div>
+        <div class="lp-step-card">
+          <div class="lp-step-ico">🤖</div>
+          <div class="lp-step-circle">4</div>
+          <h3>Convertir avec l'IA</h3>
+          <p>Utilisez ChatGPT Vision pour convertir automatiquement la photo en fichier CSV.</p>
+        </div>
+        <div class="lp-step-card">
+          <div class="lp-step-ico">⬆️</div>
+          <div class="lp-step-circle">5</div>
+          <h3>Importer le CSV</h3>
+          <p>Glissez votre fichier CSV dans la zone de dépôt de l'outil.</p>
+        </div>
+        <div class="lp-step-card">
+          <div class="lp-step-ico">📊</div>
+          <div class="lp-step-circle">6</div>
+          <h3>Lancer l'analyse</h3>
+          <p>Cliquez sur « Analyser la classe » — profils, lacunes et recommandations générés en 2 secondes.</p>
+        </div>
+        <div class="lp-step-card">
+          <div class="lp-step-ico">🎯</div>
+          <div class="lp-step-circle">7</div>
+          <h3>Consulter les résultats</h3>
+          <p>Sélectionnez les axes prioritaires et générez votre planification différenciée.</p>
+        </div>
+      </div>
+
+      <!-- CTA télécharger fiche ici aussi -->
+      <div style="text-align:center; margin-top:36px;">
+        <a class="btn-pdf" href="./assets/Fiche_Terrain_DI.pdf" download="Fiche_Terrain_DI.pdf">
+          📄 Télécharger la fiche terrain
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FICHE TERRAIN IMPRIMABLE ── -->
+  <div style="background:#fff; padding:0;">
+    <div class="lp-section">
+      <div style="text-align:center; margin-bottom:32px;">
+        <div class="lp-label">Fiche terrain</div>
+        <h2 class="lp-h2">Fiche terrain imprimable</h2>
+      </div>
+
+      <div class="lp-pdf-card">
+        <div class="lp-pdf-icon">📄</div>
+        <div class="lp-pdf-body">
+          <h3>Fiche terrain imprimable</h3>
+          <p>
+            Téléchargez la fiche terrain au format PDF, imprimez-la et utilisez-la pendant la séance
+            pour recueillir les observations des élèves.
+          </p>
+          <p>
+            Une fois la collecte terminée, prenez une photo de la fiche complétée puis utilisez
+            l'intelligence artificielle pour convertir automatiquement les données en fichier CSV
+            compatible avec l'outil.
+          </p>
+          <div class="pdf-btns">
+            <a class="btn-pdf" href="./assets/Fiche_Terrain_DI.pdf" download="Fiche_Terrain_DI.pdf">
+              📄 Télécharger la fiche terrain
+            </a>
+            <a class="btn-pdf-outline" href="./assets/Fiche_Terrain_DI.pdf" target="_blank" rel="noopener">
+              👁 Prévisualiser
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Conversion CSV -->
+      <div class="csv-conversion-card">
+        <h4>📸 Conversion de la fiche terrain en CSV</h4>
+        <p>
+          Après la séance, prenez simplement une photo de votre fiche terrain complétée.
+          Vous pouvez ensuite utiliser <strong style="color:#e2e8f0;">ChatGPT Vision</strong> pour
+          extraire automatiquement les données et les convertir en fichier CSV compatible avec l'outil.
+        </p>
+        <div style="font-size:11px; color:#64748b; margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:0.07em;">Exemple de format attendu</div>
+        <div class="csv-sample">nom,obs01,obs02,obs03,obs04<br>Alaoui Mohamed,B,C,A,9"4<br>Ben Ali Sara,A,B,B,10"8</div>
+
+        <!-- Bouton Guide IA -->
+        <button class="btn-ai" onclick="toggleAiGuide('ai-guide-lp')">
+          🤖 Guide de conversion IA
+        </button>
+        <div class="ai-guide-panel" id="ai-guide-lp">
+          <p>Copiez ce prompt dans ChatGPT (ou tout autre IA avec vision), puis joignez la photo de votre fiche terrain :</p>
+          <div class="prompt-box" id="promptLp" title="Cliquez pour sélectionner, puis Ctrl+C pour copier">Je vais te fournir une photo de ma fiche terrain EPS. Analyse la grille et convertis les données en CSV en conservant une ligne par élève selon le format suivant : nom,obs01,obs02,obs03,obs04. Ne génère aucun commentaire supplémentaire, uniquement le contenu CSV.</div>
+          <div style="margin-top:10px;">
+            <button class="btn-ai" onclick="copyPrompt('promptLp', this)">📋 Copier le prompt</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 4. DÉMONSTRATION ── -->
+  <div class="lp-demo" id="demo">
+    <div class="lp-section">
+      <div class="lp-label">Démonstration</div>
+      <h2 class="lp-h2">Un exemple concret<br>de feuille terrain</h2>
+      <p class="lp-sub">Voici à quoi ressemble une fiche remplie avec 4 élèves fictifs, et son équivalent CSV prêt à être réimporté.</p>
+      <div class="lp-demo-grid">
+        <!-- Table demo -->
+        <div class="lp-demo-card">
+          <div class="lp-demo-card-header">
+            <div class="dot3"><span class="d3r"></span><span class="d3y"></span><span class="d3g"></span></div>
+            Feuille terrain — coll1_eq01
+          </div>
+          <table class="lp-demo-table">
+            <thead>
+              <tr>
+                <th>Nom / Prénom</th>
+                <th>OBS-01<br>Réaction</th>
+                <th>OBS-02<br>Inclinaison</th>
+                <th>OBS-03<br>Finish</th>
+                <th>Chrono</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="ra">
+                <td><strong>Alaoui Mohamed</strong></td>
+                <td><span class="lp-dc ldA">RT · A</span></td>
+                <td><span class="lp-dc ldA">ID · A</span></td>
+                <td><span class="lp-dc ldA">RA · A</span></td>
+                <td>11"4</td>
+              </tr>
+              <tr class="rb">
+                <td><strong>Benali Sara</strong></td>
+                <td><span class="lp-dc ldB">RH · B</span></td>
+                <td><span class="lp-dc ldA">ID · A</span></td>
+                <td><span class="lp-dc ldB">MD · B</span></td>
+                <td>10"1</td>
+              </tr>
+              <tr class="rb">
+                <td><strong>Cherkaoui Youssef</strong></td>
+                <td><span class="lp-dc ldB">RH · B</span></td>
+                <td><span class="lp-dc ldB">IP · B</span></td>
+                <td><span class="lp-dc ldB">MD · B</span></td>
+                <td>9"8</td>
+              </tr>
+              <tr class="rc">
+                <td><strong>Drissi Fatima</strong></td>
+                <td><span class="lp-dc ldC">RP · C</span></td>
+                <td><span class="lp-dc ldC">IM · C</span></td>
+                <td><span class="lp-dc ldC">FA · C</span></td>
+                <td>8"7</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- CSV demo -->
+        <div>
+          <div class="lp-csv-block">
+            <div class="csv-title">Format CSV terrain · réimportable</div>
+            <div class="lp-csv-line">
+              <span style="color:#475569;"># nom, obs01, obs02, obs03, chrono</span>
+            </div>
+            <div class="lp-csv-line">
+              <span class="hl-name">Alaoui Mohamed</span>,<span class="hl-a">A</span>,<span class="hl-a">A</span>,<span class="hl-a">A</span>,<span class="hl-chrono">11"4</span>
+            </div>
+            <div class="lp-csv-line">
+              <span class="hl-name">Benali Sara</span>,<span class="hl-b">B</span>,<span class="hl-a">A</span>,<span class="hl-b">B</span>,<span class="hl-chrono">10"1</span>
+            </div>
+            <div class="lp-csv-line">
+              <span class="hl-name">Cherkaoui Youssef</span>,<span class="hl-b">B</span>,<span class="hl-b">B</span>,<span class="hl-b">B</span>,<span class="hl-chrono">9"8</span>
+            </div>
+            <div class="lp-csv-line">
+              <span class="hl-name">Drissi Fatima</span>,<span class="hl-c">C</span>,<span class="hl-c">C</span>,<span class="hl-c">C</span>,<span class="hl-chrono">8"7</span>
+            </div>
+            <div class="lp-csv-tip">
+              <p>💡 Ce fichier peut aussi contenir les codes métier : <strong style="color:#e2e8f0;">RT, RH, RP, ID, IP, IM, RA, MD, FA</strong> — l'outil les reconnaît automatiquement.</p>
+            </div>
+          </div>
+          <div style="margin-top:16px; padding:16px; background:#f8fafc; border:1px solid #e8e8e8; border-radius:8px;">
+            <p style="font-size:13px; color:#555; line-height:1.7;">
+              <strong>Import :</strong> Glissez votre fichier CSV dans la zone de dépôt — pas d'en-tête requis.<br>
+              <strong>Export :</strong> Cliquez sur <strong>⬇ CSV</strong> après analyse pour télécharger la fiche au format terrain ou analyse complète.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 5. FONCTIONNALITÉS ── -->
+  <div class="lp-features">
+    <div class="lp-section">
+      <div style="text-align:center; margin-bottom:40px;">
+        <div class="lp-label">Fonctionnalités</div>
+        <h2 class="lp-h2">Tout ce dont vous avez besoin</h2>
+      </div>
+      <div class="lp-feat-grid">
+        <div class="lp-feat-tile">
+          <div class="ft-ico">👥</div>
+          <h4>Gestion élèves</h4>
+          <p>Ajout, suppression, saisie manuelle ou import CSV — jusqu'à 35 élèves par fiche.</p>
+        </div>
+        <div class="lp-feat-tile">
+          <div class="ft-ico">🔍</div>
+          <h4>Diagnostic EPS</h4>
+          <p>Profil A/B/C global et par observable — lacune dominante identifiée automatiquement.</p>
+        </div>
+        <div class="lp-feat-tile">
+          <div class="ft-ico">📤</div>
+          <h4>Export CSV</h4>
+          <p>Format terrain réimportable ou format analyse complète — encodage UTF-8 avec BOM.</p>
+        </div>
+        <div class="lp-feat-tile">
+          <div class="ft-ico">📥</div>
+          <h4>Import CSV</h4>
+          <p>Glisser-déposer ou sélectionner — codes métier, degrés lettres et numériques reconnus.</p>
+        </div>
+        <div class="lp-feat-tile">
+          <div class="ft-ico">🖨️</div>
+          <h4>Impression PDF</h4>
+          <p>Impression propre de l'étape active — en-tête, tableaux, planification — sans boutons ni formulaires.</p>
+        </div>
+        <div class="lp-feat-tile">
+          <div class="ft-ico">📈</div>
+          <h4>Analyse automatique</h4>
+          <p>Axes prioritaires, sélection interactive, slider séances, planification différenciée A/B/C.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── 6. CTA ── -->
+  <section class="lp-cta">
+    <h2>Prêt à diagnostiquer votre classe ?</h2>
+    <p>Accédez à la feuille de diagnostic en un clic — aucune installation, aucune connexion requise.</p>
+    <div class="lp-cta-btns">
+      <button class="btn-lp-white" onclick="startApp()">
+        🚀 Accéder à la feuille de diagnostic
+      </button>
+    </div>
+    <div class="lp-skip-wrap">
+      <label class="lp-skip-label">
+        <input type="checkbox" id="chkSkipWelcome">
+        Ne plus afficher cette page au prochain lancement
+      </label>
+    </div>
+  </section>
+
+  <!-- ── Footer landing ── -->
+  <footer class="lp-foot">
+    <p>ADP 2026 · CRMEF Inezgane · BOUARGANE · Section EPS · Outil DI Sprint coll1_eq01</p>
+    <p>Pas de note /20 · Outil d'aide à la décision pédagogique</p>
+  </footer>
+
+</div><!-- end landingPage -->
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- APPLICATION SHELL (masqué jusqu'au clic CTA)        -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div id="appShell">
+
+<!-- ─── HEADER ─── -->
+<div class="app-header">
+  <div>
+    <h1>🏃 Outil DI — Sprint — coll1_eq01</h1>
+    <div class="meta">ADP 2026 · CRMEF Inezgane · BOUARGANE · Niveau de contenu : 2 (Collège 4ème/3ème)</div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+    <span class="no-note-badge">PAS DE NOTE /20</span>
+    <button class="btn btn-secondary btn-sm" onclick="showWelcome()">🏠 Accueil</button>
+    <button class="btn btn-secondary btn-sm" onclick="printPage()">⎙ Imprimer</button>
+    <button class="btn btn-secondary btn-sm" onclick="exportCSV()">⬇ CSV</button>
+  </div>
+</div>
+
+<!-- ─── BARRE DE SESSION ─── -->
+<div class="session-bar">
+  <span class="s-label">💾 SESSION</span>
+  <a class="btn-sess pdf" href="./assets/Fiche_Terrain_DI.pdf" download="Fiche_Terrain_DI.pdf" title="Télécharger la fiche terrain imprimable (PDF)">📄 Fiche terrain</a>
+  <button class="btn-sess" onclick="exportSession()" title="Télécharger toute la session en JSON">⬇ Sauvegarder session</button>
+  <label class="btn-sess" title="Charger une session depuis un fichier JSON" style="cursor:pointer;">
+    ⬆ Restaurer session
+    <input type="file" id="sessionFile" accept=".json" style="display:none" onchange="importSession(this)">
+  </label>
+  <button class="btn-sess" onclick="loadDemoData()" title="Charger 12 élèves d'exemple pour tester l'outil">🎯 Données démo</button>
+  <button class="btn-sess danger" onclick="resetSession()" title="Effacer toutes les données et repartir à zéro">🗑 Nouvelle session</button>
+  <span id="saveIndicator">●</span>
+  <span class="s-hint">🔒 Données privées — stockées uniquement sur cet appareil</span>
+</div>
+
+<!-- ─── STEP INDICATOR ─── -->
+<div class="steps">
+  <div class="step active" id="tab1" onclick="goStep(1)">
+    <span class="step-num">1</span> Diagnostic
+  </div>
+  <div style="padding:0 4px;color:#ccc;">›</div>
+  <div class="step locked" id="tab2" onclick="goStep(2)">
+    <span class="step-num">2</span> Axes prioritaires
+  </div>
+  <div style="padding:0 4px;color:#ccc;">›</div>
+  <div class="step locked" id="tab3" onclick="goStep(3)">
+    <span class="step-num">3</span> Paramétrage
+  </div>
+  <div style="padding:0 4px;color:#ccc;">›</div>
+  <div class="step locked" id="tab4" onclick="goStep(4)">
+    <span class="step-num">4</span> Planification
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- ÉTAPE 1 — DIAGNOSTIC                               -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section active" id="sec1">
+<div class="main">
+
+  <!-- Bandeau confidentialité -->
+  <div class="privacy-banner">
+    🔒 <strong>Vos données sont confidentielles.</strong>
+    Aucune donnée n'est envoyée à l'extérieur — tout est stocké localement dans votre navigateur (localStorage).
+    Aucun compte, aucune connexion requise.
+  </div>
+
+  <!-- Fiche terrain PDF -->
+  <div class="card">
+    <div class="card-title">📄 Fiche terrain imprimable</div>
+    <p style="font-size:12px;color:#555;line-height:1.7;margin-bottom:12px;">
+      Téléchargez la fiche terrain au format PDF, imprimez-la et utilisez-la pendant la séance pour recueillir les observations des élèves.<br>
+      Une fois la collecte terminée, prenez une photo de la fiche complétée puis utilisez l'intelligence artificielle pour convertir automatiquement les données en fichier CSV compatible avec l'outil.
+    </p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px;">
+      <a class="btn-pdf" href="./assets/Fiche_Terrain_DI.pdf" download="Fiche_Terrain_DI.pdf">📄 Télécharger la fiche terrain</a>
+      <a class="btn-pdf-outline" href="./assets/Fiche_Terrain_DI.pdf" target="_blank" rel="noopener">👁 Prévisualiser</a>
+      <button class="btn-ai" onclick="toggleAiGuide('ai-guide-app')">🤖 Guide de conversion IA</button>
+    </div>
+    <div class="ai-guide-panel" id="ai-guide-app">
+      <p style="color:#94a3b8;font-size:12px;margin-bottom:8px;">
+        📸 Prenez une photo de votre fiche terrain complétée, puis utilisez ce prompt dans ChatGPT Vision :
+      </p>
+      <div class="prompt-box" id="promptApp" title="Cliquez pour sélectionner, puis Ctrl+C pour copier">Je vais te fournir une photo de ma fiche terrain EPS. Analyse la grille et convertis les données en CSV en conservant une ligne par élève selon le format suivant : nom,obs01,obs02,obs03,obs04. Ne génère aucun commentaire supplémentaire, uniquement le contenu CSV.</div>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <button class="btn-ai" onclick="copyPrompt('promptApp', this)">📋 Copier le prompt</button>
+        <span style="font-size:11px;color:#475569;">Format CSV attendu : <code style="color:#a5f3fc;background:#0f172a;padding:2px 6px;border-radius:3px;">nom,obs01,obs02,obs03,obs04</code></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Import CSV -->
+  <div class="card" id="import-section">
+    <div class="card-title">📂 Import CSV terrain <span class="tag">Format ADP 2026</span></div>
+    <div class="csv-drop" id="csvDrop" onclick="document.getElementById('csvFile').click()">
+      <span class="icon">📋</span>
+      Cliquer ou glisser un fichier CSV terrain ici<br>
+      <span class="text-soft">Format attendu : <strong>Alaoui Mohamed,B,C,A,9"4</strong> &nbsp;(nom, OBS-01, OBS-02, OBS-03, chrono)</span>
+    </div>
+    <input type="file" id="csvFile" accept=".csv,.txt" style="display:none">
+    <div id="csvStatus"></div>
+  </div>
+
+  <!-- Saisie manuelle -->
+  <div class="card">
+    <div class="card-title">✏️ Saisie manuelle <span class="tag">Codes terrain</span></div>
+    <div class="info-banner">
+      Saisir les codes exactement comme notés sur la fiche terrain.
+      OBS-01 à OBS-03 : codes A/B/C · OBS-04 : temps réalisé (ex: 10.2)
+    </div>
+
+    <div style="overflow-x:auto;">
+      <div class="form-row" style="display:grid;grid-template-columns:140px 100px 100px 100px 100px 44px;">
+        <span>Nom / Prénom</span>
+        <span>OBS-01<br><small>Réaction</small></span>
+        <span>OBS-02<br><small>Inclinaison</small></span>
+        <span>OBS-03<br><small>Finish</small></span>
+        <span>OBS-04<br><small>Chrono (s)</small></span>
+        <span>⋯</span>
+      </div>
+      <div id="formRows"></div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn btn-secondary btn-sm" onclick="addRow()">+ Ajouter un élève</button>
+      <button class="btn btn-secondary btn-sm" onclick="addRow(5)">+ 5 élèves</button>
+      <button class="btn btn-primary" onclick="analyzeData()">▶ Analyser la classe</button>
+    </div>
+  </div>
+
+  <!-- Results -->
+  <div id="results1" style="display:none;">
+    <!-- Bandeau confirmation analyse -->
+    <div id="analyseSuccessBanner">
+      <span class="success-ico">✓</span>
+      <div>
+        Analyse générée avec succès
+        <div class="success-sub">Faites défiler pour consulter le bilan · Décision finale : vous</div>
+      </div>
+    </div>
+    <div class="card" id="resultsCard1">
+      <div class="card-title">📊 Bilan de classe</div>
+      <div class="stat-grid" id="statGrid"></div>
+      <div id="decisionBox"></div>
+      <hr class="divider">
+      <div style="font-size:12px;font-weight:700;margin-bottom:8px;">Analyse par observable</div>
+      <div id="obsAnalysis"></div>
+      <hr class="divider">
+      <div style="font-size:12px;font-weight:700;margin-bottom:8px;">Groupes de besoin</div>
+      <div id="groupsBox"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">👥 Tableau individuel</div>
+      <div class="table-wrap">
+        <table id="resultsTable">
+          <thead>
+            <tr>
+              <th>Rang</th><th>Nom / Prénom</th>
+              <th>OBS-01</th><th>OBS-02</th><th>OBS-03</th><th>Chrono</th>
+              <th>Moy /10</th><th>Profil</th><th>Détail</th>
+              <th>Lacune dominante</th><th>Axe prioritaire</th>
+            </tr>
+          </thead>
+          <tbody id="resultsTbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="action-bar">
+      <span class="hint">Décision finale : vous · L'outil propose, l'enseignant décide</span>
+      <button class="btn btn-primary" onclick="goStep(2)">Passer à l'étape 2 — Axes prioritaires ›</button>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- ÉTAPE 2 — AXES PRIORITAIRES                        -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="sec2">
+<div class="main">
+  <div class="card">
+    <div class="card-title">🎯 Sélection des axes prioritaires <span class="tag">3 à 4 axes maximum</span></div>
+    <div class="info-banner">
+      Axes extraits du référentiel sprint_coll1_eq01 · Classer par pertinence terrain ·
+      Sélectionner <strong>3 ou 4 axes</strong> — la planification sera générée sur les axes validés.
+    </div>
+    <div class="warning-banner">
+      ⚠ Écart stade / conduites détecté : conduites A/B dominantes chez des élèves de 4ème/3ème.
+      L'Axe 1 (inclinaison) est prioritaire — ne pas le désélectionner sans raison didactique forte.
+    </div>
+    <div id="axesList"></div>
+    <div class="axe-warning" id="axeWarning">Maximum 4 axes atteint — décocher un axe pour en sélectionner un autre.</div>
+  </div>
+
+  <div class="action-bar">
+    <button class="btn btn-secondary" onclick="goStep(1)">‹ Retour</button>
+    <div style="display:flex;align-items:center;gap:12px;">
+      <span class="hint" id="axeCountHint">0 axe sélectionné — minimum 3</span>
+      <button class="btn btn-primary" id="btnStep3" onclick="goStep(3)" disabled>Paramétrer le cycle — Étape 3 ›</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- ÉTAPE 3 — PARAMÉTRAGE                              -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="sec3">
+<div class="main">
+  <div class="card">
+    <div class="card-title">⚙️ Paramétrage du cycle</div>
+
+    <div class="slider-wrap">
+      <div class="slider-label">Nombre de séances du cycle</div>
+      <div class="slider-row">
+        <input type="range" id="sliderSeances" min="6" max="10" value="10" oninput="updateDistrib()">
+        <span class="slider-val" id="sliderVal">10</span>
+        <span class="text-soft">séances</span>
+      </div>
+    </div>
+
+    <div style="font-size:12px;font-weight:700;margin-bottom:8px;">Aperçu de la distribution (temps réel)</div>
+    <div class="distrib-preview" id="distribPreview"></div>
+  </div>
+
+  <div class="action-bar">
+    <button class="btn btn-secondary" onclick="goStep(2)">‹ Retour aux axes</button>
+    <button class="btn btn-primary" onclick="goStep(4)">Générer la planification — Étape 4 ›</button>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════ -->
+<!-- ÉTAPE 4 — PLANIFICATION                            -->
+<!-- ═══════════════════════════════════════════════════ -->
+<div class="section" id="sec4">
+<div class="main">
+  <div class="card">
+    <div class="card-title">📅 Planification dynamique du cycle</div>
+    <div class="info-banner" id="planHeader"></div>
+    <div id="planContent"></div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📋 Résumé du cycle</div>
+    <div id="planSummary"></div>
+  </div>
+
+  <div class="action-bar">
+    <button class="btn btn-secondary" onclick="goStep(3)">‹ Modifier le paramétrage</button>
+    <div style="display:flex;gap:8px;">
+      <button class="btn btn-secondary btn-sm" onclick="exportCSV()">⬇ Export CSV</button>
+      <button class="btn btn-secondary btn-sm" onclick="printPage()">⎙ Imprimer</button>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<!-- JAVASCRIPT                                                          -->
+<!-- ═══════════════════════════════════════════════════════════════════ -->
+<script>
+"use strict";
+
+// ── RÉFÉRENTIEL EXTRAIT DES FICHIERS JOINTS ──────────────────────────
+
+// Observables extraits de grille_sprint_coll1_eq01.txt
+var OBS = [
+  {
+    id: "OBS01", label: "R\u00e9action au signal de d\u00e9part",
+    moment: "D\u00e8s le signal \u00b7 premi\u00e8res foul\u00e9es",
+    codes: { A: "RT", B: "RH", C: "RP" },
+    conduites: {
+      A: "R\u00e9agit tardivement apr\u00e8s le signal",
+      B: "R\u00e9agit correctement mais h\u00e9site encore",
+      C: "R\u00e9agit vite et pousse vers l'avant"
+    }
+  },
+  {
+    id: "OBS02", label: "Inclinaison et redressement (0-30m)",
+    moment: "0 \u00e0 10 premiers m\u00e8tres",
+    codes: { A: "ID", B: "IP", C: "IM" },
+    conduites: {
+      A: "Se redresse imm\u00e9diatement apr\u00e8s le d\u00e9part",
+      B: "Inclinaison partielle puis redressement pr\u00e9coce",
+      C: "Inclinaison maintenue jusqu'\u00e0 20-30 m"
+    }
+  },
+  {
+    id: "OBS03", label: "Maintien de l'effort jusqu'au finish",
+    moment: "Phase finale \u00b7 70-100m",
+    codes: { A: "RA", B: "MD", C: "FA" },
+    conduites: {
+      A: "Ralentit avant la ligne d'arriv\u00e9e",
+      B: "Maintien partiel avec l\u00e9g\u00e8re d\u00e9c\u00e9l\u00e9ration",
+      C: "Finish actif sans ralentissement"
+    }
+  }
+];
+
+// OBS-04 : chrono uniquement - pas de mapping A/B/C numérique
+var OBS04 = {
+  id: "OBS04", label: "Performance - Temps r\u00e9alis\u00e9",
+  codes: { A: "TE", B: "TI", C: "TF" },
+  conduites: {
+    A: "Arrive nettement apr\u00e8s les autres",
+    B: "Groupe m\u00e9dian",
+    C: "Parmi les premiers - temps faible"
+  }
+};
+
+// Seuils scoring : Degré → score /10
+var SCORE = { A: 3, B: 6, C: 9 };
+var SEUIL_C = 7.5, SEUIL_B = 4.5; // A < 4.5 · B 4.5-7.4 · C >= 7.5
+
+// Axes extraits de referentiel_sprint_coll1_eq01.txt PARTIE B
+var AXES = [
+  {
+    id: 1,
+    titre: "Construire l'inclinaison du buste en phase d'acc\u00e9l\u00e9ration et ancrer la pouss\u00e9e horizontale sur les 0-30 premiers m\u00e8tres",
+    obs: "OBS02",
+    prereq: "N1-4 \u00b7 Acc\u00e9l\u00e9ration progressive (inclinaison \u00b7 pouss\u00e9e \u00b7 genou)",
+    impact: "N2-3 \u2192 N2-4 \u2192 N2-5",
+    priorite: "haute",
+    saA: "R\u00e9f\u00e9rents posturaux - plots et lignes au sol pour ancrer l'inclinaison (Degr\u00e9 A)",
+    saB: "Acc\u00e9l\u00e9rations progressives sur 20m avec contr\u00f4le de l'inclinaison d\u00e9croissante (Degr\u00e9 B)",
+    saC: "Sprint complet 30-60m avec rep\u00e8res internes inclinaison + amplitude (Degr\u00e9 C)",
+    conduite: "l'\u00e9l\u00e8ve maintient une inclinaison du buste sur au moins 15m apr\u00e8s le d\u00e9part"
+  },
+  {
+    id: 2,
+    titre: "Stabiliser le maintien de l'effort jusqu'\u00e0 la ligne et construire les premiers rep\u00e8res internes (rel\u00e2chement \u00b7 rythme de foul\u00e9e)",
+    obs: "OBS03",
+    prereq: "N1-6 \u00b7 Maintenir l'effort sans ralentir",
+    impact: "N2-5 \u2192 N2-6",
+    priorite: "moyenne",
+    saA: "Finish activ\u00e9 - rep\u00e8re visuel 10m avant la ligne + consigne 'finir fort' (Degr\u00e9 A)",
+    saB: "Course avec rituel de rel\u00e2chement des \u00e9paules en derni\u00e8re phase (Degr\u00e9 B)",
+    saC: "Projet de course personnel - gestion des phases avec rep\u00e8res internes (Degr\u00e9 C)",
+    conduite: "l'\u00e9l\u00e8ve ne d\u00e9c\u00e9l\u00e8re pas dans les 10 derniers m\u00e8tres de course"
+  },
+  {
+    id: 3,
+    titre: "Construire la r\u00e9action vive au signal et la pouss\u00e9e orient\u00e9e d\u00e8s le d\u00e9part - ouvrir vers N2 pour les \u00e9l\u00e8ves dont N1-4 et N1-6 sont stabilis\u00e9es",
+    obs: "OBS01",
+    prereq: "N1-2 \u00b7 N1-3 \u00b7 Position d\u00e9part + R\u00e9action signal",
+    impact: "N2-2 \u2192 N2-3",
+    priorite: "consolidation",
+    saA: "D\u00e9parts en fente basse avec signal visuel/sonore - r\u00e9p\u00e9tition 5x (Degr\u00e9 A)",
+    saB: "Gammes athl\u00e9tiques : talons-fesses, mont\u00e9es de genou, acc\u00e9l\u00e9rations progressives (Degr\u00e9 B)",
+    saC: "D\u00e9parts avec blocs simul\u00e9s - pouss\u00e9e orient\u00e9e vers l'avant mesur\u00e9e sur 5m (Degr\u00e9 C)",
+    conduite: "l'\u00e9l\u00e8ve d\u00e9clenche le sprint dans les 2 premi\u00e8res foul\u00e9es apr\u00e8s le signal avec une pouss\u00e9e orient\u00e9e"
+  }
+];
+
+// ── ÉTAT GLOBAL ──────────────────────────────────────────────────────
+var appData = {
+  students: [],
+  selectedAxes: [],
+  seances: 10,
+  step: 1,
+  unlocked: [1]
+};
+
+// ── INITIALISATION ───────────────────────────────────────────────────
+document.addEventListener("DOMContentLoaded", function() {
+  // Afficher landing page ou app selon préférence
+  var skip = false;
+  try { skip = localStorage.getItem("di_sprint_skip_welcome") === "1"; } catch(e) {}
+  if (skip) {
+    document.getElementById("landingPage").classList.add("lp-hidden");
+    document.getElementById("appShell").classList.add("app-visible");
+  }
+  // Synchroniser la case à cocher avec la préférence
+  try {
+    var chk = document.getElementById("chkSkipWelcome");
+    if (chk) chk.checked = skip;
+  } catch(e) {}
+  // Construire la liste des axes
+  buildAxesList();
+  setupCSVDrop();
+  // Restaurer la session enregistrée, ou ajouter 5 lignes vides
+  var saved = false;
+  try { saved = !!localStorage.getItem(LS_KEY); } catch(e) {}
+  if (saved) {
+    loadState();
+  } else {
+    for (var i = 0; i < 5; i++) addRow();
+  }
+});
+
+// ── LANDING PAGE ─────────────────────────────────────────────────────
+
+// Démarrer l'app depuis la landing page
+function startApp() {
+  var chk = document.getElementById("chkSkipWelcome");
+  if (chk && chk.checked) {
+    try { localStorage.setItem("di_sprint_skip_welcome", "1"); } catch(e) {}
+  }
+  var lp = document.getElementById("landingPage");
+  var app = document.getElementById("appShell");
+  // Transition douce
+  lp.style.opacity = "0";
+  lp.style.transition = "opacity 0.3s ease";
+  setTimeout(function() {
+    lp.classList.add("lp-hidden");
+    lp.style.opacity = "";
+    lp.style.transition = "";
+    app.classList.add("app-visible");
+    window.scrollTo(0, 0);
+  }, 280);
+}
+
+// Revenir à la landing page depuis le header
+function showWelcome() {
+  var app = document.getElementById("appShell");
+  var lp = document.getElementById("landingPage");
+  app.classList.remove("app-visible");
+  lp.classList.remove("lp-hidden");
+  window.scrollTo(0, 0);
+}
+
+// Défilement doux vers une ancre (bouton "Voir la démo")
+function smoothTo(id) {
+  var el = document.getElementById(id);
+  if (el) {
+    setTimeout(function() {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 50);
+  }
+}
+
+// ── NAVIGATION ÉTAPES ────────────────────────────────────────────────
+function goStep(n) {
+  if (appData.unlocked.indexOf(n) === -1) return;
+  appData.step = n;
+  [1,2,3,4].forEach(function(i) {
+    document.getElementById("sec" + i).classList.toggle("active", i === n);
+    var tab = document.getElementById("tab" + i);
+    tab.className = "step";
+    if (i < n) tab.classList.add("done");
+    else if (i === n) tab.classList.add("active");
+    else if (appData.unlocked.indexOf(i) === -1) tab.classList.add("locked");
+  });
+  if (n === 4) buildPlan();
+  window.scrollTo(0, 0);
+}
+
+function unlock(n) {
+  if (appData.unlocked.indexOf(n) === -1) appData.unlocked.push(n);
+}
+
+// ── SAISIE MANUELLE ──────────────────────────────────────────────────
+function addRow(count) {
+  var n = count || 1;
+  var container = document.getElementById("formRows");
+  for (var k = 0; k < n; k++) {
+    var idx = container.children.length;
+    var div = document.createElement("div");
+    div.style.cssText = "display:grid;grid-template-columns:140px 100px 100px 100px 100px 44px;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid #f0f0f0;";
+    div.innerHTML =
+      "<input type='text' placeholder='Nom Pr\u00e9nom' class='name-inp' style='font-size:12px;'>" +
+      buildCodeSelect("obs1-"+idx, OBS[0]) +
+      buildCodeSelect("obs2-"+idx, OBS[1]) +
+      buildCodeSelect("obs3-"+idx, OBS[2]) +
+      "<input type='number' class='chrono-inp' placeholder='10.2' min='6' max='20' step='0.1' style='font-size:12px;'>" +
+      "<button class='btn-delete' title='Supprimer cet \u00e9l\u00e8ve' onclick='deleteRow(this)'>🗑️</button>";
+    container.appendChild(div);
+  }
+}
+
+// Suppression d'une ligne avec confirmation
+function deleteRow(btn) {
+  var row = btn.parentNode;
+  var nameInp = row.querySelector(".name-inp");
+  var nom = nameInp ? nameInp.value.trim() : "";
+  var msg = nom
+    ? "Voulez-vous vraiment supprimer la ligne de \u00ab\u00a0" + nom + "\u00a0\u00bb ?"
+    : "Voulez-vous vraiment supprimer cette ligne ?";
+  if (window.confirm(msg)) {
+    row.parentNode.removeChild(row);
+  }
+}
+
+function buildCodeSelect(id, obs) {
+  return "<select id='" + id + "' class='code-select'>" +
+    "<option value=''>--</option>" +
+    "<option value='A' class='A'>" + obs.codes.A + " (A)</option>" +
+    "<option value='B' class='B'>" + obs.codes.B + " (B)</option>" +
+    "<option value='C' class='C'>" + obs.codes.C + " (C)</option>" +
+    "</select>";
+}
+
+// ── ANALYSE ──────────────────────────────────────────────────────────
+function analyzeData() {
+  var rows = document.getElementById("formRows").children;
+  var students = [];
+  var hasError = false;
+
+  for (var i = 0; i < rows.length; i++) {
+    var row = rows[i];
+    var nameInp = row.querySelector(".name-inp");
+    var selects = row.querySelectorAll("select");
+    var chronoInp = row.querySelector(".chrono-inp");
+
+    var name = nameInp ? nameInp.value.trim() : "";
+    if (!name) continue; // skip empty rows silently
+
+    var obs = [];
+    var rowOk = true;
+    for (var j = 0; j < 3; j++) {
+      var val = selects[j] ? selects[j].value : "";
+      if (!val) { rowOk = false; }
+      obs.push(val);
+    }
+
+    var chrono = chronoInp ? parseFloat(chronoInp.value) : NaN;
+
+    students.push({
+      name: name,
+      obs: obs,        // ["A","B","C"] raw degrees
+      scores: obs.map(function(d) { return d ? SCORE[d] : 0; }),
+      chrono: isNaN(chrono) ? null : chrono,
+      ok: rowOk
+    });
+  }
+
+  if (students.length === 0) {
+    alert("Aucun \u00e9l\u00e8ve saisi. Ajoutez au moins un \u00e9l\u00e8ve avec un nom.");
+    return;
+  }
+
+  // Calculs
+  students.forEach(function(s) {
+    var validScores = s.scores.filter(function(v) { return v > 0; });
+    s.avg = validScores.length ? (validScores.reduce(function(a,b){return a+b;},0) / validScores.length) : 0;
+    s.avg = Math.round(s.avg * 10) / 10;
+    s.sur20 = Math.round(s.avg * 2 * 10) / 10;
+    s.profil = s.avg >= SEUIL_C ? "C" : (s.avg >= SEUIL_B ? "B" : "A");
+    s.profilDetail = s.obs.map(function(d) { return d || "?"; }).join("/");
+
+    // Lacune dominante
+    var lacunes = [];
+    s.obs.forEach(function(d, idx) {
+      if (d === "A" || d === "B") {
+        var sc = SCORE[d] || 0;
+        lacunes.push({ obs: OBS[idx].label, score: sc, degree: d, idx: idx });
+      }
+    });
+    lacunes.sort(function(a,b) { return a.score - b.score; });
+    s.lacunes = lacunes;
+    s.lacune1 = lacunes.length ? ("L1 \u2014 " + OBS[lacunes[0].idx].id + " : " + lacunes[0].score.toFixed(1) + "/10") : "Aucune lacune";
+
+    // Axe prioritaire
+    if (lacunes.length) {
+      var obsLacune = lacunes[0].idx;
+      var axe = AXES.filter(function(a) { return a.obs === OBS[obsLacune].id; });
+      s.axePrio = axe.length ? axe[0].titre.substring(0, 60) + "..." : "Consolider les fondamentaux N1";
+    } else {
+      s.axePrio = "Approfondissement N2 \u2014 Axe 3 (r\u00e9action + pouss\u00e9e orient\u00e9e)";
+    }
+  });
+
+  // Rang
+  var sorted = students.slice().sort(function(a,b) { return b.avg - a.avg; });
+  sorted.forEach(function(s, idx) { s.rang = idx + 1; });
+  // gestion ex aequo
+  for (var i = 0; i < sorted.length - 1; i++) {
+    if (sorted[i].avg === sorted[i+1].avg) sorted[i+1].rang = sorted[i].rang;
+  }
+
+  appData.students = students;
+  renderResults(students);
+  updateAxePertinence(students);
+  document.getElementById("results1").style.display = "block";
+  unlock(2);
+  saveState();
+  showAnalysisSuccess();
+}
+
+// ── RETOUR VISUEL APRÈS ANALYSE ──────────────────────────────────────
+// Smooth scroll vers les résultats + highlight + bandeau de confirmation
+function showAnalysisSuccess() {
+  // 1. Cibler le premier élément de résultat (le bandeau lui-même)
+  var banner = document.getElementById("analyseSuccessBanner");
+  var card   = document.getElementById("resultsCard1");
+
+  // 2. Afficher le bandeau de confirmation
+  if (banner) {
+    banner.classList.add("visible");
+    // L'effacer après 5 s
+    clearTimeout(showAnalysisSuccess._bannerTimer);
+    showAnalysisSuccess._bannerTimer = setTimeout(function() {
+      banner.classList.remove("visible");
+    }, 5000);
+  }
+
+  // 3. Smooth scroll vers le bandeau (= début des résultats)
+  // Petit délai pour laisser le DOM se peindre avant de mesurer
+  setTimeout(function() {
+    var target = banner || card;
+    if (!target) return;
+
+    // Offset pour la sticky session-bar + step-indicator (≈ 100 px)
+    var OFFSET = 100;
+    var rect = target.getBoundingClientRect();
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var targetY = rect.top + scrollTop - OFFSET;
+
+    if ("scrollBehavior" in document.documentElement.style) {
+      // Navigateurs modernes — smooth natif
+      window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
+    } else {
+      // Fallback JS pour anciens navigateurs / certains mobiles
+      smoothScrollTo(Math.max(0, targetY), 420);
+    }
+
+    // 4. Animation de surbrillance sur la première carte de résultats
+    if (card) {
+      card.classList.remove("results-highlight"); // reset si déjà joué
+      // Forcer le reflow pour relancer l'animation
+      void card.offsetWidth;
+      card.classList.add("results-highlight");
+      clearTimeout(showAnalysisSuccess._hlTimer);
+      showAnalysisSuccess._hlTimer = setTimeout(function() {
+        card.classList.remove("results-highlight");
+      }, 2600);
+    }
+  }, 60);
+}
+
+// Fallback scroll JS (pour navigateurs sans scrollBehavior)
+function smoothScrollTo(targetY, duration) {
+  var startY = window.pageYOffset || document.documentElement.scrollTop;
+  var diff   = targetY - startY;
+  var startTime = null;
+  function step(timestamp) {
+    if (!startTime) startTime = timestamp;
+    var elapsed = timestamp - startTime;
+    var progress = Math.min(elapsed / duration, 1);
+    // Ease out cubic
+    var ease = 1 - Math.pow(1 - progress, 3);
+    window.scrollTo(0, startY + diff * ease);
+    if (elapsed < duration) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+// ── AFFICHAGE RÉSULTATS ──────────────────────────────────────────────
+function renderResults(students) {
+  var nA = students.filter(function(s){return s.profil==="A";}).length;
+  var nB = students.filter(function(s){return s.profil==="B";}).length;
+  var nC = students.filter(function(s){return s.profil==="C";}).length;
+  var total = students.length;
+  var avgClass = Math.round(students.reduce(function(a,s){return a+s.avg;},0)/total*10)/10;
+
+  // Stat cards
+  var sg = document.getElementById("statGrid");
+  sg.innerHTML =
+    "<div class='stat-card card-A'><div class='val'>" + nA + "</div><div class='lbl'>Degr\u00e9 A &nbsp;<small>(" + Math.round(nA/total*100) + "%)</small></div></div>" +
+    "<div class='stat-card card-B'><div class='val'>" + nB + "</div><div class='lbl'>Degr\u00e9 B &nbsp;<small>(" + Math.round(nB/total*100) + "%)</small></div></div>" +
+    "<div class='stat-card card-C'><div class='val'>" + nC + "</div><div class='lbl'>Degr\u00e9 C &nbsp;<small>(" + Math.round(nC/total*100) + "%)</small></div></div>" +
+    "<div class='stat-card card-avg'><div class='val'>" + avgClass.toFixed(1) + "</div><div class='lbl'>Moy. classe /10</div></div>" +
+    "<div class='stat-card card-avg'><div class='val'>" + (avgClass*2).toFixed(1) + "</div><div class='lbl'>Moy. classe /20</div></div>";
+
+  // Decision
+  var majority = nA >= nB && nA >= nC ? "A" : (nB >= nC ? "B" : "C");
+  var dClass = "decision-" + majority;
+  var dText = majority === "A"
+    ? "\ud83d\udea8 Classe d\u00e9butante \u2014 Priorit\u00e9 fondamentaux N1 \u2014 \u00c9cart stade/conduites confirm\u00e9"
+    : (majority === "B"
+      ? "\u26a0\ufe0f Classe interm\u00e9diaire \u2014 Diff\u00e9renciation A/B active d\u00e8s la s\u00e9ance 2"
+      : "\u2705 Classe avanc\u00e9e \u2014 Approfondissement N2 et tutorat");
+  document.getElementById("decisionBox").innerHTML = "<div class='decision-box " + dClass + "'>" + dText + "</div>";
+
+  // Obs analysis
+  var obsHtml = "";
+  OBS.forEach(function(obs, idx) {
+    var scores = students.map(function(s){ return s.scores[idx]; });
+    var avg = scores.reduce(function(a,b){return a+b;},0)/scores.length;
+    var state = avg >= SEUIL_C ? "\u2705 Bon niveau \u2014 Approfondir" : (avg >= SEUIL_B ? "\ud83d\udfe1 En cours \u2014 Consolider" : "\ud83d\udd34 Lacune collective \u2014 SA prioritaire");
+    obsHtml += "<div style='display:flex;align-items:center;gap:12px;margin-bottom:8px;padding:8px;background:#f8f8f8;border-radius:3px;'>" +
+      "<div style='min-width:140px;font-size:12px;font-weight:700;'>" + obs.id + "</div>" +
+      "<div style='flex:1;font-size:11px;color:#555;'>" + obs.label + "</div>" +
+      "<div style='font-size:12px;font-weight:700;'>" + avg.toFixed(1) + "/10</div>" +
+      "<div style='font-size:11px;'>" + state + "</div></div>";
+  });
+  document.getElementById("obsAnalysis").innerHTML = obsHtml;
+
+  // Groups
+  var gHtml = "";
+  ["A","B","C"].forEach(function(deg) {
+    var group = students.filter(function(s){return s.profil===deg;});
+    if (!group.length) return;
+    var axeGroup = deg === "A" ? AXES[0].saA : (deg === "B" ? AXES[0].saB : AXES[0].saC);
+    gHtml += "<div style='display:flex;gap:10px;align-items:flex-start;margin-bottom:8px;padding:8px;border-left:3px solid var(--" + deg.toLowerCase() + "-brd);background:var(--" + deg.toLowerCase() + "-bg);border-radius:0 3px 3px 0;'>" +
+      "<span class='badge badge-" + deg + "'>" + deg + "</span>" +
+      "<div><div style='font-size:12px;font-weight:700;'>" + group.length + " \u00e9l\u00e8ve" + (group.length>1?"s":"") + " \u2014 " + group.map(function(s){return s.name;}).join(", ") + "</div>" +
+      "<div style='font-size:11px;color:#555;margin-top:3px;'>SA recommand\u00e9e : " + axeGroup + "</div></div></div>";
+  });
+  document.getElementById("groupsBox").innerHTML = gHtml || "<div class='text-soft'>Aucun groupe constitué</div>";
+
+  // Individual table
+  var tbody = document.getElementById("resultsTbody");
+  tbody.innerHTML = "";
+  var sorted = students.slice().sort(function(a,b){return a.rang - b.rang;});
+  sorted.forEach(function(s) {
+    var tr = document.createElement("tr");
+    tr.className = "row-" + s.profil;
+    tr.innerHTML =
+      "<td style='text-align:center;font-weight:700;'>" + s.rang + "</td>" +
+      "<td style='font-weight:600;'>" + escHtml(s.name) + "</td>" +
+      "<td><span class='obs-tag obs-" + (s.obs[0]||"?") + "'>" + (OBS[0].codes[s.obs[0]]||"?") + "</span></td>" +
+      "<td><span class='obs-tag obs-" + (s.obs[1]||"?") + "'>" + (OBS[1].codes[s.obs[1]]||"?") + "</span></td>" +
+      "<td><span class='obs-tag obs-" + (s.obs[2]||"?") + "'>" + (OBS[2].codes[s.obs[2]]||"?") + "</span></td>" +
+      "<td style='font-family:monospace;'>" + (s.chrono ? s.chrono.toFixed(1) + "\"" : "\u2014") + "</td>" +
+      "<td style='font-weight:700;'>" + s.avg.toFixed(1) + "</td>" +
+      "<td><span class='badge badge-" + s.profil + "'>" + s.profil + "</span></td>" +
+      "<td style='font-family:monospace;font-size:11px;'>" + escHtml(s.profilDetail) + "</td>" +
+      "<td style='font-size:11px;color:#555;'>" + escHtml(s.lacune1) + "</td>" +
+      "<td style='font-size:10px;color:#333;max-width:160px;'>" + escHtml(s.axePrio) + "</td>";
+    tbody.appendChild(tr);
+  });
+}
+
+// ── AXES STEP 2 ──────────────────────────────────────────────────────
+function buildAxesList() {
+  var container = document.getElementById("axesList");
+  container.innerHTML = "";
+  AXES.forEach(function(axe) {
+    var div = document.createElement("div");
+    div.className = "axe-card";
+    div.id = "axe-card-" + axe.id;
+    div.innerHTML =
+      "<input type='checkbox' id='axe-cb-" + axe.id + "' onchange='toggleAxe(" + axe.id + ")'>" +
+      "<div class='axe-title'>Axe " + axe.id + " \u2014 " + axe.titre + "</div>" +
+      "<div class='axe-meta'>" +
+        "<span>\ud83c\udfaf Observable : " + axe.obs + "</span>" +
+        "<span>\ud83d\udd17 Pr\u00e9requis : " + axe.prereq + "</span>" +
+        "<span>\u2b06\ufe0f Impact : " + axe.impact + "</span>" +
+        "<span id='axe-pct-" + axe.id + "'>\ud83d\udcca Pertinence : calcul en attente</span>" +
+      "</div>" +
+      "<div class='pertinence-bar'><div class='pertinence-fill' id='axe-bar-" + axe.id + "' style='width:0%'></div></div>";
+    div.onclick = function(e) {
+      if (e.target.tagName !== "INPUT") {
+        var cb = document.getElementById("axe-cb-" + axe.id);
+        cb.checked = !cb.checked;
+        toggleAxe(axe.id);
+      }
+    };
+    container.appendChild(div);
+  });
+}
+
+function updateAxePertinence(students) {
+  AXES.forEach(function(axe) {
+    var obsIdx = OBS.findIndex(function(o){ return o.id === axe.obs; });
+    if (obsIdx === -1) return;
+    var lacCount = students.filter(function(s){ return s.obs[obsIdx] === "A" || s.obs[obsIdx] === "B"; }).length;
+    var pct = students.length ? Math.round(lacCount / students.length * 100) : 0;
+    var el = document.getElementById("axe-pct-" + axe.id);
+    if (el) el.textContent = "\ud83d\udcca Pertinence : " + pct + "% des \u00e9l\u00e8ves concern\u00e9s";
+    var bar = document.getElementById("axe-bar-" + axe.id);
+    if (bar) bar.style.width = pct + "%";
+  });
+}
+
+function toggleAxe(id) {
+  var cb = document.getElementById("axe-cb-" + id);
+  var card = document.getElementById("axe-card-" + id);
+  var selected = getSelectedAxes();
+
+  if (cb.checked && selected.indexOf(id) === -1) {
+    if (selected.length >= 4) {
+      cb.checked = false;
+      document.getElementById("axeWarning").style.display = "block";
+      return;
+    }
+    document.getElementById("axeWarning").style.display = "none";
+  } else {
+    document.getElementById("axeWarning").style.display = "none";
+  }
+
+  card.classList.toggle("selected", cb.checked);
+  updateAxeCount();
+}
+
+function getSelectedAxes() {
+  return AXES.filter(function(a) {
+    var cb = document.getElementById("axe-cb-" + a.id);
+    return cb && cb.checked;
+  }).map(function(a){ return a.id; });
+}
+
+function updateAxeCount() {
+  var sel = getSelectedAxes();
+  appData.selectedAxes = sel;
+  var hint = document.getElementById("axeCountHint");
+  var btn = document.getElementById("btnStep3");
+  if (sel.length < 3) {
+    hint.textContent = sel.length + " axe" + (sel.length!==1?"s":"") + " s\u00e9lectionn\u00e9" + (sel.length!==1?"s":"") + " \u2014 minimum 3";
+    btn.disabled = true;
+  } else {
+    hint.textContent = sel.length + " axes s\u00e9lectionn\u00e9s \u2714";
+    btn.disabled = false;
+    unlock(3);
+  }
+}
+
+// ── SLIDER STEP 3 ────────────────────────────────────────────────────
+// Distribution table: [axes][seances-6]
+var DISTRIB = {
+  3: [[2,2,2],[2,2,3],[3,2,3],[3,3,3],[3,4,3]],
+  4: [[1,2,2,1],[2,2,2,1],[2,2,2,2],[2,3,2,2],[3,2,3,2]]
+};
+
+function updateDistrib() {
+  var n = parseInt(document.getElementById("sliderSeances").value);
+  appData.seances = n;
+  document.getElementById("sliderVal").textContent = n;
+
+  var sel = appData.selectedAxes;
+  var nAxes = Math.min(Math.max(sel.length, 3), 4);
+  var distribArr = DISTRIB[nAxes] ? DISTRIB[nAxes][n - 6] : null;
+
+  var preview = document.getElementById("distribPreview");
+  if (!distribArr) { preview.innerHTML = "<div class='text-soft'>Distribution non disponible</div>"; return; }
+
+  var html = "";
+  distribArr.forEach(function(seqN, idx) {
+    var axeId = sel[idx] || sel[sel.length - 1];
+    var axeObj = AXES.find(function(a){ return a.id === axeId; });
+    var axeTitre = axeObj ? ("Axe " + axeObj.id + " \u2014 " + axeObj.titre.substring(0,50) + "...") : "Axe " + axeId;
+    html += "<div class='distrib-row'>" +
+      "<span class='distrib-seq'>S\u00e9quence " + (idx+1) + "</span>" +
+      "<span class='distrib-n'>" + seqN + " s\u00e9ance" + (seqN>1?"s":"") + "</span>" +
+      "<span class='distrib-axe'>" + escHtml(axeTitre) + "</span>" +
+      "</div>";
+  });
+  html += "<div style='font-size:11px;color:#888;margin-top:8px;'>Cycle de " + n + " s\u00e9ances \u00b7 " + distribArr.length + " s\u00e9quences</div>";
+  preview.innerHTML = html;
+  unlock(4);
+}
+
+// ── PLANIFICATION STEP 4 ─────────────────────────────────────────────
+function buildPlan() {
+  var n = appData.seances;
+  var sel = appData.selectedAxes;
+  var nAxes = Math.min(Math.max(sel.length, 3), 4);
+  var distribArr = DISTRIB[nAxes] ? DISTRIB[nAxes][n - 6] : [3,3,4];
+  var students = appData.students;
+  var nA = students.filter(function(s){return s.profil==="A";}).length;
+  var nB = students.filter(function(s){return s.profil==="B";}).length;
+  var nC = students.filter(function(s){return s.profil==="C";}).length;
+
+  document.getElementById("planHeader").innerHTML =
+    "Cycle de <strong>" + n + " s\u00e9ances</strong> \u00b7 " + distribArr.length + " s\u00e9quences \u00b7 " +
+    nA + " \u00e9l\u00e8ves A \u00b7 " + nB + " \u00e9l\u00e8ves B \u00b7 " + nC + " \u00e9l\u00e8ves C \u00b7 " +
+    "Axes retenus : " + sel.length + " \u00b7 " +
+    "Lacune dominante : OBS-02 (inclinaison N1-4)";
+
+  var html = "";
+  var seanceGlobal = 1;
+
+  distribArr.forEach(function(seqN, seqIdx) {
+    var axeId = sel[seqIdx] || sel[sel.length - 1];
+    var axeObj = AXES.find(function(a){ return a.id === axeId; });
+    if (!axeObj) return;
+
+    html += "<div class='seq-block'>";
+    html += "<div class='seq-header'>" +
+      "<h3>S\u00e9quence " + (seqIdx+1) + " \u2014 Axe " + axeObj.id + " \u2014 " + escHtml(axeObj.titre.substring(0,50)) + "...</h3>" +
+      "<div class='seq-meta'>S\u00e9ances " + seanceGlobal + " \u00e0 " + (seanceGlobal + seqN - 1) + " \u00b7 " + seqN + " s\u00e9ance" + (seqN>1?"s":"") + " \u00b7 Impact : " + axeObj.impact + "</div>" +
+      "</div>";
+
+    html += "<table class='plan-table'><thead><tr>" +
+      "<th>N\u00b0</th><th>Axe dominant</th><th>Objectif de s\u00e9ance</th>" +
+      "<th style='background:#a02020;'>Groupe A \u2014 Fondamentaux</th>" +
+      "<th style='background:#8a5c00;'>Groupe B \u2014 Construction</th>" +
+      "<th style='background:#2a5c08;'>Groupe C \u2014 Approfondissement</th>" +
+      "</tr></thead><tbody>";
+
+    for (var s = 0; s < seqN; s++) {
+      var isLast = (seqIdx === distribArr.length - 1) && (s === seqN - 1);
+      var objSeance = isLast
+        ? "\u00c9valuation formative \u2014 observation des acquis du cycle"
+        : ("S\u00e9ance " + (s+1) + "/" + seqN + " \u2014 " + (s === 0 ? "D\u00e9couverte" : (s === seqN-1 ? "Consolidation" : "Entra\u00eenement")) + " \u2014 Axe " + axeObj.id);
+
+      var saA = isLast ? "Observation des acquis \u2014 retour sur les conduites initiales" : axeObj.saA;
+      var saB = isLast ? "Comparaison DI/bilan \u2014 mesure de la progression" : axeObj.saB;
+      var saC = isLast ? "Projet de course personnel \u2014 auto-\u00e9valuation sur les 3 OBS" : axeObj.saC;
+
+      var critA = isLast ? "Comportement observable am\u00e9lior\u00e9 vs s\u00e9ance 1" : "Code OBS pr\u00e9sent dans au moins 2 passages";
+      var critB = isLast ? "Passage de A vers B ou B vers C observable" : "Inclinaison ou maintien visible sur 2 essais/3";
+      var critC = isLast ? "Degr\u00e9 C stabilis\u00e9 sur 3 observables" : "Conduite cible stabilis\u00e9e sur 3 passages cons\u00e9cutifs";
+
+      html += "<tr>" +
+        "<td class='td-n'>" + seanceGlobal + "</td>" +
+        "<td class='td-axe'>Axe " + axeObj.id + "</td>" +
+        "<td style='font-size:11px;'>" + escHtml(objSeance) + "</td>" +
+        "<td class='td-A'><span class='plan-sa'>" + escHtml(saA.substring(0,40)) + "</span><span class='plan-crit'>CR : " + escHtml(critA) + "</span></td>" +
+        "<td class='td-B'><span class='plan-sa'>" + escHtml(saB.substring(0,40)) + "</span><span class='plan-crit'>CR : " + escHtml(critB) + "</span></td>" +
+        "<td class='td-C'><span class='plan-sa'>" + escHtml(saC.substring(0,40)) + "</span><span class='plan-crit'>CR : " + escHtml(critC) + "</span></td>" +
+        "</tr>";
+
+      // Indicateur de passage (sauf dernière séance de chaque séquence)
+      if (s < seqN - 1 && !isLast) {
+        html += "<tr class='indicator-row'><td colspan='6'>" +
+          "<div class='indicator-box'>📋 \u00c0 observer avant la s\u00e9ance suivante \u2014 " + escHtml(axeObj.conduite) + "</div>" +
+          "<div class='indicator-note'>(Indicatif \u2014 d\u00e9cision de progression : vous)</div>" +
+          "</td></tr>";
+      }
+
+      seanceGlobal++;
+    }
+
+    html += "</tbody></table></div>";
+  });
+
+  document.getElementById("planContent").innerHTML = html;
+
+  // Summary
+  var summHtml = "<table class='plan-table'><thead><tr><th>S\u00e9quence</th><th>Axes travaill\u00e9s</th><th>Nb s\u00e9ances</th><th>Profil dominant cibl\u00e9</th></tr></thead><tbody>";
+  distribArr.forEach(function(seqN, idx) {
+    var axeId = sel[idx] || sel[sel.length-1];
+    var axeObj = AXES.find(function(a){ return a.id === axeId; });
+    summHtml += "<tr><td>S\u00e9quence " + (idx+1) + "</td><td>Axe " + (axeObj ? axeObj.id : "?") + "</td><td>" + seqN + "</td><td>A + B</td></tr>";
+  });
+  summHtml += "</tbody></table>";
+  summHtml += "<div style='margin-top:12px;font-size:12px;padding:10px;background:#f8f8f8;border-radius:4px;'>";
+  summHtml += "Ce cycle de <strong>" + n + " s\u00e9ances</strong> cible <strong>" + sel.length + " axes prioritaires</strong>. ";
+  var domProfil = nA >= nB && nA >= nC ? "A" : (nB >= nC ? "B" : "C");
+  var domN = domProfil === "A" ? nA : (domProfil === "B" ? nB : nC);
+  summHtml += "Profil le plus concern\u00e9 : <strong>" + domProfil + "</strong> (" + domN + " \u00e9l\u00e8ve" + (domN>1?"s":"") + " \u00b7 " + Math.round(domN/students.length*100) + "%). ";
+  summHtml += "R\u00e9\u00e9valuer apr\u00e8s la s\u00e9quence " + Math.ceil(distribArr.length/2) + " avec une nouvelle collecte terrain.";
+  summHtml += "</div>";
+  summHtml += "<div style='margin-top:8px;font-size:11px;color:#888;font-style:italic;'>D\u00e9cision finale : vous \u00b7 L'outil propose, l'enseignant d\u00e9cide \u00b7 ADP 2026 \u00b7 CRMEF Inezgane \u00b7 BOUARGANE</div>";
+  document.getElementById("planSummary").innerHTML = summHtml;
+}
+
+// ── CSV IMPORT ────────────────────────────────────────────────────────
+function setupCSVDrop() {
+  var drop = document.getElementById("csvDrop");
+  var inp = document.getElementById("csvFile");
+
+  drop.addEventListener("dragover", function(e) { e.preventDefault(); drop.classList.add("drag-over"); });
+  drop.addEventListener("dragleave", function() { drop.classList.remove("drag-over"); });
+  drop.addEventListener("drop", function(e) {
+    e.preventDefault(); drop.classList.remove("drag-over");
+    var f = e.dataTransfer.files[0];
+    if (f) parseCSV(f);
+  });
+  inp.addEventListener("change", function() { if (inp.files[0]) parseCSV(inp.files[0]); });
+}
+
+// ── FORMAT TERRAIN : nom,A/B/C,A/B/C,A/B/C,9"4
+// Supporte :
+//   · Sans en-tête  : Alaoui Mohamed,B,C,A,9"4
+//   · Avec en-tête  : nom,obs01,obs02,obs03,obs04  (ligne auto-détectée et sautée)
+//   · Codes métier  : Alaoui Mohamed,RH,IM,FA,9"4
+//   · Séparateur    : virgule ou point-virgule
+//   · Chrono        : 9"4 ou 9.4 ou 9,4
+
+function parseCSV(file) {
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var txt = e.target.result;
+    var lines = txt.split(/\r?\n/);
+    var imported = 0, ignored = 0;
+    var container = document.getElementById("formRows");
+    container.innerHTML = "";
+
+    // Détection du séparateur sur la première ligne non vide
+    var sep = ",";
+    for (var i = 0; i < lines.length; i++) {
+      var l = lines[i].trim();
+      if (l) { sep = l.indexOf(";") !== -1 ? ";" : ","; break; }
+    }
+
+    for (var i = 0; i < lines.length; i++) {
+      var line = lines[i].trim();
+      if (!line) { ignored++; continue; }
+
+      // Normaliser le chrono : remplacer " par rien pour parsing (9"4 → 9.4)
+      var lineNorm = line.replace(/(\d+)"(\d)/g, "$1.$2");
+      var cells = lineNorm.split(sep).map(function(c) { return c.trim().replace(/^"|"$/g, ""); });
+
+      if (cells.length < 2) { ignored++; continue; }
+
+      var name = cells[0];
+
+      // Sauter les lignes d'en-tête (contiennent nom/obs/prenom)
+      var nameLow = name.toLowerCase();
+      if (nameLow === "nom" || nameLow === "prenom" || nameLow === "nom_eleve" ||
+          nameLow === "nom/prenom" || nameLow === "eleve" ||
+          cells[1].toLowerCase() === "obs01" || cells[1].toLowerCase() === "obs-01") {
+        ignored++;
+        continue;
+      }
+
+      // Sauter les lignes de bilan
+      if (nameLow.indexOf("bilan") !== -1 || nameLow.indexOf("classe") !== -1 ||
+          nameLow.indexOf("moyenne") !== -1 || nameLow === "") {
+        ignored++;
+        continue;
+      }
+
+      // Colonnes : nom | obs01 | obs02 | obs03 | chrono (obs04)
+      var raw1    = cells[1] || "";
+      var raw2    = cells[2] || "";
+      var raw3    = cells[3] || "";
+      var rawChrono = cells[4] || "";
+
+      var d1 = mapDegree(raw1);
+      var d2 = mapDegree(raw2);
+      var d3 = mapDegree(raw3);
+
+      // Chrono : accepte 9.4 / 9"4 / 9,4 (après normalisation)
+      var chronoNum = parseFloat(rawChrono.replace(",", "."));
+
+      var div = document.createElement("div");
+      div.style.cssText = "display:grid;grid-template-columns:140px 100px 100px 100px 100px 44px;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid #f0f0f0;";
+      div.innerHTML =
+        "<input type='text' value='" + escAttr(name) + "' class='name-inp' style='font-size:12px;'>" +
+        buildCodeSelectVal("obs1-" + i, OBS[0], d1) +
+        buildCodeSelectVal("obs2-" + i, OBS[1], d2) +
+        buildCodeSelectVal("obs3-" + i, OBS[2], d3) +
+        "<input type='number' class='chrono-inp' value='" + (isNaN(chronoNum) ? "" : chronoNum.toFixed(1)) + "' min='6' max='20' step='0.1' style='font-size:12px;'>" +
+        "<button class='btn-delete' title='Supprimer cet \u00e9l\u00e8ve' onclick='deleteRow(this)'>🗑️</button>";
+      container.appendChild(div);
+      imported++;
+    }
+
+    if (imported === 0) {
+      showCSVStatus("Aucun \u00e9l\u00e8ve import\u00e9 \u2014 v\u00e9rifier le format : Alaoui Mohamed,B,C,A,9\"4", "err");
+    } else {
+      showCSVStatus(imported + " \u00e9l\u00e8ve" + (imported > 1 ? "s" : "") + " import\u00e9" + (imported > 1 ? "s" : "") +
+        " \u2014 " + ignored + " ligne" + (ignored > 1 ? "s" : "") + " ignor\u00e9e" + (ignored > 1 ? "s" : ""), "ok");
+    }
+  };
+  reader.readAsText(file, "UTF-8");
+}
+
+function buildCodeSelectVal(id, obs, val) {
+  return "<select id='" + id + "' class='code-select'>" +
+    "<option value='' " + (!val ? "selected" : "") + ">--</option>" +
+    "<option value='A' class='A' " + (val === "A" ? "selected" : "") + ">" + obs.codes.A + " (A)</option>" +
+    "<option value='B' class='B' " + (val === "B" ? "selected" : "") + ">" + obs.codes.B + " (B)</option>" +
+    "<option value='C' class='C' " + (val === "C" ? "selected" : "") + ">" + obs.codes.C + " (C)</option>" +
+    "</select>";
+}
+
+// Mapper code terrain → degré A/B/C
+function mapDegree(val) {
+  if (!val) return "";
+  var v = val.toUpperCase().trim();
+  // Codes métier OBS-01
+  if (v === "RT") return "A";
+  if (v === "RH") return "B";
+  if (v === "RP") return "C";
+  // Codes métier OBS-02
+  if (v === "ID") return "A";
+  if (v === "IP") return "B";
+  if (v === "IM") return "C";
+  // Codes métier OBS-03
+  if (v === "RA") return "A";
+  if (v === "MD") return "B";
+  if (v === "FA") return "C";
+  // Codes métier OBS-04
+  if (v === "TE") return "A";
+  if (v === "TI") return "B";
+  if (v === "TF") return "C";
+  // Degrés lettres directs
+  if (v === "A") return "A";
+  if (v === "B") return "B";
+  if (v === "C") return "C";
+  // Valeurs numériques
+  var n = parseFloat(val);
+  if (!isNaN(n)) { return n >= SEUIL_C ? "C" : (n >= SEUIL_B ? "B" : "A"); }
+  return "";
+}
+
+
+
+function showCSVStatus(msg, type) {
+  var el = document.getElementById("csvStatus");
+  el.innerHTML = "<div class='csv-status csv-" + type + "'>" + escHtml(msg) + "</div>";
+}
+
+// ── EXPORT CSV ── Format terrain : nom,obs01,obs02,obs03,obs04
+// Exemple ligne : Alaoui Mohamed,B,C,A,9"4
+// Deux feuilles dans le même fichier :
+//   FEUILLE 1 — Format terrain (compatible réimport + lecture fiche papier)
+//   FEUILLE 2 — Format analyse complet (profil, lacune, axe)
+function exportCSV() {
+  if (!appData.students.length) { alert("Analyser la classe d'abord."); return; }
+  var bom = "\uFEFF";
+  var lines = [];
+
+  // ── EN-TÊTE INFORMATIF ──
+  lines.push("# EXPORT TERRAIN \u2014 Sprint \u2014 coll1_eq01 \u2014 ADP 2026");
+  lines.push("# Format : nom,obs01,obs02,obs03,obs04");
+  lines.push("# obs01-03 : code degr\u00e9 (A/B/C)  |  obs04 : chrono format 10\"2");
+  lines.push("# Exemple  : Alaoui Mohamed,B,C,A,9\"4");
+  lines.push("# Ce fichier est r\u00e9importable directement dans cet outil");
+  lines.push("");
+
+  // ── SECTION 1 : FORMAT TERRAIN SIMPLE ──
+  lines.push("## SECTION 1 \u2014 FORMAT TERRAIN (r\u00e9importable)");
+  lines.push("nom,obs01,obs02,obs03,obs04");
+
+  appData.students.forEach(function(s) {
+    // obs01/02/03 : degré lettre (A, B ou C)
+    var d1 = s.obs[0] || "";
+    var d2 = s.obs[1] || "";
+    var d3 = s.obs[2] || "";
+    // obs04 : chrono au format 9"4 (guillemet terrain)
+    var chrono = "";
+    if (s.chrono) {
+      var c = parseFloat(s.chrono);
+      if (!isNaN(c)) {
+        // Format X"Y : partie entière + guillemet + dixième(s)
+        var entier = Math.floor(c);
+        var dix = Math.round((c - entier) * 10);
+        chrono = entier + "\u0022" + dix;  // " = guillemet droit
+      } else {
+        chrono = String(s.chrono);
+      }
+    }
+    lines.push([s.name, d1, d2, d3, chrono].join(","));
+  });
+
+  lines.push("");
+
+  // ── SECTION 2 : FORMAT ANALYSE COMPLET ──
+  lines.push("## SECTION 2 \u2014 ANALYSE COMPL\u00c8TE");
+  lines.push("nom,obs01_code,obs01_deg,obs02_code,obs02_deg,obs03_code,obs03_deg,chrono,moy_10,profil_global,profil_detail,rang,lacune1,axe_prioritaire");
+
+  appData.students.forEach(function(s) {
+    var code1 = s.obs[0] ? OBS[0].codes[s.obs[0]] : "";
+    var code2 = s.obs[1] ? OBS[1].codes[s.obs[1]] : "";
+    var code3 = s.obs[2] ? OBS[2].codes[s.obs[2]] : "";
+    lines.push([
+      csvQ(s.name),
+      csvQ(code1), csvQ(s.obs[0] || ""),
+      csvQ(code2), csvQ(s.obs[1] || ""),
+      csvQ(code3), csvQ(s.obs[2] || ""),
+      csvQ(s.chrono || ""),
+      s.avg || "",
+      csvQ(s.profil || ""),
+      csvQ(s.profilDetail || ""),
+      s.rang || "",
+      csvQ(s.lacune1 || ""),
+      csvQ(s.axePrio || "")
+    ].join(","));
+  });
+
+  var d = new Date();
+  var dateStr = d.getFullYear() + "-" + pad(d.getMonth()+1) + "-" + pad(d.getDate());
+  var blob = new Blob([bom + lines.join("\n")], { type: "text/csv;charset=utf-8;" });
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "outil_v0_sprint_coll1_eq01_" + dateStr + ".csv";
+  a.click();
+}
+
+// ── PRINT ────────────────────────────────────────────────────────────
+function printPage() { window.print(); }
+
+// ── UTILS ────────────────────────────────────────────────────────────
+function escHtml(s) {
+  if (!s) return "";
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+function escAttr(s) {
+  if (!s) return "";
+  return String(s).replace(/'/g,"&#39;").replace(/"/g,"&quot;");
+}
+function csvQ(s) { return '"' + String(s||"").replace(/"/g,'""') + '"'; }
+function pad(n) { return n < 10 ? "0" + n : String(n); }
+
+
+// ══════════════════════════════════════════════════════════════════════
+// ADP 2026 — EXTENSIONS DÉPLOIEMENT : persistance, reset, import/export
+// ══════════════════════════════════════════════════════════════════════
+
+var LS_KEY = "di_sprint_coll1_eq01_v4";
+
+// ── SAUVEGARDE AUTOMATIQUE ─────────────────────────────────────────────
+// Capture l'état complet de la saisie (champs DOM + appData) dans localStorage
+function saveState() {
+  try {
+    // Lire les lignes du formulaire
+    var rows = document.getElementById("formRows").children;
+    var rawRows = [];
+    for (var i = 0; i < rows.length; i++) {
+      var r = rows[i];
+      var nameInp  = r.querySelector(".name-inp");
+      var sels     = r.querySelectorAll("select");
+      var chrInp   = r.querySelector(".chrono-inp");
+      rawRows.push({
+        name:   nameInp  ? nameInp.value  : "",
+        obs1:   sels[0]  ? sels[0].value  : "",
+        obs2:   sels[1]  ? sels[1].value  : "",
+        obs3:   sels[2]  ? sels[2].value  : "",
+        chrono: chrInp   ? chrInp.value   : ""
+      });
+    }
+
+    // Axes cochés
+    var checkedAxes = AXES.map(function(a) {
+      var cb = document.getElementById("axe-cb-" + a.id);
+      return cb ? cb.checked : false;
+    });
+
+    var state = {
+      v: 4,
+      savedAt: new Date().toISOString(),
+      rawRows: rawRows,
+      checkedAxes: checkedAxes,
+      seances: appData.seances,
+      step: appData.step,
+      unlocked: appData.unlocked,
+      students: appData.students,
+      selectedAxes: appData.selectedAxes
+    };
+    localStorage.setItem(LS_KEY, JSON.stringify(state));
+    flashSaveIndicator();
+  } catch(e) { console.warn("saveState:", e); }
+}
+
+// Flash du témoin de sauvegarde
+function flashSaveIndicator() {
+  var el = document.getElementById("saveIndicator");
+  if (!el) return;
+  el.textContent = "✔ Sauvegardé";
+  el.classList.add("saved");
+  clearTimeout(flashSaveIndicator._t);
+  flashSaveIndicator._t = setTimeout(function() {
+    el.textContent = "●";
+    el.classList.remove("saved");
+  }, 2000);
+}
+
+// ── RESTAURATION AU DÉMARRAGE ──────────────────────────────────────────
+function loadState() {
+  var raw;
+  try { raw = localStorage.getItem(LS_KEY); } catch(e) { return; }
+  if (!raw) return;
+
+  var state;
+  try { state = JSON.parse(raw); } catch(e) { return; }
+  if (!state || state.v !== 4) return;
+
+  // Reconstruire les lignes du formulaire
+  if (state.rawRows && state.rawRows.length) {
+    var container = document.getElementById("formRows");
+    container.innerHTML = "";
+    state.rawRows.forEach(function(r, idx) {
+      var div = document.createElement("div");
+      div.style.cssText = "display:grid;grid-template-columns:140px 100px 100px 100px 100px 44px;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid #f0f0f0;";
+      div.innerHTML =
+        "<input type='text' value='" + escAttr(r.name) + "' class='name-inp' style='font-size:12px;'>" +
+        buildCodeSelectVal("obs1-r"+idx, OBS[0], r.obs1) +
+        buildCodeSelectVal("obs2-r"+idx, OBS[1], r.obs2) +
+        buildCodeSelectVal("obs3-r"+idx, OBS[2], r.obs3) +
+        "<input type='number' class='chrono-inp' value='" + escAttr(r.chrono) + "' min='6' max='20' step='0.1' style='font-size:12px;'>" +
+        "<button class='btn-delete' title='Supprimer cet \u00e9l\u00e8ve' onclick='deleteRow(this)'>🗑️</button>";
+      container.appendChild(div);
+    });
+  }
+
+  // Restaurer les axes cochés
+  if (state.checkedAxes) {
+    AXES.forEach(function(a, idx) {
+      var cb = document.getElementById("axe-cb-" + a.id);
+      var card = document.getElementById("axe-card-" + a.id);
+      if (cb && state.checkedAxes[idx]) {
+        cb.checked = true;
+        if (card) card.classList.add("selected");
+      }
+    });
+    updateAxeCount();
+  }
+
+  // Restaurer le slider
+  if (state.seances) {
+    var slider = document.getElementById("sliderSeances");
+    if (slider) { slider.value = state.seances; appData.seances = state.seances; }
+    var sv = document.getElementById("sliderVal");
+    if (sv) sv.textContent = state.seances;
+  }
+
+  // Restaurer appData
+  if (state.unlocked) appData.unlocked = state.unlocked;
+  if (state.selectedAxes) appData.selectedAxes = state.selectedAxes;
+
+  // Restaurer les résultats si l'analyse avait été faite
+  if (state.students && state.students.length) {
+    appData.students = state.students;
+    renderResults(state.students);
+    updateAxePertinence(state.students);
+    document.getElementById("results1").style.display = "block";
+  }
+
+  // Restaurer l'étape courante
+  if (state.step && state.step > 1) {
+    goStep(state.step);
+  }
+}
+
+// ── HOOK : auto-save sur chaque interaction ────────────────────────────
+// On délègue sur le #appShell entier avec un debounce 800ms
+(function setupAutoSave() {
+  var timer;
+  document.addEventListener("DOMContentLoaded", function() {
+    var shell = document.getElementById("appShell");
+    if (!shell) return;
+    shell.addEventListener("input",  debounced);
+    shell.addEventListener("change", debounced);
+    shell.addEventListener("click",  debounced);
+  });
+  function debounced() {
+    clearTimeout(timer);
+    timer = setTimeout(saveState, 800);
+  }
+})();
+
+// ── RÉINITIALISATION ──────────────────────────────────────────────────
+function resetSession() {
+  var ok = window.confirm(
+    "⚠ NOUVELLE SESSION\n\n" +
+    "Cette action va effacer TOUTES les données en cours :\n" +
+    "• Élèves saisis\n• Résultats d'analyse\n• Axes sélectionnés\n• Planification générée\n\n" +
+    "Conseil : téléchargez d'abord votre session (bouton « Sauvegarder session »).\n\n" +
+    "Confirmer la réinitialisation ?"
+  );
+  if (!ok) return;
+
+  // Effacer localStorage
+  try { localStorage.removeItem(LS_KEY); } catch(e) {}
+
+  // Réinitialiser appData
+  appData.students = [];
+  appData.selectedAxes = [];
+  appData.seances = 10;
+  appData.step = 1;
+  appData.unlocked = [1];
+
+  // Vider le formulaire
+  var container = document.getElementById("formRows");
+  container.innerHTML = "";
+  for (var i = 0; i < 5; i++) addRow();
+
+  // Cacher les résultats
+  document.getElementById("results1").style.display = "none";
+
+  // Réinitialiser les axes
+  AXES.forEach(function(a) {
+    var cb   = document.getElementById("axe-cb-" + a.id);
+    var card = document.getElementById("axe-card-" + a.id);
+    if (cb)   { cb.checked = false; }
+    if (card) { card.classList.remove("selected"); }
+  });
+  updateAxeCount();
+
+  // Slider
+  var slider = document.getElementById("sliderSeances");
+  if (slider) slider.value = 10;
+  var sv = document.getElementById("sliderVal");
+  if (sv) sv.textContent = 10;
+
+  // Vider contenu étape 4
+  document.getElementById("planContent").innerHTML = "";
+  document.getElementById("planSummary").innerHTML = "";
+
+  // Retour étape 1
+  goStep(1);
+  window.scrollTo(0, 0);
+}
+
+// ── EXPORT SESSION JSON ────────────────────────────────────────────────
+function exportSession() {
+  // Forcer une sauvegarde fraîche
+  saveState();
+  var raw;
+  try { raw = localStorage.getItem(LS_KEY); } catch(e) {}
+  if (!raw) { alert("Aucune donnée à exporter. Saisissez d'abord des élèves."); return; }
+
+  var d = new Date();
+  var dateStr = d.getFullYear() + "-" + pad(d.getMonth()+1) + "-" + pad(d.getDate());
+  var blob = new Blob([raw], { type: "application/json;charset=utf-8;" });
+  var a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = "session_sprint_coll1_eq01_" + dateStr + ".json";
+  a.click();
+}
+
+// ── IMPORT SESSION JSON ───────────────────────────────────────────────
+function importSession(input) {
+  var file = input.files[0];
+  if (!file) return;
+  var reader = new FileReader();
+  reader.onload = function(e) {
+    var raw = e.target.result;
+    var state;
+    try { state = JSON.parse(raw); } catch(err) {
+      alert("Fichier invalide — ce n'est pas un fichier session JSON valide.");
+      return;
+    }
+    if (!state || state.v !== 4) {
+      alert("Fichier de session incompatible (version différente).");
+      return;
+    }
+    var ok = window.confirm(
+      "Restaurer la session du " + (state.savedAt ? state.savedAt.substring(0,10) : "?") + " ?\n\n" +
+      "Les données en cours seront remplacées."
+    );
+    if (!ok) { input.value = ""; return; }
+    try { localStorage.setItem(LS_KEY, raw); } catch(e) {}
+    // Réinitialiser proprement avant de charger
+    appData.students = [];
+    appData.selectedAxes = [];
+    appData.unlocked = [1];
+    document.getElementById("formRows").innerHTML = "";
+    buildAxesList();
+    loadState();
+    input.value = "";
+  };
+  reader.readAsText(file, "UTF-8");
+}
+
+// ── DONNÉES DE DÉMONSTRATION ──────────────────────────────────────────
+var DEMO_DATA = [
+  { name: "Alaoui Mohamed",       obs1:"A", obs2:"A", obs3:"A", chrono:"11.4" },
+  { name: "Benali Sara",          obs1:"B", obs2:"A", obs3:"B", chrono:"10.1" },
+  { name: "Cherkaoui Youssef",    obs1:"B", obs2:"B", obs3:"B", chrono:"9.8"  },
+  { name: "Drissi Fatima",        obs1:"C", obs2:"C", obs3:"C", chrono:"8.7"  },
+  { name: "El Fassi Karim",       obs1:"A", obs2:"B", obs3:"A", chrono:"11.0" },
+  { name: "Gharbi Nadia",         obs1:"B", obs2:"C", obs3:"B", chrono:"9.5"  },
+  { name: "Hamidi Oussama",       obs1:"A", obs2:"A", obs3:"B", chrono:"10.8" },
+  { name: "Idrissi Leila",        obs1:"C", obs2:"B", obs3:"C", chrono:"9.0"  },
+  { name: "Jouahri Amine",        obs1:"B", obs2:"B", obs3:"A", chrono:"10.3" },
+  { name: "Kabbaj Rim",           obs1:"A", obs2:"A", obs3:"A", chrono:"11.6" },
+  { name: "Lahlou Tarik",         obs1:"B", obs2:"C", obs3:"C", chrono:"8.9"  },
+  { name: "Mansouri Zineb",       obs1:"C", obs2:"C", obs3:"B", chrono:"9.2"  }
+];
+
+function loadDemoData() {
+  var ok = window.confirm(
+    "Charger 12 élèves de démonstration ?\n\n" +
+    "Les données en cours de saisie seront remplacées."
+  );
+  if (!ok) return;
+
+  var container = document.getElementById("formRows");
+  container.innerHTML = "";
+
+  DEMO_DATA.forEach(function(r, idx) {
+    var div = document.createElement("div");
+    div.style.cssText = "display:grid;grid-template-columns:140px 100px 100px 100px 100px 44px;gap:8px;align-items:center;padding:5px 0;border-bottom:1px solid #f0f0f0;";
+    div.innerHTML =
+      "<input type='text' value='" + escAttr(r.name) + "' class='name-inp' style='font-size:12px;'>" +
+      buildCodeSelectVal("obs1-d"+idx, OBS[0], r.obs1) +
+      buildCodeSelectVal("obs2-d"+idx, OBS[1], r.obs2) +
+      buildCodeSelectVal("obs3-d"+idx, OBS[2], r.obs3) +
+      "<input type='number' class='chrono-inp' value='" + escAttr(r.chrono) + "' min='6' max='20' step='0.1' style='font-size:12px;'>" +
+      "<button class='btn-delete' title='Supprimer cet \u00e9l\u00e8ve' onclick='deleteRow(this)'>🗑️</button>";
+    container.appendChild(div);
+  });
+
+  showCSVStatus("12 élèves de démonstration chargés — cliquez « Analyser la classe »", "ok");
+  saveState();
+  window.scrollTo(0, 0);
+}
+
+// ── GUIDE IA — TOGGLE ET COPIE DU PROMPT ─────────────────────────────
+function toggleAiGuide(panelId) {
+  var panel = document.getElementById(panelId);
+  if (!panel) return;
+  panel.classList.toggle("open");
+}
+
+function copyPrompt(elemId, btn) {
+  var el = document.getElementById(elemId);
+  if (!el) return;
+  var text = el.textContent || el.innerText;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() {
+      var orig = btn.textContent;
+      btn.textContent = "✓ Copié !";
+      setTimeout(function() { btn.textContent = orig; }, 2000);
+    });
+  } else {
+    // Fallback selection
+    var range = document.createRange();
+    range.selectNodeContents(el);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    var orig = btn.textContent;
+    btn.textContent = "✓ Sélectionné — Ctrl+C pour copier";
+    setTimeout(function() { btn.textContent = orig; sel.removeAllRanges(); }, 3000);
+  }
+}
+
+// Array findIndex polyfill
+if (!Array.prototype.findIndex) {
+  Array.prototype.findIndex = function(fn) {
+    for (var i = 0; i < this.length; i++) { if (fn(this[i], i)) return i; }
+    return -1;
+  };
+}
+if (!Array.prototype.find) {
+  Array.prototype.find = function(fn) {
+    for (var i = 0; i < this.length; i++) { if (fn(this[i])) return this[i]; }
+    return undefined;
+  };
+}
+</script>
+</div><!-- end appShell -->
+</body>
+</html>
