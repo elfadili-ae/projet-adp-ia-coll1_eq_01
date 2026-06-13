@@ -624,6 +624,32 @@ hr.divider { border: none; border-top: 1px solid var(--line); margin: 14px 0; }
 }
 .privacy-banner strong { font-weight: 700; }
 
+/* ── ANALYSE — RETOUR VISUEL ── */
+@keyframes resultHighlight {
+  0%   { box-shadow: 0 0 0 3px var(--blue), 0 0 24px rgba(26,95,168,0.35); border-color: var(--blue); }
+  60%  { box-shadow: 0 0 0 3px var(--blue), 0 0 24px rgba(26,95,168,0.35); border-color: var(--blue); }
+  100% { box-shadow: none; border-color: var(--line); }
+}
+.results-highlight {
+  animation: resultHighlight 2.4s ease-out forwards;
+}
+#analyseSuccessBanner {
+  display: none;
+  align-items: center; gap: 10px;
+  background: var(--C-bg); border: 1.5px solid var(--C-brd);
+  color: var(--C-txt); border-radius: 4px;
+  padding: 10px 16px; font-size: 13px; font-weight: 700;
+  margin-bottom: 14px;
+  animation: fadeInBanner 0.3s ease-out;
+}
+#analyseSuccessBanner.visible { display: flex; }
+@keyframes fadeInBanner {
+  from { opacity: 0; transform: translateY(-6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+#analyseSuccessBanner .success-ico { font-size: 18px; flex-shrink: 0; }
+#analyseSuccessBanner .success-sub { font-size: 11px; font-weight: 400; color: var(--C-txt); opacity: 0.8; margin-top: 1px; }
+
 /* ── SAVE INDICATOR ── */
 #saveIndicator {
   font-size: 10px; color: rgba(255,255,255,0.5);
@@ -631,6 +657,99 @@ hr.divider { border: none; border-top: 1px solid var(--line); margin: 14px 0; }
   transition: opacity 0.4s;
 }
 #saveIndicator.saved { color: #86efac; }
+/* ── FICHE TERRAIN — PDF ── */
+.btn-pdf {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 10px 20px; border-radius: 5px;
+  background: #c93333; color: #fff; border: none;
+  font-size: 13px; font-weight: 700; cursor: pointer;
+  font-family: inherit; text-decoration: none;
+  transition: background 0.15s; box-shadow: 0 2px 6px rgba(201,51,51,0.25);
+}
+.btn-pdf:hover { background: #a52020; }
+.btn-pdf-outline {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 16px; border-radius: 4px;
+  background: transparent; color: #c93333;
+  border: 1.5px solid #c93333; font-size: 12px; font-weight: 700;
+  cursor: pointer; font-family: inherit; text-decoration: none;
+  transition: all 0.15s;
+}
+.btn-pdf-outline:hover { background: var(--A-bg); }
+
+/* ── FICHE TERRAIN CARD (landing) ── */
+.lp-pdf-card {
+  background: linear-gradient(135deg, #fff5f5 0%, #fff 60%);
+  border: 1.5px solid #f0b8b8; border-radius: 10px;
+  padding: 28px 32px; display: flex; gap: 32px; align-items: flex-start;
+  flex-wrap: wrap;
+}
+.lp-pdf-icon { font-size: 52px; flex-shrink: 0; line-height: 1; }
+.lp-pdf-body h3 { font-size: 17px; font-weight: 700; color: #a02020; margin-bottom: 8px; }
+.lp-pdf-body p  { font-size: 13px; color: #555; line-height: 1.7; margin-bottom: 14px; }
+.lp-pdf-body .pdf-btns { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+
+/* ── WORKFLOW HORIZONTAL (landing how-it-works) ── */
+.lp-workflow { display: flex; gap: 0; flex-wrap: wrap; margin-top: 32px; }
+.lp-wf-step {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+  flex: 1; min-width: 120px; padding: 16px 8px; position: relative;
+}
+.lp-wf-step:not(:last-child)::after {
+  content: "›"; position: absolute; right: -8px; top: 24px;
+  font-size: 22px; color: #ccc; font-weight: 700;
+}
+.lp-wf-ico {
+  width: 52px; height: 52px; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 22px; margin-bottom: 10px;
+  background: #f0f4ff; border: 2px solid #d0ddf7;
+}
+.lp-wf-ico.red { background: #fff0f0; border-color: #f0b8b8; }
+.lp-wf-ico.blue { background: #e8f0fb; border-color: #b8cff0; }
+.lp-wf-ico.green { background: #eaf3de; border-color: #b0d898; }
+.lp-wf-ico.purple { background: #f3eeff; border-color: #c8a8f0; }
+.lp-wf-ico.orange { background: #fff8ed; border-color: #f0d898; }
+.lp-wf-step h4 { font-size: 11px; font-weight: 700; color: #333; margin-bottom: 4px; }
+.lp-wf-step p  { font-size: 10px; color: #777; line-height: 1.5; }
+@media (max-width: 600px) {
+  .lp-wf-step:not(:last-child)::after { display: none; }
+  .lp-wf-step { min-width: 45%; }
+}
+
+/* ── CONVERSION CSV CARD ── */
+.csv-conversion-card {
+  background: #0f172a; color: #e2e8f0; border-radius: 8px; padding: 20px 24px; margin-top: 14px;
+}
+.csv-conversion-card h4 { font-size: 14px; font-weight: 700; color: #93c5fd; margin-bottom: 10px; }
+.csv-conversion-card p  { font-size: 12px; line-height: 1.7; color: #94a3b8; margin-bottom: 12px; }
+.csv-sample { background: #1e293b; border-radius: 4px; padding: 10px 14px; font-family: 'Courier New', monospace; font-size: 11px; color: #a5f3fc; margin-bottom: 12px; line-height: 1.9; }
+
+/* ── AI GUIDE TOGGLE ── */
+.ai-guide-panel {
+  display: none; background: #1e293b; border-radius: 6px;
+  padding: 16px 18px; margin-top: 10px;
+}
+.ai-guide-panel.open { display: block; }
+.ai-guide-panel .prompt-box {
+  background: #0f172a; border: 1px solid #334155; border-radius: 4px;
+  padding: 12px 14px; font-size: 12px; color: #f0abfc;
+  font-family: 'Courier New', monospace; line-height: 1.7;
+  user-select: all; cursor: text;
+}
+.ai-guide-panel p { font-size: 12px; color: #94a3b8; margin-bottom: 8px; }
+.btn-ai {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 8px 16px; border-radius: 4px; border: 1.5px solid #7c3aed;
+  background: rgba(124,58,237,0.12); color: #a78bfa;
+  font-size: 12px; font-weight: 700; cursor: pointer; font-family: inherit;
+  transition: background 0.15s;
+}
+.btn-ai:hover { background: rgba(124,58,237,0.25); }
+
+/* ── FICHE TERRAIN dans session-bar ── */
+.btn-sess.pdf { border-color: rgba(201,51,51,0.5); background: rgba(201,51,51,0.12); color: #fca5a5; }
+.btn-sess.pdf:hover { background: rgba(201,51,51,0.28); }
 </style>
 </head>
 <body>
@@ -676,6 +795,9 @@ hr.divider { border: none; border-top: 1px solid var(--line); margin: 14px 0; }
           </button>
           <a class="btn-lp-outline" href="#demo" onclick="smoothTo('demo')">
             👁 Voir la démo
+          </a>
+          <a class="btn-pdf-outline" href="./assets/Fiche_Terrain_DI.pdf" download="Fiche_Terrain_DI.pdf" style="color:#c93333;border-color:#c93333;background:rgba(201,51,51,0.06);">
+            📄 Fiche terrain PDF
           </a>
         </div>
       </div>
@@ -774,35 +896,159 @@ hr.divider { border: none; border-top: 1px solid var(--line); margin: 14px 0; }
   <!-- ── 3. COMMENT ÇA MARCHE ── -->
   <div class="lp-howto">
     <div class="lp-section">
-      <div style="text-align:center; margin-bottom:48px;">
-        <div class="lp-label">Processus</div>
+      <div style="text-align:center; margin-bottom:40px;">
+        <div class="lp-label">Processus complet</div>
         <h2 class="lp-h2">Comment ça marche ?</h2>
-        <p class="lp-sub" style="margin:0 auto;">Quatre étapes simples de la fiche terrain à la planification du cycle.</p>
+        <p class="lp-sub" style="margin:0 auto;">De la fiche terrain papier à la planification différenciée — en 7 étapes.</p>
       </div>
-      <div class="lp-steps-grid">
+
+      <!-- Workflow visuel horizontal -->
+      <div class="lp-workflow">
+        <div class="lp-wf-step">
+          <div class="lp-wf-ico red">📄</div>
+          <h4>1. Télécharger</h4>
+          <p>Imprimez la fiche terrain PDF</p>
+        </div>
+        <div class="lp-wf-step">
+          <div class="lp-wf-ico blue">✍️</div>
+          <h4>2. Observer</h4>
+          <p>Complétez la fiche sur le terrain</p>
+        </div>
+        <div class="lp-wf-step">
+          <div class="lp-wf-ico orange">📸</div>
+          <h4>3. Photographier</h4>
+          <p>Prenez une photo de la fiche</p>
+        </div>
+        <div class="lp-wf-step">
+          <div class="lp-wf-ico purple">🤖</div>
+          <h4>4. Convertir</h4>
+          <p>IA → fichier CSV automatique</p>
+        </div>
+        <div class="lp-wf-step">
+          <div class="lp-wf-ico blue">⬆️</div>
+          <h4>5. Importer</h4>
+          <p>Glissez le CSV dans l'outil</p>
+        </div>
+        <div class="lp-wf-step">
+          <div class="lp-wf-ico green">📊</div>
+          <h4>6. Analyser</h4>
+          <p>Lancez l'analyse automatique</p>
+        </div>
+        <div class="lp-wf-step">
+          <div class="lp-wf-ico green">🎯</div>
+          <h4>7. Planifier</h4>
+          <p>Profils, lacunes, recommandations</p>
+        </div>
+      </div>
+
+      <!-- Grille étapes détaillées -->
+      <div class="lp-steps-grid" style="margin-top:40px;">
         <div class="lp-step-card">
-          <div class="lp-step-ico">👥</div>
+          <div class="lp-step-ico">📄</div>
           <div class="lp-step-circle">1</div>
-          <h3>Ajouter les élèves</h3>
-          <p>Saisissez manuellement vos élèves ou importez directement votre CSV terrain.</p>
+          <h3>Télécharger et imprimer</h3>
+          <p>Téléchargez la fiche terrain PDF ci-dessous et imprimez-la avant la séance.</p>
         </div>
         <div class="lp-step-card">
-          <div class="lp-step-ico">👁</div>
+          <div class="lp-step-ico">✍️</div>
           <div class="lp-step-circle">2</div>
-          <h3>Réaliser les observations</h3>
-          <p>Attribuez les codes A, B ou C pour chaque observable : Réaction · Inclinaison · Finish.</p>
+          <h3>Observer sur le terrain</h3>
+          <p>Réalisez vos observations et complétez la fiche papier pendant la séance.</p>
         </div>
         <div class="lp-step-card">
-          <div class="lp-step-ico">⏱️</div>
+          <div class="lp-step-ico">📸</div>
           <div class="lp-step-circle">3</div>
-          <h3>Enregistrer les performances</h3>
-          <p>Notez le chrono au format terrain — <strong>9"4</strong> — directement dans la cellule.</p>
+          <h3>Photographier la fiche</h3>
+          <p>Prenez une photo nette de la fiche terrain complétée avec votre smartphone.</p>
+        </div>
+        <div class="lp-step-card">
+          <div class="lp-step-ico">🤖</div>
+          <div class="lp-step-circle">4</div>
+          <h3>Convertir avec l'IA</h3>
+          <p>Utilisez ChatGPT Vision pour convertir automatiquement la photo en fichier CSV.</p>
+        </div>
+        <div class="lp-step-card">
+          <div class="lp-step-ico">⬆️</div>
+          <div class="lp-step-circle">5</div>
+          <h3>Importer le CSV</h3>
+          <p>Glissez votre fichier CSV dans la zone de dépôt de l'outil.</p>
         </div>
         <div class="lp-step-card">
           <div class="lp-step-ico">📊</div>
-          <div class="lp-step-circle">4</div>
-          <h3>Analyser et planifier</h3>
-          <p>Obtenez le diagnostic de classe, sélectionnez les axes et générez votre cycle en 4 étapes.</p>
+          <div class="lp-step-circle">6</div>
+          <h3>Lancer l'analyse</h3>
+          <p>Cliquez sur « Analyser la classe » — profils, lacunes et recommandations générés en 2 secondes.</p>
+        </div>
+        <div class="lp-step-card">
+          <div class="lp-step-ico">🎯</div>
+          <div class="lp-step-circle">7</div>
+          <h3>Consulter les résultats</h3>
+          <p>Sélectionnez les axes prioritaires et générez votre planification différenciée.</p>
+        </div>
+      </div>
+
+      <!-- CTA télécharger fiche ici aussi -->
+      <div style="text-align:center; margin-top:36px;">
+        <a class="btn-pdf" href="./assets/Fiche_Terrain_DI.pdf" download="Fiche_Terrain_DI.pdf">
+          📄 Télécharger la fiche terrain
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FICHE TERRAIN IMPRIMABLE ── -->
+  <div style="background:#fff; padding:0;">
+    <div class="lp-section">
+      <div style="text-align:center; margin-bottom:32px;">
+        <div class="lp-label">Fiche terrain</div>
+        <h2 class="lp-h2">Fiche terrain imprimable</h2>
+      </div>
+
+      <div class="lp-pdf-card">
+        <div class="lp-pdf-icon">📄</div>
+        <div class="lp-pdf-body">
+          <h3>Fiche terrain imprimable</h3>
+          <p>
+            Téléchargez la fiche terrain au format PDF, imprimez-la et utilisez-la pendant la séance
+            pour recueillir les observations des élèves.
+          </p>
+          <p>
+            Une fois la collecte terminée, prenez une photo de la fiche complétée puis utilisez
+            l'intelligence artificielle pour convertir automatiquement les données en fichier CSV
+            compatible avec l'outil.
+          </p>
+          <div class="pdf-btns">
+            <a class="btn-pdf" href="./assets/Fiche_Terrain_DI.pdf" download="Fiche_Terrain_DI.pdf">
+              📄 Télécharger la fiche terrain
+            </a>
+            <a class="btn-pdf-outline" href="./assets/Fiche_Terrain_DI.pdf" target="_blank" rel="noopener">
+              👁 Prévisualiser
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Conversion CSV -->
+      <div class="csv-conversion-card">
+        <h4>📸 Conversion de la fiche terrain en CSV</h4>
+        <p>
+          Après la séance, prenez simplement une photo de votre fiche terrain complétée.
+          Vous pouvez ensuite utiliser <strong style="color:#e2e8f0;">ChatGPT Vision</strong> pour
+          extraire automatiquement les données et les convertir en fichier CSV compatible avec l'outil.
+        </p>
+        <div style="font-size:11px; color:#64748b; margin-bottom:6px; font-weight:600; text-transform:uppercase; letter-spacing:0.07em;">Exemple de format attendu</div>
+        <div class="csv-sample">nom,obs01,obs02,obs03,obs04<br>Alaoui Mohamed,B,C,A,9"4<br>Ben Ali Sara,A,B,B,10"8</div>
+
+        <!-- Bouton Guide IA -->
+        <button class="btn-ai" onclick="toggleAiGuide('ai-guide-lp')">
+          🤖 Guide de conversion IA
+        </button>
+        <div class="ai-guide-panel" id="ai-guide-lp">
+          <p>Copiez ce prompt dans ChatGPT (ou tout autre IA avec vision), puis joignez la photo de votre fiche terrain :</p>
+          <div class="prompt-box" id="promptLp" title="Cliquez pour sélectionner, puis Ctrl+C pour copier">Je vais te fournir une photo de ma fiche terrain EPS. Analyse la grille et convertis les données en CSV en conservant une ligne par élève selon le format suivant : nom,obs01,obs02,obs03,obs04. Ne génère aucun commentaire supplémentaire, uniquement le contenu CSV.</div>
+          <div style="margin-top:10px;">
+            <button class="btn-ai" onclick="copyPrompt('promptLp', this)">📋 Copier le prompt</button>
+          </div>
         </div>
       </div>
     </div>
@@ -986,6 +1232,7 @@ hr.divider { border: none; border-top: 1px solid var(--line); margin: 14px 0; }
 <!-- ─── BARRE DE SESSION ─── -->
 <div class="session-bar">
   <span class="s-label">💾 SESSION</span>
+  <a class="btn-sess pdf" href="./assets/Fiche_Terrain_DI.pdf" download="Fiche_Terrain_DI.pdf" title="Télécharger la fiche terrain imprimable (PDF)">📄 Fiche terrain</a>
   <button class="btn-sess" onclick="exportSession()" title="Télécharger toute la session en JSON">⬇ Sauvegarder session</button>
   <label class="btn-sess" title="Charger une session depuis un fichier JSON" style="cursor:pointer;">
     ⬆ Restaurer session
@@ -1029,6 +1276,30 @@ hr.divider { border: none; border-top: 1px solid var(--line); margin: 14px 0; }
     Aucun compte, aucune connexion requise.
   </div>
 
+  <!-- Fiche terrain PDF -->
+  <div class="card">
+    <div class="card-title">📄 Fiche terrain imprimable</div>
+    <p style="font-size:12px;color:#555;line-height:1.7;margin-bottom:12px;">
+      Téléchargez la fiche terrain au format PDF, imprimez-la et utilisez-la pendant la séance pour recueillir les observations des élèves.<br>
+      Une fois la collecte terminée, prenez une photo de la fiche complétée puis utilisez l'intelligence artificielle pour convertir automatiquement les données en fichier CSV compatible avec l'outil.
+    </p>
+    <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:14px;">
+      <a class="btn-pdf" href="./assets/Fiche_Terrain_DI.pdf" download="Fiche_Terrain_DI.pdf">📄 Télécharger la fiche terrain</a>
+      <a class="btn-pdf-outline" href="./assets/Fiche_Terrain_DI.pdf" target="_blank" rel="noopener">👁 Prévisualiser</a>
+      <button class="btn-ai" onclick="toggleAiGuide('ai-guide-app')">🤖 Guide de conversion IA</button>
+    </div>
+    <div class="ai-guide-panel" id="ai-guide-app">
+      <p style="color:#94a3b8;font-size:12px;margin-bottom:8px;">
+        📸 Prenez une photo de votre fiche terrain complétée, puis utilisez ce prompt dans ChatGPT Vision :
+      </p>
+      <div class="prompt-box" id="promptApp" title="Cliquez pour sélectionner, puis Ctrl+C pour copier">Je vais te fournir une photo de ma fiche terrain EPS. Analyse la grille et convertis les données en CSV en conservant une ligne par élève selon le format suivant : nom,obs01,obs02,obs03,obs04. Ne génère aucun commentaire supplémentaire, uniquement le contenu CSV.</div>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+        <button class="btn-ai" onclick="copyPrompt('promptApp', this)">📋 Copier le prompt</button>
+        <span style="font-size:11px;color:#475569;">Format CSV attendu : <code style="color:#a5f3fc;background:#0f172a;padding:2px 6px;border-radius:3px;">nom,obs01,obs02,obs03,obs04</code></span>
+      </div>
+    </div>
+  </div>
+
   <!-- Import CSV -->
   <div class="card" id="import-section">
     <div class="card-title">📂 Import CSV terrain <span class="tag">Format ADP 2026</span></div>
@@ -1070,7 +1341,15 @@ hr.divider { border: none; border-top: 1px solid var(--line); margin: 14px 0; }
 
   <!-- Results -->
   <div id="results1" style="display:none;">
-    <div class="card">
+    <!-- Bandeau confirmation analyse -->
+    <div id="analyseSuccessBanner">
+      <span class="success-ico">✓</span>
+      <div>
+        Analyse générée avec succès
+        <div class="success-sub">Faites défiler pour consulter le bilan · Décision finale : vous</div>
+      </div>
+    </div>
+    <div class="card" id="resultsCard1">
       <div class="card-title">📊 Bilan de classe</div>
       <div class="stat-grid" id="statGrid"></div>
       <div id="decisionBox"></div>
@@ -1510,6 +1789,75 @@ function analyzeData() {
   document.getElementById("results1").style.display = "block";
   unlock(2);
   saveState();
+  showAnalysisSuccess();
+}
+
+// ── RETOUR VISUEL APRÈS ANALYSE ──────────────────────────────────────
+// Smooth scroll vers les résultats + highlight + bandeau de confirmation
+function showAnalysisSuccess() {
+  // 1. Cibler le premier élément de résultat (le bandeau lui-même)
+  var banner = document.getElementById("analyseSuccessBanner");
+  var card   = document.getElementById("resultsCard1");
+
+  // 2. Afficher le bandeau de confirmation
+  if (banner) {
+    banner.classList.add("visible");
+    // L'effacer après 5 s
+    clearTimeout(showAnalysisSuccess._bannerTimer);
+    showAnalysisSuccess._bannerTimer = setTimeout(function() {
+      banner.classList.remove("visible");
+    }, 5000);
+  }
+
+  // 3. Smooth scroll vers le bandeau (= début des résultats)
+  // Petit délai pour laisser le DOM se peindre avant de mesurer
+  setTimeout(function() {
+    var target = banner || card;
+    if (!target) return;
+
+    // Offset pour la sticky session-bar + step-indicator (≈ 100 px)
+    var OFFSET = 100;
+    var rect = target.getBoundingClientRect();
+    var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    var targetY = rect.top + scrollTop - OFFSET;
+
+    if ("scrollBehavior" in document.documentElement.style) {
+      // Navigateurs modernes — smooth natif
+      window.scrollTo({ top: Math.max(0, targetY), behavior: "smooth" });
+    } else {
+      // Fallback JS pour anciens navigateurs / certains mobiles
+      smoothScrollTo(Math.max(0, targetY), 420);
+    }
+
+    // 4. Animation de surbrillance sur la première carte de résultats
+    if (card) {
+      card.classList.remove("results-highlight"); // reset si déjà joué
+      // Forcer le reflow pour relancer l'animation
+      void card.offsetWidth;
+      card.classList.add("results-highlight");
+      clearTimeout(showAnalysisSuccess._hlTimer);
+      showAnalysisSuccess._hlTimer = setTimeout(function() {
+        card.classList.remove("results-highlight");
+      }, 2600);
+    }
+  }, 60);
+}
+
+// Fallback scroll JS (pour navigateurs sans scrollBehavior)
+function smoothScrollTo(targetY, duration) {
+  var startY = window.pageYOffset || document.documentElement.scrollTop;
+  var diff   = targetY - startY;
+  var startTime = null;
+  function step(timestamp) {
+    if (!startTime) startTime = timestamp;
+    var elapsed = timestamp - startTime;
+    var progress = Math.min(elapsed / duration, 1);
+    // Ease out cubic
+    var ease = 1 - Math.pow(1 - progress, 3);
+    window.scrollTo(0, startY + diff * ease);
+    if (elapsed < duration) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
 }
 
 // ── AFFICHAGE RÉSULTATS ──────────────────────────────────────────────
@@ -2338,6 +2686,36 @@ function loadDemoData() {
   showCSVStatus("12 élèves de démonstration chargés — cliquez « Analyser la classe »", "ok");
   saveState();
   window.scrollTo(0, 0);
+}
+
+// ── GUIDE IA — TOGGLE ET COPIE DU PROMPT ─────────────────────────────
+function toggleAiGuide(panelId) {
+  var panel = document.getElementById(panelId);
+  if (!panel) return;
+  panel.classList.toggle("open");
+}
+
+function copyPrompt(elemId, btn) {
+  var el = document.getElementById(elemId);
+  if (!el) return;
+  var text = el.textContent || el.innerText;
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(function() {
+      var orig = btn.textContent;
+      btn.textContent = "✓ Copié !";
+      setTimeout(function() { btn.textContent = orig; }, 2000);
+    });
+  } else {
+    // Fallback selection
+    var range = document.createRange();
+    range.selectNodeContents(el);
+    var sel = window.getSelection();
+    sel.removeAllRanges();
+    sel.addRange(range);
+    var orig = btn.textContent;
+    btn.textContent = "✓ Sélectionné — Ctrl+C pour copier";
+    setTimeout(function() { btn.textContent = orig; sel.removeAllRanges(); }, 3000);
+  }
 }
 
 // Array findIndex polyfill
