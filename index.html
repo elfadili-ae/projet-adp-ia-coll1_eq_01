@@ -1920,6 +1920,9 @@ var AXES = [
     saA: "R\u00e9f\u00e9rents posturaux - plots et lignes au sol pour ancrer l'inclinaison (Degr\u00e9 A)",
     saB: "Acc\u00e9l\u00e9rations progressives sur 20m avec contr\u00f4le de l'inclinaison d\u00e9croissante (Degr\u00e9 B)",
     saC: "Sprint complet 30-60m avec rep\u00e8res internes inclinaison + amplitude (Degr\u00e9 C)",
+    critA: "Buste inclin\u00e9 vers l'avant sur au moins 2 passages",
+    critB: "Inclinaison maintenue sur les premiers appuis dans 2 essais sur 3",
+    critC: "Inclinaison et pouss\u00e9e horizontale stabilis\u00e9es sur 3 passages cons\u00e9cutifs",
     conduite: "l'\u00e9l\u00e8ve maintient une inclinaison du buste sur au moins 15m apr\u00e8s le d\u00e9part"
   },
   {
@@ -1932,6 +1935,9 @@ var AXES = [
     saA: "Finish activ\u00e9 - rep\u00e8re visuel 10m avant la ligne + consigne 'finir fort' (Degr\u00e9 A)",
     saB: "Course avec rituel de rel\u00e2chement des \u00e9paules en derni\u00e8re phase (Degr\u00e9 B)",
     saC: "Projet de course personnel - gestion des phases avec rep\u00e8res internes (Degr\u00e9 C)",
+    critA: "Franchit la ligne sans ralentir sur 2 passages",
+    critB: "Maintient sa vitesse jusqu'\u00e0 la ligne dans 2 essais sur 3",
+    critC: "Effort maintenu et rythme stable sur 3 passages cons\u00e9cutifs",
     conduite: "l'\u00e9l\u00e8ve ne d\u00e9c\u00e9l\u00e8re pas dans les 10 derniers m\u00e8tres de course"
   },
   {
@@ -1944,6 +1950,9 @@ var AXES = [
     saA: "D\u00e9parts en fente basse avec signal visuel/sonore - r\u00e9p\u00e9tition 5x (Degr\u00e9 A)",
     saB: "Gammes athl\u00e9tiques : talons-fesses, mont\u00e9es de genou, acc\u00e9l\u00e9rations progressives (Degr\u00e9 B)",
     saC: "D\u00e9parts avec blocs simul\u00e9s - pouss\u00e9e orient\u00e9e vers l'avant mesur\u00e9e sur 5m (Degr\u00e9 C)",
+    critA: "D\u00e9part d\u00e9clench\u00e9 imm\u00e9diatement apr\u00e8s le signal sur 2 passages",
+    critB: "R\u00e9action rapide et premier appui orient\u00e9 dans 2 essais sur 3",
+    critC: "R\u00e9action et impulsion stabilis\u00e9es sur 3 passages cons\u00e9cutifs",
     conduite: "l'\u00e9l\u00e8ve d\u00e9clenche le sprint dans les 2 premi\u00e8res foul\u00e9es apr\u00e8s le signal avec une pouss\u00e9e orient\u00e9e"
   }
 ];
@@ -2486,9 +2495,9 @@ function buildPlan() {
       var saB = isLast ? "Comparaison DI/bilan \u2014 mesure de la progression" : axeObj.saB;
       var saC = isLast ? "Projet de course personnel \u2014 auto-\u00e9valuation sur les 3 OBS" : axeObj.saC;
 
-      var critA = isLast ? "Comportement observable am\u00e9lior\u00e9 vs s\u00e9ance 1" : "Code OBS pr\u00e9sent dans au moins 2 passages";
-      var critB = isLast ? "Passage de A vers B ou B vers C observable" : "Inclinaison ou maintien visible sur 2 essais/3";
-      var critC = isLast ? "Degr\u00e9 C stabilis\u00e9 sur 3 observables" : "Conduite cible stabilis\u00e9e sur 3 passages cons\u00e9cutifs";
+      var critA = isLast ? "Comportement observable am\u00e9lior\u00e9 par rapport \u00e0 la s\u00e9ance 1" : axeObj.critA;
+      var critB = isLast ? "Passage de degr\u00e9 A vers B, ou de B vers C, observable" : axeObj.critB;
+      var critC = isLast ? "Conduite cible stabilis\u00e9e sur l'ensemble du cycle" : axeObj.critC;
 
       html += "<tr>" +
         "<td class='td-n' data-label='Séance'>" + seanceGlobal + "</td>" +
