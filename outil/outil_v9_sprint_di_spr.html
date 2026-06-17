@@ -962,54 +962,6 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20p
   .indicator-row td { background: #eef4ff !important; border-left: none !important; }
 }
 
-/* ══════════════════════════════════════════════════════════
-   IMPRESSION CIBLÉE — ÉTAPE 4 (PLANIFICATION UNIQUEMENT)
-   Activée dynamiquement par printPage() via body.printing-plan-only
-   ══════════════════════════════════════════════════════════ */
-@media print {
-  body.printing-plan-only * {
-    visibility: hidden;
-  }
-
-  body.printing-plan-only #planContent,
-  body.printing-plan-only #planContent * {
-    visibility: visible;
-  }
-
-  body.printing-plan-only #planContent {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-  /* Page A4, marges propres */
-  body.printing-plan-only {
-    margin: 0;
-  }
-  @page {
-    size: A4;
-    margin: 14mm 12mm;
-  }
-
-  /* Le contenu de #planContent doit garder son habillage normal
-     (les règles génériques .plan-table ci-dessus restent actives) */
-  body.printing-plan-only .seq-block {
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-  body.printing-plan-only .plan-table tbody tr {
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-  body.printing-plan-only .seq-header {
-    page-break-after: avoid;
-    break-after: avoid;
-  }
-}
-
 /* ── UTIL ── */
 .mt { margin-top: 12px; }
 .obs-tag { display: inline-block; font-size: 10px; font-weight: 700; padding: 1px 5px; border-radius: 2px; margin-right: 3px; }
@@ -2766,29 +2718,7 @@ function exportCSV() {
 }
 
 // ── PRINT ────────────────────────────────────────────────────────────
-function printPage() {
-  // Si l'utilisateur se trouve à l'étape 4 (Planification),
-  // on isole l'impression au seul contenu de #planContent.
-  var isPlanStep = (appData.step === 4);
-  var bodyEl = document.body;
-
-  if (isPlanStep) {
-    bodyEl.classList.add("printing-plan-only");
-  }
-
-  // Nettoyage systématique après impression (ou annulation), quel que soit le navigateur
-  function cleanup() {
-    bodyEl.classList.remove("printing-plan-only");
-    window.removeEventListener("afterprint", cleanup);
-  }
-  window.addEventListener("afterprint", cleanup);
-
-  window.print();
-
-  // Filet de sécurité : certains navigateurs (anciens Safari/Firefox) ne
-  // déclenchent pas toujours "afterprint" de façon fiable après window.print().
-  setTimeout(cleanup, 1500);
-}
+function printPage() { window.print(); }
 
 // ── UTILS ────────────────────────────────────────────────────────────
 function escHtml(s) {

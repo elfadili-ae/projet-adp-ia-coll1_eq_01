@@ -141,384 +141,45 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20p
 .distrib-axe { font-size: 11px; color: var(--mid); }
 
 /* ── PLAN TABLE ── */
-/* ══════════════════════════════════════════════════════════
-   PLAN TABLE — RESPONSIVE CARD LAYOUT
-   • ≥ 768 px  → tableau classique avec scroll si nécessaire
-   • < 768 px  → chaque <tr> devient une carte indépendante
-   ══════════════════════════════════════════════════════════ */
-
-/* ── Bloc de séquence ── */
-.seq-block {
-  margin-bottom: 28px;
-  border-radius: 6px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-}
-.seq-header {
-  background: var(--ink); color: #fff;
-  padding: 10px 16px;
-  display: flex; justify-content: space-between;
-  align-items: center; flex-wrap: wrap; gap: 10px;
-}
-.seq-header h3  { font-size: 13px; font-weight: 700; flex: 1; min-width: 160px; }
-
-/* ── Bouton "Voir les situations recommandées" ── */
-.btn-video-sit {
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 7px 14px; border-radius: 5px;
-  background: rgba(255,255,255,0.12);
-  border: 1.5px solid rgba(255,255,255,0.35);
-  color: #fff; font-size: 11px; font-weight: 700;
-  cursor: pointer; font-family: inherit; white-space: nowrap;
-  transition: background 0.15s, border-color 0.15s;
-  flex-shrink: 0;
-}
-.btn-video-sit:hover { background: rgba(255,255,255,0.22); border-color: rgba(255,255,255,0.55); }
-.btn-video-sit:active { transform: scale(0.97); }
-
-/* ══════════════════════════════════════════════════════════
-   MODAL — SITUATIONS D'APPRENTISSAGE VIDÉO
-   ══════════════════════════════════════════════════════════ */
-.video-modal-overlay {
-  position: fixed; inset: 0;
-  background: rgba(15,23,42,0.65);
-  display: flex; align-items: center; justify-content: center;
-  padding: 20px;
-  z-index: 1000;
-  opacity: 0; visibility: hidden;
-  transition: opacity 0.25s ease, visibility 0.25s ease;
-}
-.video-modal-overlay.open { opacity: 1; visibility: visible; }
-
-.video-modal {
-  background: #fff;
-  border-radius: 10px;
-  width: 100%; max-width: 560px;
-  max-height: 85vh;
-  display: flex; flex-direction: column;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-  transform: translateY(16px) scale(0.97);
-  opacity: 0;
-  transition: transform 0.28s cubic-bezier(0.2,0.8,0.2,1), opacity 0.25s ease;
-}
-.video-modal-overlay.open .video-modal {
-  transform: translateY(0) scale(1);
-  opacity: 1;
-}
-
-.video-modal-header {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  gap: 10px;
-  padding: 18px 20px 14px;
-  border-bottom: 1px solid var(--line);
-  flex-shrink: 0;
-}
-.video-modal-header .vmh-titles { min-width: 0; }
-.video-modal-header h2 {
-  font-size: 15px; font-weight: 700; color: var(--ink);
-  margin-bottom: 3px; line-height: 1.4;
-}
-.video-modal-header .vmh-sub { font-size: 11px; color: var(--soft); }
-.video-modal-close {
-  flex-shrink: 0;
-  width: 32px; height: 32px; border-radius: 50%;
-  border: none; background: #f1f3f7; color: #555;
-  font-size: 16px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.15s;
-}
-.video-modal-close:hover { background: #e2e6ee; }
-
-.video-modal-body {
-  padding: 14px 20px 20px;
-  overflow-y: auto;
-  flex: 1;
-  -webkit-overflow-scrolling: touch;
-}
-
-.video-sit-card {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 12px;
-  padding: 13px 14px;
-  border: 1px solid var(--line);
-  border-radius: 7px;
-  margin-bottom: 10px;
-  background: #fafbfc;
-}
-.video-sit-card:last-child { margin-bottom: 0; }
-.video-sit-info { min-width: 0; }
-.video-sit-name {
-  font-size: 12.5px; font-weight: 700; color: var(--ink);
-  margin-bottom: 2px; line-height: 1.4;
-}
-.video-sit-desc { font-size: 11px; color: var(--soft); line-height: 1.5; }
-.btn-watch-video {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 9px 14px; border-radius: 6px;
-  background: var(--blue); color: #fff; border: none;
-  font-size: 11.5px; font-weight: 700; cursor: pointer;
-  font-family: inherit; white-space: nowrap; flex-shrink: 0;
-  text-decoration: none;
-  transition: background 0.15s;
-}
-.btn-watch-video:hover { background: #14457e; }
-.btn-watch-video:active { transform: scale(0.96); }
-
-.video-modal-empty {
-  text-align: center; padding: 30px 10px; color: var(--soft); font-size: 12px;
-}
-
-/* ── Responsive : smartphone ≈ 380 px ── */
-@media (max-width: 480px) {
-  .video-modal-overlay { padding: 0; align-items: flex-end; }
-  .video-modal {
-    max-width: 100%;
-    max-height: 90vh;
-    border-radius: 14px 14px 0 0;
-    transform: translateY(100%);
-  }
-  .video-modal-overlay.open .video-modal { transform: translateY(0); }
-  .video-modal-header { padding: 16px 16px 12px; }
-  .video-modal-header h2 { font-size: 14px; }
-  .video-modal-body { padding: 12px 16px 24px; }
-
-  .video-sit-card {
-    flex-direction: column; align-items: stretch; gap: 10px;
-  }
-  .btn-watch-video {
-    justify-content: center; padding: 11px 14px; font-size: 12.5px;
-  }
-}
-
-/* ── Wrapper du tableau (desktop : scroll si besoin) ── */
-.plan-table-wrap {
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
-  background: #fff;
-  border: 1px solid var(--line);
-  border-top: none;
-}
-
-/* ══════════════════════════
-   DESKTOP / TABLETTE ≥ 768 px
-   ══════════════════════════ */
-.plan-table {
-  width: 100%;
-  min-width: 700px;
-  border-collapse: collapse;
+.seq-block { margin-bottom: 20px; }
+.seq-header { background: var(--ink); color: #fff; padding: 10px 14px; border-radius: 4px 4px 0 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+.seq-header h3 { font-size: 13px; font-weight: 700; }
+.seq-header .seq-meta { font-size: 11px; color: #aaa; }
+.plan-table { width: 100%; border-collapse: collapse; font-size: 11px; border: 1px solid var(--line); }
+.plan-table th { background: #333; color: #fff; padding: 7px 8px; text-align: left; font-size: 10px;
+  /* Les en-têtes ne doivent pas empêcher les colonnes de s'élargir */
+  white-space: normal; word-break: break-word; }
+.plan-table td { padding: 8px; border: 1px solid var(--line);
+  vertical-align: top;   /* hauteur auto : la cellule grandit avec son contenu */
   font-size: 11px;
-}
-.plan-table th {
-  background: #2c2c2c; color: #fff;
-  padding: 8px 10px; text-align: left;
-  font-size: 10px; font-weight: 700;
-  letter-spacing: 0.05em;
-  white-space: normal; word-break: break-word;
-}
-.plan-table td {
-  padding: 9px 10px;
-  border: 1px solid var(--line);
-  vertical-align: top;
-  font-size: 11px;
-  white-space: normal; word-break: break-word; overflow-wrap: anywhere;
-}
-.plan-table tr:hover td { filter: brightness(0.97); }
-
-/* Colonne N° */
-.plan-table td.td-n {
-  font-weight: 700; color: var(--blue);
-  text-align: center; width: 36px; min-width: 36px;
-  white-space: nowrap; word-break: normal;
-  font-size: 13px;
-}
-/* Colonne Axe */
-.plan-table td.td-axe {
-  font-weight: 600; min-width: 90px; color: #444;
-}
-/* Colonnes groupes */
+  /* Autoriser le retour à la ligne dans toutes les cellules */
+  white-space: normal;
+  word-break: break-word;
+  overflow-wrap: anywhere; }
+.plan-table td.td-n { font-weight: 700; color: var(--blue); text-align: center;
+  width: 40px; min-width: 40px; white-space: nowrap; word-break: normal; }
+/* td-axe : suppression du max-width 120px qui tronquait le texte long.
+   La colonne prend maintenant la place dont elle a besoin. */
+.plan-table td.td-axe { font-weight: 600; min-width: 160px; }
 .plan-table td.td-A { background: #fef8f8; border-left: 3px solid var(--A-brd); }
 .plan-table td.td-B { background: #fdfaf4; border-left: 3px solid var(--B-brd); }
 .plan-table td.td-C { background: #f5faf0; border-left: 3px solid var(--C-brd); }
-
-/* Contenu SA + critère */
+/* plan-sa : retour à la ligne activé, pas de troncature */
 .plan-sa {
-  display: block; font-weight: 700;
-  font-size: 10px; margin-bottom: 4px;
-  white-space: normal; word-break: break-word; overflow-wrap: anywhere;
+  font-weight: 700;
+  display: block;
+  margin-bottom: 3px;
+  font-size: 10px;
+  white-space: normal;       /* annule tout héritage nowrap */
+  word-break: break-word;    /* coupe les mots très longs si nécessaire */
+  overflow-wrap: anywhere;   /* fallback renforcé */
+  overflow: visible;         /* aucune coupure par overflow hidden */
 }
-.plan-crit {
-  display: block; font-size: 10px;
-  color: var(--soft); font-style: italic;
-  white-space: normal; word-break: break-word; overflow-wrap: anywhere;
-}
-.plan-cell-inner { display: flex; flex-direction: column; gap: 2px; }
-
-/* Indicateur de passage */
-.indicator-row td {
-  background: #f0f6ff !important;
-  border-left: none !important;
-  border-top: none !important;
-  padding: 6px 12px;
-}
-.indicator-box {
-  font-size: 10px; color: #1a5fa8;
-  font-style: italic; display: flex; align-items: flex-start; gap: 5px;
-}
-.indicator-note { font-size: 9px; color: var(--soft); margin-top: 2px; }
-
-/* ══════════════════════════
-   MOBILE < 768 px  — CARDS
-   ══════════════════════════ */
-@media (max-width: 767px) {
-
-  /* Compacte l'en-tête de séquence */
-  .seq-header  { padding: 9px 12px; gap: 8px; }
-  .seq-header h3 { font-size: 12px; line-height: 1.4; min-width: 100%; }
-  .btn-video-sit { font-size: 10.5px; padding: 7px 12px; }
-
-  /* Le wrapper n'a plus besoin de scroll horizontal */
-  .plan-table-wrap {
-    overflow-x: visible;
-    border: none;
-    background: transparent;
-  }
-
-  /* ── Bascule display ── */
-  .plan-table        { display: block; min-width: 0; width: 100%; }
-  .plan-table thead  { display: none; }       /* masquer en-têtes desktop */
-  .plan-table tbody  { display: block; }
-
-  /* Chaque <tr> = une carte */
-  .plan-table tbody tr {
-    display: block;
-    background: #fff;
-    border-radius: 8px;
-    border: 1px solid #dde3ee;
-    margin-bottom: 12px;
-    overflow: hidden;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.07);
-  }
-
-  /* Ligne indicateur : banderole bleue, pas de carte */
-  .plan-table tbody tr.indicator-row {
-    border-radius: 5px;
-    border: 1px dashed #93b8e8;
-    background: #eef4ff;
-    box-shadow: none;
-    margin-bottom: 8px;
-  }
-  .plan-table tbody tr.indicator-row td {
-    display: block;
-    padding: 8px 12px;
-    border: none;
-    background: transparent !important;
-  }
-  .plan-table tbody tr.indicator-row td::before { display: none; }
-
-  /* ── Chaque <td> = une ligne label → valeur ── */
-  .plan-table tbody td {
-    display: grid;
-    /* Label fixe 90px | valeur prend le reste */
-    grid-template-columns: 90px 1fr;
-    align-items: start;
-    gap: 8px;
-    padding: 9px 14px;
-    border: none;
-    border-bottom: 1px solid #f0f2f6;
-    font-size: 13px;
-    line-height: 1.5;
-    min-height: 0;
-  }
-  .plan-table tbody td:last-child { border-bottom: none; }
-
-  /* Label généré par CSS via data-label */
-  .plan-table tbody td[data-label]::before {
-    content: attr(data-label);
-    display: block;
-    font-size: 9px;
-    font-weight: 800;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: #8899bb;
-    padding-top: 2px;
-    line-height: 1.3;
-  }
-
-  /* ── Cellule N° de séance : bandeau en-tête de carte ── */
-  .plan-table tbody td.td-n {
-    grid-template-columns: 1fr;   /* pleine largeur, pas de label */
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: var(--blue);
-    color: #fff;
-    padding: 10px 14px;
-    font-size: 14px; font-weight: 700;
-    border-bottom: none;
-    white-space: nowrap; word-break: normal;
-  }
-  .plan-table tbody td.td-n::before {
-    content: attr(data-label);
-    font-size: 9px; font-weight: 700;
-    text-transform: uppercase; letter-spacing: 0.1em;
-    color: rgba(255,255,255,0.65);
-    padding-top: 0;
-  }
-
-  /* ── Cellule Axe ── */
-  .plan-table tbody td.td-axe {
-    background: #f5f7fb;
-    min-width: 0;
-    font-weight: 700; color: #1a3a6b; font-size: 12px;
-  }
-  .plan-table tbody td.td-axe::before { color: #6680aa; }
-
-  /* ── Cellule Objectif ── */
-  .plan-table tbody td[data-label="Objectif"] {
-    background: #fafafa;
-    font-size: 12px; color: #333;
-  }
-
-  /* ── Groupes A / B / C : accent couleur sur le bord gauche + fond léger ── */
-  .plan-table tbody td.td-A {
-    background: var(--A-bg);
-    border-left: 4px solid var(--A-brd);
-    border-top: none;
-  }
-  .plan-table tbody td.td-A::before { color: var(--A-txt); }
-
-  .plan-table tbody td.td-B {
-    background: var(--B-bg);
-    border-left: 4px solid var(--B-brd);
-    border-top: none;
-  }
-  .plan-table tbody td.td-B::before { color: var(--B-txt); }
-
-  .plan-table tbody td.td-C {
-    background: var(--C-bg);
-    border-left: 4px solid var(--C-brd);
-    border-top: none;
-  }
-  .plan-table tbody td.td-C::before { color: var(--C-txt); }
-
-  /* Intérieur des groupes : SA + critère en colonne */
-  .plan-table tbody td.td-A .plan-cell-inner,
-  .plan-table tbody td.td-B .plan-cell-inner,
-  .plan-table tbody td.td-C .plan-cell-inner {
-    display: flex; flex-direction: column; gap: 4px;
-    min-width: 0;
-  }
-  .plan-sa   { font-size: 12px; margin-bottom: 0; }
-  .plan-crit { font-size: 11px; }
-
-  /* Colspan = bloc pleine largeur */
-  .plan-table tbody td[colspan] {
-    grid-template-columns: 1fr;
-    display: block;
-    font-size: 12px;
-  }
-}
+.plan-crit { font-size: 10px; color: var(--soft); font-style: italic;
+  white-space: normal; word-break: break-word; overflow-wrap: anywhere; }
+.indicator-row td { background: #f8fbff !important; border-left: none !important; }
+.indicator-box { font-size: 10px; color: #1a5fa8; font-style: italic; padding: 2px 0; }
+.indicator-note { font-size: 9px; color: var(--soft); }
 
 /* ── CSV DROP ── */
 .csv-drop { border: 2px dashed var(--line); border-radius: 4px; padding: 20px; text-align: center; color: var(--soft); cursor: pointer; transition: all 0.2s; margin-bottom: 12px; }
@@ -919,95 +580,20 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20p
   .lp-feat-grid { grid-template-columns: repeat(2,1fr); }
   .lp-steps-grid { grid-template-columns: 1fr 1fr; }
 }
-/* ── PRINT ── */
 @media print {
   #landingPage { display: none !important; }
-  .app-header, .steps, .btn-row, .btn, .csv-drop, .form-row, .card-title .tag,
-  .axe-card input, .slider-wrap, #import-section, .action-bar,
-  .session-bar, .privacy-banner, .btn-video-sit, .video-modal-overlay { display: none !important; }
-  .section { display: block !important; }
-  body { background: #fff; font-size: 10px; }
-  .card { border: 1px solid #ccc; page-break-inside: avoid; }
-  .seq-block { box-shadow: none; page-break-inside: avoid; }
-
-  /* ── Forcer le retour au tableau classique (annuler card-layout) ── */
-  .plan-table-wrap { overflow: visible !important; border: 1px solid #ccc; border-top: none; }
-  .plan-table       { display: table !important; width: 100% !important; min-width: 0 !important; font-size: 8px; }
-  .plan-table thead { display: table-header-group !important; }
-  .plan-table tbody { display: table-row-group !important; }
-  .plan-table tbody tr {
-    display: table-row !important;
-    border-radius: 0 !important; box-shadow: none !important;
-    margin-bottom: 0 !important; border: none !important;
-    background: transparent !important;
-  }
-  .plan-table td,
-  .plan-table th   {
-    display: table-cell !important;
-    grid-template-columns: unset !important;
-    padding: 4px 6px !important;
-    font-size: 8px !important;
-    border: 1px solid #ccc !important;
-  }
-  /* Masquer les pseudo-labels générés pour mobile */
-  .plan-table td::before { display: none !important; }
-  /* Rétablir les bordures de couleur des groupes */
-  .plan-table td.td-A { border-left: 3px solid var(--A-brd) !important; border-top: 1px solid #ccc !important; background: #fef8f8 !important; }
-  .plan-table td.td-B { border-left: 3px solid var(--B-brd) !important; border-top: 1px solid #ccc !important; background: #fdfaf4 !important; }
-  .plan-table td.td-C { border-left: 3px solid var(--C-brd) !important; border-top: 1px solid #ccc !important; background: #f5faf0 !important; }
-  .plan-table td.td-n { color: var(--blue) !important; background: #fff !important; text-align: center !important; font-size: 10px !important; }
-  .plan-cell-inner { display: flex !important; flex-direction: column !important; }
-  .plan-sa   { font-size: 8px !important; white-space: normal; word-break: break-word; }
-  .plan-crit { font-size: 7px !important; white-space: normal; word-break: break-word; }
-  .indicator-row td { background: #eef4ff !important; border-left: none !important; }
 }
 
-/* ══════════════════════════════════════════════════════════
-   IMPRESSION CIBLÉE — ÉTAPE 4 (PLANIFICATION UNIQUEMENT)
-   Activée dynamiquement par printPage() via body.printing-plan-only
-   ══════════════════════════════════════════════════════════ */
+/* ── PRINT ── */
 @media print {
-  body.printing-plan-only * {
-    visibility: hidden;
-  }
-
-  body.printing-plan-only #planContent,
-  body.printing-plan-only #planContent * {
-    visibility: visible;
-  }
-
-  body.printing-plan-only #planContent {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-  /* Page A4, marges propres */
-  body.printing-plan-only {
-    margin: 0;
-  }
-  @page {
-    size: A4;
-    margin: 14mm 12mm;
-  }
-
-  /* Le contenu de #planContent doit garder son habillage normal
-     (les règles génériques .plan-table ci-dessus restent actives) */
-  body.printing-plan-only .seq-block {
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-  body.printing-plan-only .plan-table tbody tr {
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-  body.printing-plan-only .seq-header {
-    page-break-after: avoid;
-    break-after: avoid;
-  }
+  .app-header, .steps, .btn-row, .btn, .csv-drop, .form-row, .card-title .tag,
+  .axe-card input, .slider-wrap, #import-section, .action-bar { display: none !important; }
+  .section { display: block !important; }
+  body { background: #fff; font-size: 11px; }
+  .card { border: 1px solid #ccc; page-break-inside: avoid; }
+  .plan-table td { font-size: 10px; white-space: normal; word-break: break-word; overflow-wrap: anywhere; }
+  .plan-sa { white-space: normal; word-break: break-word; overflow-wrap: anywhere; overflow: visible; }
+  .plan-table td.td-axe { min-width: 140px; max-width: none; }
 }
 
 /* ── UTIL ── */
@@ -2464,16 +2050,15 @@ function buildPlan() {
 
     html += "<div class='seq-block'>";
     html += "<div class='seq-header'>" +
-      "<h3>Séquence " + (seqIdx+1) + " \u2014 Axe " + axeObj.id + " \u2014 " + escHtml(axeObj.titre.substring(0,50)) + "...</h3>" +
-      "<button class='btn-video-sit' onclick='openVideoModal(" + axeObj.id + ")'>▶ Voir les situations recommandées</button>" +
+      "<h3>S\u00e9quence " + (seqIdx+1) + " \u2014 Axe " + axeObj.id + " \u2014 " + escHtml(axeObj.titre.substring(0,50)) + "...</h3>" +
+      "<div class='seq-meta'>S\u00e9ances " + seanceGlobal + " \u00e0 " + (seanceGlobal + seqN - 1) + " \u00b7 " + seqN + " s\u00e9ance" + (seqN>1?"s":"") + " \u00b7 Impact : " + axeObj.impact + "</div>" +
       "</div>";
 
-    html += "<div class='plan-table-wrap'>" +
-      "<table class='plan-table'><thead><tr>" +
-      "<th>N°</th><th>Axe dominant</th><th>Objectif de séance</th>" +
-      "<th style='background:#a02020;'>Groupe A — Fondamentaux</th>" +
-      "<th style='background:#8a5c00;'>Groupe B — Construction</th>" +
-      "<th style='background:#2a5c08;'>Groupe C — Approfondissement</th>" +
+    html += "<table class='plan-table'><thead><tr>" +
+      "<th>N\u00b0</th><th>Axe dominant</th><th>Objectif de s\u00e9ance</th>" +
+      "<th style='background:#a02020;'>Groupe A \u2014 Fondamentaux</th>" +
+      "<th style='background:#8a5c00;'>Groupe B \u2014 Construction</th>" +
+      "<th style='background:#2a5c08;'>Groupe C \u2014 Approfondissement</th>" +
       "</tr></thead><tbody>";
 
     for (var s = 0; s < seqN; s++) {
@@ -2491,43 +2076,38 @@ function buildPlan() {
       var critC = isLast ? "Degr\u00e9 C stabilis\u00e9 sur 3 observables" : "Conduite cible stabilis\u00e9e sur 3 passages cons\u00e9cutifs";
 
       html += "<tr>" +
-        "<td class='td-n' data-label='Séance'>" + seanceGlobal + "</td>" +
-        "<td class='td-axe' data-label='Axe'>Axe " + axeObj.id + "</td>" +
-        "<td data-label='Objectif' style='font-size:11px;'>" + escHtml(objSeance) + "</td>" +
-        "<td class='td-A' data-label='Groupe A'><div class='plan-cell-inner'><span class='plan-sa'>" + escHtml(saA) + "</span><span class='plan-crit'>CR : " + escHtml(critA) + "</span></div></td>" +
-        "<td class='td-B' data-label='Groupe B'><div class='plan-cell-inner'><span class='plan-sa'>" + escHtml(saB) + "</span><span class='plan-crit'>CR : " + escHtml(critB) + "</span></div></td>" +
-        "<td class='td-C' data-label='Groupe C'><div class='plan-cell-inner'><span class='plan-sa'>" + escHtml(saC) + "</span><span class='plan-crit'>CR : " + escHtml(critC) + "</span></div></td>" +
+        "<td class='td-n'>" + seanceGlobal + "</td>" +
+        "<td class='td-axe'>Axe " + axeObj.id + "</td>" +
+        "<td style='font-size:11px;'>" + escHtml(objSeance) + "</td>" +
+        "<td class='td-A'><span class='plan-sa'>" + escHtml(saA) + "</span><span class='plan-crit'>CR : " + escHtml(critA) + "</span></td>" +
+        "<td class='td-B'><span class='plan-sa'>" + escHtml(saB) + "</span><span class='plan-crit'>CR : " + escHtml(critB) + "</span></td>" +
+        "<td class='td-C'><span class='plan-sa'>" + escHtml(saC) + "</span><span class='plan-crit'>CR : " + escHtml(critC) + "</span></td>" +
         "</tr>";
 
       // Indicateur de passage (sauf dernière séance de chaque séquence)
       if (s < seqN - 1 && !isLast) {
         html += "<tr class='indicator-row'><td colspan='6'>" +
-          "<div class='indicator-box'>📋 À observer avant la séance suivante — " + escHtml(axeObj.conduite) + "</div>" +
-          "<div class='indicator-note'>(Indicatif — décision de progression : vous)</div>" +
+          "<div class='indicator-box'>📋 \u00c0 observer avant la s\u00e9ance suivante \u2014 " + escHtml(axeObj.conduite) + "</div>" +
+          "<div class='indicator-note'>(Indicatif \u2014 d\u00e9cision de progression : vous)</div>" +
           "</td></tr>";
       }
 
       seanceGlobal++;
     }
 
-    html += "</tbody></table></div></div>"; // </table> </plan-table-wrap> </seq-block>
+    html += "</tbody></table></div>";
   });
 
   document.getElementById("planContent").innerHTML = html;
 
   // Summary
-  var summHtml = "<div class='plan-table-wrap'><table class='plan-table'><thead><tr><th>Séquence</th><th>Axes travaillés</th><th>Nb séances</th><th>Profil dominant ciblé</th></tr></thead><tbody>";
+  var summHtml = "<table class='plan-table'><thead><tr><th>S\u00e9quence</th><th>Axes travaill\u00e9s</th><th>Nb s\u00e9ances</th><th>Profil dominant cibl\u00e9</th></tr></thead><tbody>";
   distribArr.forEach(function(seqN, idx) {
     var axeId = sel[idx] || sel[sel.length-1];
     var axeObj = AXES.find(function(a){ return a.id === axeId; });
-    summHtml += "<tr>" +
-      "<td data-label='Séquence'>Séquence " + (idx+1) + "</td>" +
-      "<td data-label='Axe'>Axe " + (axeObj ? axeObj.id : "?") + "</td>" +
-      "<td data-label='Séances'>" + seqN + "</td>" +
-      "<td data-label='Profil ciblé'>A + B</td>" +
-      "</tr>";
+    summHtml += "<tr><td>S\u00e9quence " + (idx+1) + "</td><td>Axe " + (axeObj ? axeObj.id : "?") + "</td><td>" + seqN + "</td><td>A + B</td></tr>";
   });
-  summHtml += "</tbody></table></div>";
+  summHtml += "</tbody></table>";
   summHtml += "<div style='margin-top:12px;font-size:12px;padding:10px;background:#f8f8f8;border-radius:4px;'>";
   summHtml += "Ce cycle de <strong>" + n + " s\u00e9ances</strong> cible <strong>" + sel.length + " axes prioritaires</strong>. ";
   var domProfil = nA >= nB && nA >= nC ? "A" : (nB >= nC ? "B" : "C");
@@ -2766,29 +2346,7 @@ function exportCSV() {
 }
 
 // ── PRINT ────────────────────────────────────────────────────────────
-function printPage() {
-  // Si l'utilisateur se trouve à l'étape 4 (Planification),
-  // on isole l'impression au seul contenu de #planContent.
-  var isPlanStep = (appData.step === 4);
-  var bodyEl = document.body;
-
-  if (isPlanStep) {
-    bodyEl.classList.add("printing-plan-only");
-  }
-
-  // Nettoyage systématique après impression (ou annulation), quel que soit le navigateur
-  function cleanup() {
-    bodyEl.classList.remove("printing-plan-only");
-    window.removeEventListener("afterprint", cleanup);
-  }
-  window.addEventListener("afterprint", cleanup);
-
-  window.print();
-
-  // Filet de sécurité : certains navigateurs (anciens Safari/Firefox) ne
-  // déclenchent pas toujours "afterprint" de façon fiable après window.print().
-  setTimeout(cleanup, 1500);
-}
+function printPage() { window.print(); }
 
 // ── UTILS ────────────────────────────────────────────────────────────
 function escHtml(s) {
@@ -3127,81 +2685,6 @@ function copyPrompt(elemId, btn) {
   }
 }
 
-// ══════════════════════════════════════════════════════════════════════
-// SITUATIONS D'APPRENTISSAGE VIDÉO — par axe (chargées depuis video_links.txt)
-// ══════════════════════════════════════════════════════════════════════
-var VIDEO_SITUATIONS = {
-  1: [
-    { name: "Falling Start",              url: "https://www.youtube.com/shorts/jgaT-1puJn4" },
-    { name: "Wall Drill",                  url: "https://www.youtube.com/watch?v=sVACqGFibBE" },
-    { name: "Push Up Start",               url: "https://youtu.be/JBaNFVQCzkk" },
-    { name: "10m Accélération",            url: "https://youtu.be/w4kDDcCjCto" },
-    { name: "Élastique — Foulées explosives", url: "https://www.youtube.com/watch?v=qj-8Mmi6tuY" }
-  ],
-  2: [
-    { name: "Parachute Sprint",            url: "https://www.youtube.com/watch?v=9syzHPiAX5s" },
-    { name: "Sprint avec élastique",       url: "https://www.youtube.com/watch?v=zAS9LCuv05k" }
-  ],
-  3: [
-    { name: "Exercices de réaction",       url: "https://www.youtube.com/shorts/l8pj9L7Av-Y" },
-    { name: "Mirror Sprint",               url: "https://www.youtube.com/watch?v=BZiS8Y9P_Rk" },
-    { name: "Chase Sprint",                url: "https://www.youtube.com/watch?v=68zKc_YMfLE" }
-  ]
-};
-
-// ── OUVERTURE / FERMETURE DU MODAL ───────────────────────────────────
-var _lastFocusedBeforeModal = null;
-
-function openVideoModal(axeId) {
-  var overlay = document.getElementById("videoModalOverlay");
-  var titleEl = document.getElementById("videoModalTitle");
-  var subEl   = document.getElementById("videoModalSub");
-  var bodyEl  = document.getElementById("videoModalBody");
-  if (!overlay) return;
-
-  var axeObj = AXES.find(function(a){ return a.id === axeId; });
-  var situations = VIDEO_SITUATIONS[axeId] || [];
-
-  titleEl.textContent = axeObj ? ("Axe " + axeObj.id + " — " + axeObj.titre) : ("Axe " + axeId);
-  subEl.textContent = situations.length + " situation" + (situations.length > 1 ? "s" : "") + " disponible" + (situations.length > 1 ? "s" : "");
-
-  if (!situations.length) {
-    bodyEl.innerHTML = "<div class='video-modal-empty'>Aucune vidéo n'est encore associée à cet axe.</div>";
-  } else {
-    var html = "";
-    situations.forEach(function(sit) {
-      html += "<div class='video-sit-card'>" +
-        "<div class='video-sit-info'>" +
-          "<div class='video-sit-name'>" + escHtml(sit.name) + "</div>" +
-          (sit.desc ? "<div class='video-sit-desc'>" + escHtml(sit.desc) + "</div>" : "") +
-        "</div>" +
-        "<button class='btn-watch-video' onclick=\"window.open('" + sit.url.replace(/'/g, "\\'") + "', '_blank', 'noopener')\">▶ Voir la vidéo</button>" +
-      "</div>";
-    });
-    bodyEl.innerHTML = html;
-  }
-
-  _lastFocusedBeforeModal = document.activeElement;
-  overlay.classList.add("open");
-  document.body.style.overflow = "hidden"; // bloque le scroll de fond
-  document.addEventListener("keydown", _videoModalEscHandler);
-}
-
-function closeVideoModal() {
-  var overlay = document.getElementById("videoModalOverlay");
-  if (!overlay) return;
-  overlay.classList.remove("open");
-  document.body.style.overflow = "";
-  document.removeEventListener("keydown", _videoModalEscHandler);
-  if (_lastFocusedBeforeModal && typeof _lastFocusedBeforeModal.focus === "function") {
-    _lastFocusedBeforeModal.focus();
-  }
-}
-
-function _videoModalEscHandler(e) {
-  if (e.key === "Escape" || e.keyCode === 27) closeVideoModal();
-}
-
 // Array findIndex polyfill
 if (!Array.prototype.findIndex) {
   Array.prototype.findIndex = function(fn) {
@@ -3216,20 +2699,6 @@ if (!Array.prototype.find) {
   };
 }
 </script>
-<!-- ── MODAL : Situations d'apprentissage vidéo ── -->
-<div class="video-modal-overlay" id="videoModalOverlay" onclick="if(event.target===this) closeVideoModal()">
-  <div class="video-modal" role="dialog" aria-modal="true" aria-labelledby="videoModalTitle">
-    <div class="video-modal-header">
-      <div class="vmh-titles">
-        <h2 id="videoModalTitle">Situations recommandées</h2>
-        <div class="vmh-sub" id="videoModalSub"></div>
-      </div>
-      <button class="video-modal-close" onclick="closeVideoModal()" aria-label="Fermer">✕</button>
-    </div>
-    <div class="video-modal-body" id="videoModalBody"></div>
-  </div>
-</div>
-
 </div><!-- end appShell -->
 </body>
 </html>

@@ -391,18 +391,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20p
 
 /* ── HOW IT WORKS ── */
 .lp-howto { background: #fff; }
-.lp-steps-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 0; position: relative;
-}
-.lp-steps-grid::before {
-  content: '';
-  position: absolute; top: 28px; left: calc(12.5% + 12px);
-  right: calc(12.5% + 12px); height: 2px;
-  background: linear-gradient(90deg, #1a5fa8, #2563eb, #1a5fa8);
-  z-index: 0;
-}
+
 .lp-step-card {
   display: flex; flex-direction: column; align-items: center;
   text-align: center; padding: 0 16px 32px; position: relative; z-index: 1;
@@ -559,7 +548,6 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20p
   .lp-hero-visual { display: none; }
   .lp-hero-wrap { min-height: auto; padding: 56px 5vw; }
   .lp-demo-grid { grid-template-columns: 1fr; }
-  .lp-steps-grid::before { display: none; }
   .lp-nav-brand .sub { display: none; }
   .lp-section, .lp-section-full { padding: 48px 5vw; }
   .lp-hero-h1 { font-size: 30px; }
@@ -567,7 +555,6 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20p
 @media (max-width: 480px) {
   .lp-benefits { grid-template-columns: 1fr; }
   .lp-feat-grid { grid-template-columns: repeat(2,1fr); }
-  .lp-steps-grid { grid-template-columns: 1fr 1fr; }
 }
 @media print {
   #landingPage { display: none !important; }
@@ -941,51 +928,6 @@ hr.divider { border: none; border-top: 1px solid var(--line); margin: 14px 0; }
         </div>
       </div>
 
-      <!-- Grille étapes détaillées -->
-      <div class="lp-steps-grid" style="margin-top:40px;">
-        <div class="lp-step-card">
-          <div class="lp-step-ico">📄</div>
-          <div class="lp-step-circle">1</div>
-          <h3>Télécharger et imprimer</h3>
-          <p>Téléchargez la fiche terrain PDF ci-dessous et imprimez-la avant la séance.</p>
-        </div>
-        <div class="lp-step-card">
-          <div class="lp-step-ico">✍️</div>
-          <div class="lp-step-circle">2</div>
-          <h3>Observer sur le terrain</h3>
-          <p>Réalisez vos observations et complétez la fiche papier pendant la séance.</p>
-        </div>
-        <div class="lp-step-card">
-          <div class="lp-step-ico">📸</div>
-          <div class="lp-step-circle">3</div>
-          <h3>Photographier la fiche</h3>
-          <p>Prenez une photo nette de la fiche terrain complétée avec votre smartphone.</p>
-        </div>
-        <div class="lp-step-card">
-          <div class="lp-step-ico">🤖</div>
-          <div class="lp-step-circle">4</div>
-          <h3>Convertir avec l'IA</h3>
-          <p>Utilisez ChatGPT Vision pour convertir automatiquement la photo en fichier CSV.</p>
-        </div>
-        <div class="lp-step-card">
-          <div class="lp-step-ico">⬆️</div>
-          <div class="lp-step-circle">5</div>
-          <h3>Importer le CSV</h3>
-          <p>Glissez votre fichier CSV dans la zone de dépôt de l'outil.</p>
-        </div>
-        <div class="lp-step-card">
-          <div class="lp-step-ico">📊</div>
-          <div class="lp-step-circle">6</div>
-          <h3>Lancer l'analyse</h3>
-          <p>Cliquez sur « Analyser la classe » — profils, lacunes et recommandations générés en 2 secondes.</p>
-        </div>
-        <div class="lp-step-card">
-          <div class="lp-step-ico">🎯</div>
-          <div class="lp-step-circle">7</div>
-          <h3>Consulter les résultats</h3>
-          <p>Sélectionnez les axes prioritaires et générez votre planification différenciée.</p>
-        </div>
-      </div>
 
       <!-- CTA télécharger fiche ici aussi -->
       <div style="text-align:center; margin-top:36px;">

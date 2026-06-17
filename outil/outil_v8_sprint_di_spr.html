@@ -158,137 +158,10 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20p
   background: var(--ink); color: #fff;
   padding: 10px 16px;
   display: flex; justify-content: space-between;
-  align-items: center; flex-wrap: wrap; gap: 10px;
+  align-items: center; flex-wrap: wrap; gap: 6px;
 }
-.seq-header h3  { font-size: 13px; font-weight: 700; flex: 1; min-width: 160px; }
-
-/* ── Bouton "Voir les situations recommandées" ── */
-.btn-video-sit {
-  display: inline-flex; align-items: center; gap: 7px;
-  padding: 7px 14px; border-radius: 5px;
-  background: rgba(255,255,255,0.12);
-  border: 1.5px solid rgba(255,255,255,0.35);
-  color: #fff; font-size: 11px; font-weight: 700;
-  cursor: pointer; font-family: inherit; white-space: nowrap;
-  transition: background 0.15s, border-color 0.15s;
-  flex-shrink: 0;
-}
-.btn-video-sit:hover { background: rgba(255,255,255,0.22); border-color: rgba(255,255,255,0.55); }
-.btn-video-sit:active { transform: scale(0.97); }
-
-/* ══════════════════════════════════════════════════════════
-   MODAL — SITUATIONS D'APPRENTISSAGE VIDÉO
-   ══════════════════════════════════════════════════════════ */
-.video-modal-overlay {
-  position: fixed; inset: 0;
-  background: rgba(15,23,42,0.65);
-  display: flex; align-items: center; justify-content: center;
-  padding: 20px;
-  z-index: 1000;
-  opacity: 0; visibility: hidden;
-  transition: opacity 0.25s ease, visibility 0.25s ease;
-}
-.video-modal-overlay.open { opacity: 1; visibility: visible; }
-
-.video-modal {
-  background: #fff;
-  border-radius: 10px;
-  width: 100%; max-width: 560px;
-  max-height: 85vh;
-  display: flex; flex-direction: column;
-  box-shadow: 0 12px 40px rgba(0,0,0,0.3);
-  transform: translateY(16px) scale(0.97);
-  opacity: 0;
-  transition: transform 0.28s cubic-bezier(0.2,0.8,0.2,1), opacity 0.25s ease;
-}
-.video-modal-overlay.open .video-modal {
-  transform: translateY(0) scale(1);
-  opacity: 1;
-}
-
-.video-modal-header {
-  display: flex; justify-content: space-between; align-items: flex-start;
-  gap: 10px;
-  padding: 18px 20px 14px;
-  border-bottom: 1px solid var(--line);
-  flex-shrink: 0;
-}
-.video-modal-header .vmh-titles { min-width: 0; }
-.video-modal-header h2 {
-  font-size: 15px; font-weight: 700; color: var(--ink);
-  margin-bottom: 3px; line-height: 1.4;
-}
-.video-modal-header .vmh-sub { font-size: 11px; color: var(--soft); }
-.video-modal-close {
-  flex-shrink: 0;
-  width: 32px; height: 32px; border-radius: 50%;
-  border: none; background: #f1f3f7; color: #555;
-  font-size: 16px; cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
-  transition: background 0.15s;
-}
-.video-modal-close:hover { background: #e2e6ee; }
-
-.video-modal-body {
-  padding: 14px 20px 20px;
-  overflow-y: auto;
-  flex: 1;
-  -webkit-overflow-scrolling: touch;
-}
-
-.video-sit-card {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 12px;
-  padding: 13px 14px;
-  border: 1px solid var(--line);
-  border-radius: 7px;
-  margin-bottom: 10px;
-  background: #fafbfc;
-}
-.video-sit-card:last-child { margin-bottom: 0; }
-.video-sit-info { min-width: 0; }
-.video-sit-name {
-  font-size: 12.5px; font-weight: 700; color: var(--ink);
-  margin-bottom: 2px; line-height: 1.4;
-}
-.video-sit-desc { font-size: 11px; color: var(--soft); line-height: 1.5; }
-.btn-watch-video {
-  display: inline-flex; align-items: center; gap: 6px;
-  padding: 9px 14px; border-radius: 6px;
-  background: var(--blue); color: #fff; border: none;
-  font-size: 11.5px; font-weight: 700; cursor: pointer;
-  font-family: inherit; white-space: nowrap; flex-shrink: 0;
-  text-decoration: none;
-  transition: background 0.15s;
-}
-.btn-watch-video:hover { background: #14457e; }
-.btn-watch-video:active { transform: scale(0.96); }
-
-.video-modal-empty {
-  text-align: center; padding: 30px 10px; color: var(--soft); font-size: 12px;
-}
-
-/* ── Responsive : smartphone ≈ 380 px ── */
-@media (max-width: 480px) {
-  .video-modal-overlay { padding: 0; align-items: flex-end; }
-  .video-modal {
-    max-width: 100%;
-    max-height: 90vh;
-    border-radius: 14px 14px 0 0;
-    transform: translateY(100%);
-  }
-  .video-modal-overlay.open .video-modal { transform: translateY(0); }
-  .video-modal-header { padding: 16px 16px 12px; }
-  .video-modal-header h2 { font-size: 14px; }
-  .video-modal-body { padding: 12px 16px 24px; }
-
-  .video-sit-card {
-    flex-direction: column; align-items: stretch; gap: 10px;
-  }
-  .btn-watch-video {
-    justify-content: center; padding: 11px 14px; font-size: 12.5px;
-  }
-}
+.seq-header h3  { font-size: 13px; font-weight: 700; }
+.seq-header .seq-meta { font-size: 11px; color: #aaa; }
 
 /* ── Wrapper du tableau (desktop : scroll si besoin) ── */
 .plan-table-wrap {
@@ -373,9 +246,9 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20p
 @media (max-width: 767px) {
 
   /* Compacte l'en-tête de séquence */
-  .seq-header  { padding: 9px 12px; gap: 8px; }
-  .seq-header h3 { font-size: 12px; line-height: 1.4; min-width: 100%; }
-  .btn-video-sit { font-size: 10.5px; padding: 7px 12px; }
+  .seq-header  { padding: 9px 12px; gap: 4px; }
+  .seq-header h3 { font-size: 12px; line-height: 1.4; }
+  .seq-header .seq-meta { font-size: 10px; }
 
   /* Le wrapper n'a plus besoin de scroll horizontal */
   .plan-table-wrap {
@@ -924,7 +797,7 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20p
   #landingPage { display: none !important; }
   .app-header, .steps, .btn-row, .btn, .csv-drop, .form-row, .card-title .tag,
   .axe-card input, .slider-wrap, #import-section, .action-bar,
-  .session-bar, .privacy-banner, .btn-video-sit, .video-modal-overlay { display: none !important; }
+  .session-bar, .privacy-banner { display: none !important; }
   .section { display: block !important; }
   body { background: #fff; font-size: 10px; }
   .card { border: 1px solid #ccc; page-break-inside: avoid; }
@@ -960,54 +833,6 @@ input[type="range"]::-webkit-slider-thumb { -webkit-appearance: none; width: 20p
   .plan-sa   { font-size: 8px !important; white-space: normal; word-break: break-word; }
   .plan-crit { font-size: 7px !important; white-space: normal; word-break: break-word; }
   .indicator-row td { background: #eef4ff !important; border-left: none !important; }
-}
-
-/* ══════════════════════════════════════════════════════════
-   IMPRESSION CIBLÉE — ÉTAPE 4 (PLANIFICATION UNIQUEMENT)
-   Activée dynamiquement par printPage() via body.printing-plan-only
-   ══════════════════════════════════════════════════════════ */
-@media print {
-  body.printing-plan-only * {
-    visibility: hidden;
-  }
-
-  body.printing-plan-only #planContent,
-  body.printing-plan-only #planContent * {
-    visibility: visible;
-  }
-
-  body.printing-plan-only #planContent {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    margin: 0;
-    padding: 0;
-  }
-
-  /* Page A4, marges propres */
-  body.printing-plan-only {
-    margin: 0;
-  }
-  @page {
-    size: A4;
-    margin: 14mm 12mm;
-  }
-
-  /* Le contenu de #planContent doit garder son habillage normal
-     (les règles génériques .plan-table ci-dessus restent actives) */
-  body.printing-plan-only .seq-block {
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-  body.printing-plan-only .plan-table tbody tr {
-    page-break-inside: avoid;
-    break-inside: avoid;
-  }
-  body.printing-plan-only .seq-header {
-    page-break-after: avoid;
-    break-after: avoid;
-  }
 }
 
 /* ── UTIL ── */
@@ -2465,7 +2290,7 @@ function buildPlan() {
     html += "<div class='seq-block'>";
     html += "<div class='seq-header'>" +
       "<h3>Séquence " + (seqIdx+1) + " \u2014 Axe " + axeObj.id + " \u2014 " + escHtml(axeObj.titre.substring(0,50)) + "...</h3>" +
-      "<button class='btn-video-sit' onclick='openVideoModal(" + axeObj.id + ")'>▶ Voir les situations recommandées</button>" +
+      "<div class='seq-meta'>Séances " + seanceGlobal + " à " + (seanceGlobal + seqN - 1) + " · " + seqN + " séance" + (seqN>1?"s":"") + " · Impact : " + axeObj.impact + "</div>" +
       "</div>";
 
     html += "<div class='plan-table-wrap'>" +
@@ -2766,29 +2591,7 @@ function exportCSV() {
 }
 
 // ── PRINT ────────────────────────────────────────────────────────────
-function printPage() {
-  // Si l'utilisateur se trouve à l'étape 4 (Planification),
-  // on isole l'impression au seul contenu de #planContent.
-  var isPlanStep = (appData.step === 4);
-  var bodyEl = document.body;
-
-  if (isPlanStep) {
-    bodyEl.classList.add("printing-plan-only");
-  }
-
-  // Nettoyage systématique après impression (ou annulation), quel que soit le navigateur
-  function cleanup() {
-    bodyEl.classList.remove("printing-plan-only");
-    window.removeEventListener("afterprint", cleanup);
-  }
-  window.addEventListener("afterprint", cleanup);
-
-  window.print();
-
-  // Filet de sécurité : certains navigateurs (anciens Safari/Firefox) ne
-  // déclenchent pas toujours "afterprint" de façon fiable après window.print().
-  setTimeout(cleanup, 1500);
-}
+function printPage() { window.print(); }
 
 // ── UTILS ────────────────────────────────────────────────────────────
 function escHtml(s) {
@@ -3127,81 +2930,6 @@ function copyPrompt(elemId, btn) {
   }
 }
 
-// ══════════════════════════════════════════════════════════════════════
-// SITUATIONS D'APPRENTISSAGE VIDÉO — par axe (chargées depuis video_links.txt)
-// ══════════════════════════════════════════════════════════════════════
-var VIDEO_SITUATIONS = {
-  1: [
-    { name: "Falling Start",              url: "https://www.youtube.com/shorts/jgaT-1puJn4" },
-    { name: "Wall Drill",                  url: "https://www.youtube.com/watch?v=sVACqGFibBE" },
-    { name: "Push Up Start",               url: "https://youtu.be/JBaNFVQCzkk" },
-    { name: "10m Accélération",            url: "https://youtu.be/w4kDDcCjCto" },
-    { name: "Élastique — Foulées explosives", url: "https://www.youtube.com/watch?v=qj-8Mmi6tuY" }
-  ],
-  2: [
-    { name: "Parachute Sprint",            url: "https://www.youtube.com/watch?v=9syzHPiAX5s" },
-    { name: "Sprint avec élastique",       url: "https://www.youtube.com/watch?v=zAS9LCuv05k" }
-  ],
-  3: [
-    { name: "Exercices de réaction",       url: "https://www.youtube.com/shorts/l8pj9L7Av-Y" },
-    { name: "Mirror Sprint",               url: "https://www.youtube.com/watch?v=BZiS8Y9P_Rk" },
-    { name: "Chase Sprint",                url: "https://www.youtube.com/watch?v=68zKc_YMfLE" }
-  ]
-};
-
-// ── OUVERTURE / FERMETURE DU MODAL ───────────────────────────────────
-var _lastFocusedBeforeModal = null;
-
-function openVideoModal(axeId) {
-  var overlay = document.getElementById("videoModalOverlay");
-  var titleEl = document.getElementById("videoModalTitle");
-  var subEl   = document.getElementById("videoModalSub");
-  var bodyEl  = document.getElementById("videoModalBody");
-  if (!overlay) return;
-
-  var axeObj = AXES.find(function(a){ return a.id === axeId; });
-  var situations = VIDEO_SITUATIONS[axeId] || [];
-
-  titleEl.textContent = axeObj ? ("Axe " + axeObj.id + " — " + axeObj.titre) : ("Axe " + axeId);
-  subEl.textContent = situations.length + " situation" + (situations.length > 1 ? "s" : "") + " disponible" + (situations.length > 1 ? "s" : "");
-
-  if (!situations.length) {
-    bodyEl.innerHTML = "<div class='video-modal-empty'>Aucune vidéo n'est encore associée à cet axe.</div>";
-  } else {
-    var html = "";
-    situations.forEach(function(sit) {
-      html += "<div class='video-sit-card'>" +
-        "<div class='video-sit-info'>" +
-          "<div class='video-sit-name'>" + escHtml(sit.name) + "</div>" +
-          (sit.desc ? "<div class='video-sit-desc'>" + escHtml(sit.desc) + "</div>" : "") +
-        "</div>" +
-        "<button class='btn-watch-video' onclick=\"window.open('" + sit.url.replace(/'/g, "\\'") + "', '_blank', 'noopener')\">▶ Voir la vidéo</button>" +
-      "</div>";
-    });
-    bodyEl.innerHTML = html;
-  }
-
-  _lastFocusedBeforeModal = document.activeElement;
-  overlay.classList.add("open");
-  document.body.style.overflow = "hidden"; // bloque le scroll de fond
-  document.addEventListener("keydown", _videoModalEscHandler);
-}
-
-function closeVideoModal() {
-  var overlay = document.getElementById("videoModalOverlay");
-  if (!overlay) return;
-  overlay.classList.remove("open");
-  document.body.style.overflow = "";
-  document.removeEventListener("keydown", _videoModalEscHandler);
-  if (_lastFocusedBeforeModal && typeof _lastFocusedBeforeModal.focus === "function") {
-    _lastFocusedBeforeModal.focus();
-  }
-}
-
-function _videoModalEscHandler(e) {
-  if (e.key === "Escape" || e.keyCode === 27) closeVideoModal();
-}
-
 // Array findIndex polyfill
 if (!Array.prototype.findIndex) {
   Array.prototype.findIndex = function(fn) {
@@ -3216,20 +2944,6 @@ if (!Array.prototype.find) {
   };
 }
 </script>
-<!-- ── MODAL : Situations d'apprentissage vidéo ── -->
-<div class="video-modal-overlay" id="videoModalOverlay" onclick="if(event.target===this) closeVideoModal()">
-  <div class="video-modal" role="dialog" aria-modal="true" aria-labelledby="videoModalTitle">
-    <div class="video-modal-header">
-      <div class="vmh-titles">
-        <h2 id="videoModalTitle">Situations recommandées</h2>
-        <div class="vmh-sub" id="videoModalSub"></div>
-      </div>
-      <button class="video-modal-close" onclick="closeVideoModal()" aria-label="Fermer">✕</button>
-    </div>
-    <div class="video-modal-body" id="videoModalBody"></div>
-  </div>
-</div>
-
 </div><!-- end appShell -->
 </body>
 </html>
